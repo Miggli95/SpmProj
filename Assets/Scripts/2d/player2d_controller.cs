@@ -6,8 +6,8 @@ public class player2d_controller : MonoBehaviour
 {
     public float speed = 50f;
     public float jumpPower = 150f;
-    
-    public int jumpCount ;
+
+    public int jumpCount;
     public bool grounded;
     private Rigidbody _rigi;
 
@@ -16,55 +16,73 @@ public class player2d_controller : MonoBehaviour
     public AudioClip jump_sound;
     public AudioClip hurt_sound;
 
+    public Transform blood;
     // Use this for initialization
     void Start()
     {
         _rigi = transform.GetComponent<Rigidbody>();
         anim = gameObject.GetComponent<Animator>();
+        blood.GetComponent<ParticleSystem>().enableEmission = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-         
+
     }
     void FixedUpdate()
     {
         float h = Input.GetAxis("Horizontal");
-                //moving the player
-        _rigi.AddForce((Vector2.right*speed)*h);
+        //moving the player
+        _rigi.AddForce((Vector2.right * speed) * h);
         anim.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal")));
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && jumpCount <= 2)
         {
-            _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 0.4f));
+            _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
             jumpCount++;
             anim.SetBool("Grounded", false);
         }
         // GetComponent<MeshRenderer>().flipX = h.x < 0 ? true : false;
     }
-    void OnControllerColliderHit(ControllerColliderHit obj) {
-        Debug.Log("we've hit something");
-        if (obj.gameObject.tag == "ground")
-        {
-            Debug.Log("we've hit something");
-            grounded = true;
-            jumpCount = 0;
-            anim.SetBool("Grounded", true);
-        }
-    }
- /*  public  void OnCollisionEnter2D(Collision2D obj)
-{
-    if (obj.gameObject.tag == "ground")
-      
-    anim.SetBool("Grounded", true);
 
-    
-}*/
-void OnCollisionExit2D(Collision2D obj) {
-        if (obj.gameObject.tag == "ground")
+    public void OnCollisionEnter(Collision col)
+    {
+
+        switch (col.gameObject.tag)
         {
-            grounded = false;
+            case "ground":
+                Debug.Log("123");
+                anim.SetBool("Grounded", true);
+                jumpCount = 0;
+                break;
+            case "spike":
+                Debug.Log("Dead");
+                blood.GetComponent<ParticleSystem>().enableEmission = true;
+                StartCoroutine(stopBlood());
+                break;
         }
-  }
+
+    }
+
+    void OnTriggerEnter(Collider col)
+    {
+
+        switch (col.gameObject.tag)
+        {
+
+            case "spike":
+                Debug.Log("Trigger Dead");
+                break;
+        }
+
+    }
+
+    IEnumerator stopBlood()
+    {
+        yield return new WaitForSeconds(1f);
+        blood.GetComponent<ParticleSystem>().enableEmission = false;
+
+    }
+
 }
