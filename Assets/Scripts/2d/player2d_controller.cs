@@ -61,6 +61,15 @@ public class player2d_controller : MonoBehaviour
                 blood.GetComponent<ParticleSystem>().enableEmission = true;
                 StartCoroutine(stopBlood());
                 break;
+            case "enemy":
+                if(col.gameObject.transform.position.y- transform.position.y <= -0.2f)
+                 {
+                    col.gameObject.GetComponent<EnemyAI2D>().deathAni();
+                    _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
+                }
+                else
+                    Debug.Log(col.gameObject.GetComponent<EnemyAI2D>().getDamage());
+                break;
         }
 
     }
