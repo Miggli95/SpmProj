@@ -17,7 +17,7 @@ public class EnemyAI3D : MonoBehaviour
     public int damage;
     private Vector3 lastAgentVelocity;
     private NavMeshPath lastAgentPath;
-    private NavMeshAgent agent;
+    protected NavMeshAgent agent;
     public Transform[] points;
     public int destPoint = 0;
 
@@ -176,6 +176,15 @@ public class EnemyAI3D : MonoBehaviour
     public void EndChase()
     {
         agent.SetPath(lastAgentPath);
+    }
+
+    public float GetDashSpeed()
+    {
+        return 0f;
+    }
+    public float GetDashRange()
+    {
+        return 0f;
     }
 
 
