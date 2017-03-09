@@ -81,7 +81,8 @@ public class player2d_controller : MonoBehaviour
         {
 
             case "spike":
-                Debug.Log("Trigger Dead");
+                Debug.Log("Trigger WORK HE DIED");
+                Application.LoadLevel(0);
                 break;
         }
 
