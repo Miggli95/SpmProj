@@ -37,15 +37,16 @@ public class CharController : MonoBehaviour
 
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
+        float rotationY = rotationSpeed * Input.GetAxis("Mouse X");
         charinput = new Vector2(horizontal,vertical);
         if (charinput.sqrMagnitude> 1)
         {
             charinput.Normalize();
         }
 
-        transform.Rotate(0, charinput.x * rotationSpeed, 0);
+        transform.Rotate(0, rotationY * rotationSpeed, 0);
 
-        Vector3 destination = Quaternion.Euler(0,transform.rotation.y,0) * (transform.forward * charinput.y);
+        Vector3 destination = Quaternion.Euler(0, rotationY, 0) * ((transform.forward * charinput.y) + (transform.right * charinput.x));
         RaycastHit hit;
       //  Ray ray = new Ray(transform.position, Vector3.down);
         Physics.SphereCast(transform.position,controller.radius,Vector3.down, out hit,
