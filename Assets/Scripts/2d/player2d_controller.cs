@@ -16,6 +16,8 @@ public class player2d_controller : MonoBehaviour
     public AudioClip jump_sound;
     public AudioClip hurt_sound;
 
+    public bool animation_bool; // for button
+
     public Transform blood;
     // Use this for initialization
     void Start()
@@ -84,6 +86,16 @@ public class player2d_controller : MonoBehaviour
                 Debug.Log("Trigger WORK HE DIED");
                 Application.LoadLevel(0);
                 break;
+
+            case "button":                               /// början på kod till button/door switch
+                Debug.Log("standing on button");
+                if(animation_bool ==true)
+                    
+                {
+                    GetComponent<Animation>().Play("DoorOpen");
+                }
+                break;
+
         }
 
     }
