@@ -15,7 +15,8 @@ public class EnemyAI3D : MonoBehaviour
     public float AggroRangeY = 2;
     public float AggroRangeZ = 5;
     public int damage;
-
+    private Vector3 lastAgentVelocity;
+    private NavMeshPath lastAgentPath;
     private NavMeshAgent agent;
     public Transform[] points;
     public int destPoint = 0;
@@ -135,9 +136,10 @@ public class EnemyAI3D : MonoBehaviour
             else
             {
                 enemyState = new Patrol(this);
+                GotoNextPoint();
             }
         else
-            enemyState= new  Patrol(this);
+            enemyState= new  Idle(this);
         return enemyState;
     }
     public void GotoNextPoint()
@@ -153,7 +155,28 @@ public class EnemyAI3D : MonoBehaviour
         // cycling to the start if necessary.
         destPoint = (destPoint + 1) % points.Length;
     }
+    public void Pause()
+    {
+        lastAgentVelocity = agent.velocity;
+        lastAgentPath = agent.path;
+        agent.velocity = Vector3.zero;
+        agent.ResetPath();
+    }
 
+    public void Resume()
+    {
+        agent.velocity = lastAgentVelocity;
+        agent.SetPath(lastAgentPath);
+    }
+    public void StartChase()
+    {
+        lastAgentPath = agent.path;
+        agent.ResetPath();
+    }
+    public void EndChase()
+    {
+        agent.SetPath(lastAgentPath);
+    }
 
 
 

@@ -100,8 +100,8 @@ public class CharController : MonoBehaviour
 
         colFlags = controller.Move(moveDir * Time.fixedDeltaTime);
 
-        print("Update");
-        print("input" + input);
+        //print("Update");
+        //print("input" + input);
 	}
    private void OnControllerColliderHit(ControllerColliderHit hit)
     {

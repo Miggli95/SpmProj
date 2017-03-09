@@ -3,11 +3,11 @@ using UnityEngine.AI;
 using System.Collections;
 using System;
 
-public class Deal : EnemyState
+public class Idle : EnemyState
 {
     private EnemyAI3D ai;
 
-    public Deal(EnemyAI3D ai)
+    public Idle(EnemyAI3D ai)
     {
         if (ai == null)
         {
@@ -17,30 +17,32 @@ public class Deal : EnemyState
     }
     public void Enter()
     {
-        Debug.Log("Entered Deal");
+        Debug.Log("Entered Idle");
+        ai.Pause();
     }
     public EnemyStateData Update(Vector3 pos, float deltaTime, NavMeshAgent agent)
     {
-        agent.destination = pos;
+
         var enemyStateData = GetEnemyStateData(pos, agent);
         return enemyStateData;
-        
+
     }
     private EnemyStateData GetEnemyStateData(Vector3 pos, NavMeshAgent agent)
     {
         var enemyStateData = new EnemyStateData();
         enemyStateData.Pos = pos;
-        if (agent.remainingDistance > Mathf.Sqrt(ai.AggroRangeX* ai.AggroRangeX + ai.AggroRangeZ* ai.AggroRangeZ))
+        if (Mathf.Abs(pos.x - agent.gameObject.transform.position.x) <= ai.PatrolRangeX && Mathf.Abs(pos.y - agent.gameObject.transform.position.y) <= ai.PatrolRangeY && Mathf.Abs(pos.z - agent.gameObject.transform.position.z) <= ai.PatrolRangeZ)
         {
-            ai.EndChase();
+            ai.Resume();
             enemyStateData.NewState = new Patrol(ai);
+
         }
         return enemyStateData;
     }
 
     public void Exit()
     {
-        Debug.Log("Left Deal");
+        Debug.Log("Left Idle");
     }
 
 

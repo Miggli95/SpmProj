@@ -15,37 +15,51 @@ public class Patrol : EnemyState
             throw new ArgumentNullException("no AI");
         }
         this.ai = ai;
-        ai.GotoNextPoint();
     }
     public void Enter()
     {
-        //do things that you do when you start patrolling
+        Debug.Log("Entered Patrol");
     }
     public EnemyStateData Update(Vector3 pos, float deltaTime, NavMeshAgent agent)
     {
         if (agent.remainingDistance < 0.5f)
             ai.GotoNextPoint();
-        bool inRange = CalcDistance(pos);
+        int inRange = CalcDistance(pos);
         var enemyStateData = GetEnemyStateData(pos, inRange);
         return enemyStateData;
     }
-    private bool CalcDistance(Vector3 pos)
+    private int CalcDistance(Vector3 pos)
     {
-        return (Mathf.Abs(ai.gameObject.transform.position.x - pos.x) <= ai.AggroRangeX && Mathf.Abs(ai.gameObject.transform.position.y - pos.y) <= ai.AggroRangeY && Mathf.Abs(ai.gameObject.transform.position.z - pos.z) <= ai.AggroRangeZ);     
+        if(Mathf.Abs(ai.gameObject.transform.position.x - pos.x) <= ai.AggroRangeX && Mathf.Abs(ai.gameObject.transform.position.y - pos.y) <= ai.AggroRangeY && Mathf.Abs(ai.gameObject.transform.position.z - pos.z) <= ai.AggroRangeZ)
+        return 1;
+        if (Mathf.Abs(ai.gameObject.transform.position.x - pos.x) > ai.PatrolRangeX && Mathf.Abs(ai.gameObject.transform.position.z - pos.z) > ai.PatrolRangeZ)
+        return 2;
+        else
+        return 0;
     }
-    private EnemyStateData GetEnemyStateData(Vector3 pos, bool inRange)
+
+    private EnemyStateData GetEnemyStateData(Vector3 pos, int inRange)
     {
         var enemyStateData = new EnemyStateData();
         enemyStateData.Pos = pos;
-        if (inRange)
+        switch(inRange)
         {
-            enemyStateData.NewState = new Deal(ai);
+            case 0:
+                break;
+            case 1:
+                ai.StartChase();
+                enemyStateData.NewState = new Deal(ai);
+                break;
+            case 2:
+                enemyStateData.NewState = new Idle(ai);
+                break;
+            
         }
         return enemyStateData;
     }
     public void Exit()
     {
-        //do things you do when you stop patrolling
+        Debug.Log("Left Patrol");
     }
 
 
