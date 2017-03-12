@@ -23,38 +23,44 @@ public class CharController : MonoBehaviour
     bool previouslyGrounded;
     public float rotationSpeed;
     private CollisionFlags colFlags;
+    float rotationY;
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         position = transform.position;
         controller = GetComponent<CharacterController>();
-	}
-	
-	// Update is called once per frame
-	void Update ()
+        rotationY = transform.rotation.y;
+    }
+
+    // Update is called once per frame
+    float curMouse = 0;
+    float lastMouse = 0;
+    void Update()
     {
         t += Time.deltaTime;
 
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-        charinput = new Vector2(horizontal,vertical);
-        if (charinput.sqrMagnitude> 1)
+        rotationY = rotationSpeed * Input.GetAxis("Mouse X");
+        charinput = new Vector2(horizontal, vertical);
+        if (charinput.sqrMagnitude > 1)
         {
             charinput.Normalize();
         }
+       transform.Rotate(Vector3.up, rotationY);
 
-        transform.Rotate(0, charinput.x * rotationSpeed, 0);
+        // transform.Rotate(0, charinput.x * rotationSpeed, 0);
 
-        Vector3 destination = Quaternion.Euler(0,transform.rotation.y,0) * (transform.forward * charinput.y);
+        Vector3 destination = transform.forward * charinput.y + transform.right * charinput.x; //Quaternion.Euler(0, transform.rotation.y, 0) * (transform.forward * charinput.y);
         RaycastHit hit;
-      //  Ray ray = new Ray(transform.position, Vector3.down);
-        Physics.SphereCast(transform.position,controller.radius,Vector3.down, out hit,
-            controller.height/2, Physics.AllLayers,QueryTriggerInteraction.Ignore);
+        //  Ray ray = new Ray(transform.position, Vector3.down);
+        Physics.SphereCast(transform.position, controller.radius, Vector3.down, out hit,
+            controller.height / 2, Physics.AllLayers, QueryTriggerInteraction.Ignore);
 
         destination = Vector3.ProjectOnPlane(destination, hit.normal).normalized;
-        
-       moveDir.x = destination.x * speed;
-       moveDir.z = destination.z * speed;
+
+        moveDir.x = destination.x * speed;
+        moveDir.z = destination.z * speed;
 
         if (!jump)
         {
@@ -99,11 +105,14 @@ public class CharController : MonoBehaviour
 
         colFlags = controller.Move(moveDir * Time.fixedDeltaTime);
 
-        //print("Update");
-        //print("input" + input);
-	}
-   private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
+        print("Update");
+        print("input" + input);
+        //transform.position = transform.position - (rotation * Vector3.up );
+
+    }
+
+  private void OnControllerColliderHit(ControllerColliderHit hit)
+  {
         Rigidbody body = hit.collider.attachedRigidbody;
         //dont move the rigidbody if the character is on top of it
 
@@ -116,6 +125,6 @@ public class CharController : MonoBehaviour
         {
             return;
         }
-       body.AddForceAtPosition(controller.velocity * 0.1f, hit.point, ForceMode.Impulse);
+       body.AddForceAtPosition(controller.velocity* 0.1f, hit.point, ForceMode.Impulse);
     }
 }
