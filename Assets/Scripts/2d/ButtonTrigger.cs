@@ -12,10 +12,12 @@ public class ButtonTrigger : MonoBehaviour {
         {
             Debug.Log("Is pressed");
             anim.SetBool("IsPressed", true);
-            
+           // ((DoorSlide)GameObject.FindGameObjectWithTag("Door") ).openDoor();
+
+            var d = GameObject.Find("Door").gameObject.GetComponent<DoorSlide>();
+            d.openDoor();
         }
-            
-       
+ 
 
     }
 
