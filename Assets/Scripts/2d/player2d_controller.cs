@@ -16,7 +16,7 @@ public class player2d_controller : MonoBehaviour
     public AudioClip jump_sound;
     public AudioClip hurt_sound;
 
-    public bool animation_bool; // for button
+    public bool buttonIsPressed = false; // for button
 
     public Transform blood;
     // Use this for initialization
@@ -76,6 +76,8 @@ public class player2d_controller : MonoBehaviour
 
     }
 
+    
+
     void OnTriggerEnter(Collider col)
     {
 
@@ -89,11 +91,20 @@ public class player2d_controller : MonoBehaviour
 
             case "button":                               /// början på kod till button/door switch
                 Debug.Log("standing on button");
-                if(animation_bool ==true)
+                if(buttonIsPressed == false)
                     
                 {
-                    GetComponent<Animation>().Play("DoorOpen");
+                   
+
+                        buttonIsPressed = true;
+                        Debug.Log("Animation Working");
+                        bool b = col.GetComponent<Animation>().Play("ButtonDown");
+                        Debug.Log("b =" + b);
+                    
+                 //   GetComponent<Animation>().Play("DoorOpen");
                 }
+
+
                 break;
 
         }
