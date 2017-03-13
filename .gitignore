@@ -28,3 +28,6 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+Assets/testScene.unity
+Assets/testScene.unity
