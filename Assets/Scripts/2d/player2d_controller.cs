@@ -38,13 +38,17 @@ public class player2d_controller : MonoBehaviour
         //moving the player
         _rigi.AddForce((Vector2.right * speed) * h);
         anim.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal")));
-
+        anim.SetBool("Attack", false);
         if (Input.GetKeyDown(KeyCode.Space) && jumpCount <= 2)
         {
             _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
             jumpCount++;
             anim.SetBool("Grounded", false);
         }
+        if (Input.GetKeyDown(KeyCode.C) && jumpCount == 0) {
+            anim.SetBool("Attack", true);
+             }
+
         // GetComponent<MeshRenderer>().flipX = h.x < 0 ? true : false;
     }
 
