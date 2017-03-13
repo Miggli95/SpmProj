@@ -105,8 +105,8 @@ public class CharController : MonoBehaviour
 
         colFlags = controller.Move(moveDir * Time.fixedDeltaTime);
 
-        print("Update");
-        print("input" + input);
+        //print("Update");
+        //print("input" + input);
         //transform.position = transform.position - (rotation * Vector3.up );
 
     }
