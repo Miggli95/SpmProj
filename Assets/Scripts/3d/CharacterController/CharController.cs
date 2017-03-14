@@ -127,4 +127,23 @@ public class CharController : MonoBehaviour
         }
        body.AddForceAtPosition(controller.velocity* 0.1f, hit.point, ForceMode.Impulse);
     }
+    public void OnCollisionEnter(Collision col)
+    {
+
+        switch (col.gameObject.tag)
+        {
+            
+            case "enemy":
+                Debug.Log(col.gameObject.transform.position.y - transform.position.y);
+                if (col.gameObject.transform.position.y - transform.position.y <= -0.9f)
+                {
+                    col.gameObject.GetComponent<EnemyAI3D>().deathAni();
+                    
+                }
+                else
+                    Debug.Log("hit for: " + col.gameObject.GetComponent<EnemyAI3D>().getDamage() + " damage");
+                break;
+        }
+
+    }
 }

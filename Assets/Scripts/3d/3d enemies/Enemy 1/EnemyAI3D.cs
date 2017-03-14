@@ -53,7 +53,7 @@ public class EnemyAI3D : MonoBehaviour
         }
 
         float distance = Vector3.Distance(lastPosition, gameObject.transform.position);
-        Debug.Log(distance);
+        //Debug.Log(distance);
         if(distance > 0.1)
         {
             if (!source1.isPlaying)
@@ -75,73 +75,11 @@ public class EnemyAI3D : MonoBehaviour
         }
     }
 
-   /* private void calcState(EnemyStateData enemyStateData)
-    {
-        if (Mathf.Abs(Player.transform.position.x - transform.position.x) <= PatrolRangeX && Mathf.Abs(Player.transform.position.y - transform.position.y) <= PatrolRangeY && Mathf.Abs(Player.transform.position.z - transform.position.z) <= PatrolRangeZ)
-            if (Mathf.Abs(Player.transform.position.x - transform.position.x) <= AggroRangeX && Mathf.Abs(Player.transform.position.y - transform.position.y) <= AggroRangeY && Mathf.Abs(Player.transform.position.y - transform.position.y) <= AggroRangeZ)
-            {
-                enemyStateData.NewState = new Deal(this);
-            }
-            else
-            {
-                enemyState = new Patrol(this);
-            }
-        else
-            currentState = "idle";
-
-    }
-
-    private void idle()
-    {
-        enemy.velocity = new Vector3(0, 0, 0);
-    }
-    private void patrol()
-    {
-        if (points.Length == 0)
-            return;
-        if (points[destPoint].position.x > transform.position.x)
-            enemy.velocity = new Vector3(MoveSpeed, enemy.velocity.y, enemy.velocity.z);
-        else
-            enemy.velocity = new Vector3(-MoveSpeed, enemy.velocity.y, enemy.velocity.z);
-        if (Mathf.Abs(points[destPoint].position.x - transform.position.x) <= 0.1)
-            destPoint = (destPoint + 1) % points.Length;
-    }
-    private void deal()
-    {
-        if (Player.transform.position.x > transform.position.x)
-            enemy.velocity = new Vector3(MoveSpeed, enemy.velocity.y, enemy.velocity.z);
-        else
-            enemy.velocity = new Vector3(-MoveSpeed, enemy.velocity.y, enemy.velocity.z);
-    }
-    private void dead()
-    {
-        timetoDeath -= Time.deltaTime;
-        if (timetoDeath <= 0)
-            Destroy(gameObject);
-    }
-
-
-
     public int getDamage()
     {
         return damage;
     }
-    public void setSpeed(int newSpeed)
-    {
-        MoveSpeed = newSpeed;
-    }
-    public void deathAni()
-    {
-        enemy.constraints = RigidbodyConstraints.FreezePositionX;
 
-        BoxCollider boxy = GetComponent<BoxCollider>();
-        boxy.enabled = false;
-
-        timetoDeath = 3;
-        currentState = "dead";
-        enemy.velocity = new Vector3(0, -2, 0);
-        Debug.Log("Killed enemy");
-    } */
     private EnemyState GetInitialEnemyState()
     {
         EnemyState enemyState = null;
@@ -195,16 +133,14 @@ public class EnemyAI3D : MonoBehaviour
         agent.SetPath(lastAgentPath);
     }
 
-    public float GetDashSpeed()
+    public void deathAni()
     {
-        return 0f;
+        enemyState = new Death(this);
     }
-    public float GetDashRange()
+    public void kill()
     {
-        return 0f;
+        Destroy(gameObject);
     }
-
-
 
 
 }
