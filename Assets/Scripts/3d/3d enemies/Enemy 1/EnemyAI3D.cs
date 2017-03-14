@@ -52,7 +52,9 @@ public class EnemyAI3D : MonoBehaviour
             ChangeEnemyState(Player.transform.position, enemyStateData);
         }
 
-        if(lastPosition != gameObject.transform.position)
+        float distance = Vector3.Distance(lastPosition, gameObject.transform.position);
+        Debug.Log(distance);
+        if(distance > 0.1)
         {
             if (!source1.isPlaying)
             {
