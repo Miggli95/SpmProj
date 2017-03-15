@@ -32,12 +32,10 @@ public class player2d_controller : MonoBehaviour
 
         _rigi = transform.GetComponent<Rigidbody>();
         anim = gameObject.GetComponent<Animator>();
-//<<<<<<< HEAD
-     //   blood.GetComponent<ParticleSystem>().enableEmission = false;
-//=======
+
         blood.GetComponent<ParticleSystem>().enableEmission = false;
         source = GetComponent<AudioSource>();
-//>>>>>>> origin/master
+
     }
 
     // Update is called once per frame
@@ -82,16 +80,12 @@ public class player2d_controller : MonoBehaviour
                 jumpCount = 0;
                 break;
             case "spike":
-//<<<<<<< HEAD
 
-              //  blood.GetComponent<ParticleSystem>().enableEmission = true;
-              //  StartCoroutine(stopBlood());
-//=======
                 Debug.Log("Dead");
                 source.PlayOneShot(hurt_sound);
                 blood.GetComponent<ParticleSystem>().enableEmission = true;
                 StartCoroutine(stopBlood());
-//>>>>>>> origin/master
+
                 break;
             case "enemy":
                 if(col.gameObject.transform.position.y- transform.position.y <= -0.2f)
@@ -117,16 +111,13 @@ public class player2d_controller : MonoBehaviour
         {
 
             case "spike":
-//<<<<<<< HEAD
-                Debug.Log("Trigger WORK HE DIED");
-                //Application.LoadLevel(0);
-//=======
+                
                 Debug.Log("Trigger WORKING");
                 Instantiate(blood, transform.position, Quaternion.identity);
                transform.position = spawn;
                 Debug.Log("spawned");
-          //      Application.LoadLevel(0);  
-//>>>>>>> 34105b7c40b1f65eb6c41926d224d27b534ff419
+         
+
                 break;
 
             case "button":                               /// början på kod till button/door switch
