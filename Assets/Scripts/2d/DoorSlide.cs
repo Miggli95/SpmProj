@@ -12,6 +12,10 @@ public class DoorSlide : MonoBehaviour {
         anim.SetBool("Open", true);
 
     }
+    public void closeDoor() {
+        anim.SetBool("Open", false);
+
+    }
 	// Use this for initialization
 	void Start () {
 		
