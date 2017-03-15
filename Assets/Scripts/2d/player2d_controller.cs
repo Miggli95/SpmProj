@@ -12,7 +12,7 @@ public class player2d_controller : MonoBehaviour
     public int gotKey = 0;
     private Rigidbody _rigi;
 
-    private Vector3 spawn;
+    private Vector3 spawn1,spawn2;
     public GameObject blood;
 
 
@@ -24,11 +24,25 @@ public class player2d_controller : MonoBehaviour
 
     public bool buttonIsPressed = false; // for button
 
+    private void CheckKeyAndDestroy()
+    {
+        if (gotKey == 1)
+        {
 
+            Destroy(GameObject.FindWithTag("lockerLv1"));
+        }
+        if (gotKey == 2)
+        {
+
+            Destroy(GameObject.FindWithTag("lockerLv2"));
+        }
+
+    }
     // Use this for initialization
     void Start()
     {
-        spawn = transform.position;
+        spawn1 = transform.position;
+        spawn2 = new Vector3(5, -11, 0);
 
         _rigi = transform.GetComponent<Rigidbody>();
         anim = gameObject.GetComponent<Animator>();
@@ -69,17 +83,10 @@ public class player2d_controller : MonoBehaviour
             anim.SetBool("Attack", true);
         }
 
+
+
         // GetComponent<MeshRenderer>().flipX = h.x < 0 ? true : false;
-        if (gotKey == 1)
-        {
 
-            Destroy(GameObject.FindWithTag("lockerLv1"));
-        }
-        if (gotKey == 2)
-        {
-
-            Destroy(GameObject.FindWithTag("lockerLv2"));
-        }
 
     }
 
@@ -124,9 +131,15 @@ public class player2d_controller : MonoBehaviour
             case "spike":
               
                 source.PlayOneShot(hurt_sound);
-                Die();
-                
-           
+                Die(spawn1);
+
+    
+                break;
+
+            case "spike2":
+
+                source.PlayOneShot(hurt_sound);
+                Die(spawn2);
 
 
                 break;
@@ -156,7 +169,7 @@ public class player2d_controller : MonoBehaviour
 
     }
 
-    void Die()
+    void Die(Vector3 spawn)
     {
         Instantiate(blood, transform.position, Quaternion.identity); // spelar upp blood på den "spike" du träffar
         transform.position = spawn;   // spawn
