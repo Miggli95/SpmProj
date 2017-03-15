@@ -24,7 +24,7 @@ public class player2d_controller : MonoBehaviour
 
     public bool buttonIsPressed = false; // for button
 
-  
+
     // Use this for initialization
     void Start()
     {
@@ -33,7 +33,7 @@ public class player2d_controller : MonoBehaviour
         _rigi = transform.GetComponent<Rigidbody>();
         anim = gameObject.GetComponent<Animator>();
 
-     //   blood.GetComponent<ParticleSystem>().enableEmission = false;
+        //   blood.GetComponent<ParticleSystem>().enableEmission = false;
         source = GetComponent<AudioSource>();
 
     }
@@ -48,7 +48,8 @@ public class player2d_controller : MonoBehaviour
         float h = Input.GetAxis("Horizontal");
         //moving the player
         _rigi.AddForce((Vector2.right * speed) * h);
-        if (h < 0 || h>0 ) {
+        if (h < 0 || h > 0)
+        {
             source.PlayOneShot(run_sound);
             anim.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal")));
             anim.SetBool("Attack", false);
@@ -63,9 +64,10 @@ public class player2d_controller : MonoBehaviour
             source.PlayOneShot(jump_sound);
         }
 
-        if (Input.GetKeyDown(KeyCode.C) && jumpCount == 0) {
+        if (Input.GetKeyDown(KeyCode.C) && jumpCount == 0)
+        {
             anim.SetBool("Attack", true);
-             }
+        }
 
         // GetComponent<MeshRenderer>().flipX = h.x < 0 ? true : false;
     }
@@ -79,10 +81,10 @@ public class player2d_controller : MonoBehaviour
                 anim.SetBool("Grounded", true);
                 jumpCount = 0;
                 break;
-       
+
             case "enemy":
-                if(col.gameObject.transform.position.y- transform.position.y <= -0.2f)
-                 {
+                if (col.gameObject.transform.position.y - transform.position.y <= -0.2f)
+                {
 
                     print("I hit enemy");
                     col.gameObject.GetComponent<EnemyAI2D>().deathAni();
@@ -95,7 +97,7 @@ public class player2d_controller : MonoBehaviour
 
     }
 
-    
+
 
     void OnTriggerEnter(Collider col)
     {
@@ -104,46 +106,49 @@ public class player2d_controller : MonoBehaviour
         {
 
             case "spike":
-
+              
                 source.PlayOneShot(hurt_sound);
-         //     blood.GetComponent<ParticleSystem>().enableEmission = true;
-        //      StartCoroutine(stopBlood());
+                Die();
+                
+           
 
-                Debug.Log("Trigger WORKING");
-                Instantiate(blood, transform.position, Quaternion.identity); // spelar upp blood på den "spike" du träffar
-                transform.position = spawn;   // spawn
-                Debug.Log("spawned");
-         
 
                 break;
 
             case "button":                               /// början på kod till button/door switch
                 Debug.Log("standing on button");
-                if(buttonIsPressed == false)
-                    
+                if (buttonIsPressed == false)
+
                 {
-                   
 
-                        buttonIsPressed = true;
-                        Debug.Log("Animation Working");
-                        bool b = col.GetComponent<Animation>().Play("ButtonDown");
-                        Debug.Log("b =" + b);
-                    
-                 //   GetComponent<Animation>().Play("DoorOpen");
+                    buttonIsPressed = true;
+                    Debug.Log("Animation Working");
+                    bool b = col.GetComponent<Animation>().Play("ButtonDown");
+                    Debug.Log("b =" + b);
+
+                    //   GetComponent<Animation>().Play("DoorOpen");
                 }
-
 
                 break;
 
         }
 
+
     }
 
-   IEnumerator stopBlood()
+    void Die()
+    {
+        Instantiate(blood, transform.position, Quaternion.identity); // spelar upp blood på den "spike" du träffar
+        transform.position = spawn;   // spawn
+    }
+
+    IEnumerator stopBlood()
     {
         yield return new WaitForSeconds(1f);
         blood.GetComponent<ParticleSystem>().enableEmission = false;
 
-   }
+    }
+
+
 
 }
