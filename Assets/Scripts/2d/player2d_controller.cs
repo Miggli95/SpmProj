@@ -146,11 +146,14 @@ public class player2d_controller : MonoBehaviour
                 }
 
                 break;
-        //    case     "key":
-         //       Debug.Log("standing on button");
-        //        gameObject.CompareTag("key").SetActive(false);
-       //         gotKey++;
+            case "levelExit":
+                Application.LoadLevel(1);
                 break;
+                //    case     "key":
+                //       Debug.Log("standing on button");
+                //        gameObject.CompareTag("key").SetActive(false);
+                //         gotKey++;
+                //break;
         }
 
 
