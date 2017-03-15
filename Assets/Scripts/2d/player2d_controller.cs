@@ -24,7 +24,7 @@ public class player2d_controller : MonoBehaviour
 
     public bool buttonIsPressed = false; // for button
 
-  //  public Transform blood;
+  
     // Use this for initialization
     void Start()
     {
@@ -33,7 +33,7 @@ public class player2d_controller : MonoBehaviour
         _rigi = transform.GetComponent<Rigidbody>();
         anim = gameObject.GetComponent<Animator>();
 
-        blood.GetComponent<ParticleSystem>().enableEmission = false;
+     //   blood.GetComponent<ParticleSystem>().enableEmission = false;
         source = GetComponent<AudioSource>();
 
     }
@@ -106,12 +106,12 @@ public class player2d_controller : MonoBehaviour
             case "spike":
 
                 source.PlayOneShot(hurt_sound);
-                blood.GetComponent<ParticleSystem>().enableEmission = true;
-                StartCoroutine(stopBlood());
+         //     blood.GetComponent<ParticleSystem>().enableEmission = true;
+        //      StartCoroutine(stopBlood());
 
                 Debug.Log("Trigger WORKING");
-                Instantiate(blood, transform.position, Quaternion.identity);
-               transform.position = spawn;
+                Instantiate(blood, transform.position, Quaternion.identity); // spelar upp blood på den "spike" du träffar
+                transform.position = spawn;   // spawn
                 Debug.Log("spawned");
          
 
