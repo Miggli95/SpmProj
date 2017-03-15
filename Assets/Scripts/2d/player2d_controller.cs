@@ -78,7 +78,7 @@ public class player2d_controller : MonoBehaviour
         if (gotKey == 2)
         {
 
-            Destroy(GameObject.FindWithTag("lockerLv1"));
+            Destroy(GameObject.FindWithTag("lockerLv2"));
         }
 
     }
