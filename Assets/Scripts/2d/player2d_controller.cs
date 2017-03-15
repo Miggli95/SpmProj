@@ -79,14 +79,7 @@ public class player2d_controller : MonoBehaviour
                 anim.SetBool("Grounded", true);
                 jumpCount = 0;
                 break;
-            case "spike":
-
-                Debug.Log("Dead");
-                source.PlayOneShot(hurt_sound);
-                blood.GetComponent<ParticleSystem>().enableEmission = true;
-                StartCoroutine(stopBlood());
-
-                break;
+       
             case "enemy":
                 if(col.gameObject.transform.position.y- transform.position.y <= -0.2f)
                  {
@@ -111,7 +104,11 @@ public class player2d_controller : MonoBehaviour
         {
 
             case "spike":
-                
+
+                source.PlayOneShot(hurt_sound);
+                blood.GetComponent<ParticleSystem>().enableEmission = true;
+                StartCoroutine(stopBlood());
+
                 Debug.Log("Trigger WORKING");
                 Instantiate(blood, transform.position, Quaternion.identity);
                transform.position = spawn;
