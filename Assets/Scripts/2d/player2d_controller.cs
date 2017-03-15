@@ -12,6 +12,7 @@ public class player2d_controller : MonoBehaviour
     private Rigidbody _rigi;
 
     public Animator anim;
+    private AudioSource source;
     public AudioClip run_sound;
     public AudioClip jump_sound;
     public AudioClip hurt_sound;
@@ -25,6 +26,7 @@ public class player2d_controller : MonoBehaviour
         _rigi = transform.GetComponent<Rigidbody>();
         anim = gameObject.GetComponent<Animator>();
         blood.GetComponent<ParticleSystem>().enableEmission = false;
+        source = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -37,14 +39,21 @@ public class player2d_controller : MonoBehaviour
         float h = Input.GetAxis("Horizontal");
         //moving the player
         _rigi.AddForce((Vector2.right * speed) * h);
-        anim.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal")));
-        anim.SetBool("Attack", false);
+        if (h < 0 || h>0 ) {
+            source.PlayOneShot(run_sound);
+            anim.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal")));
+            anim.SetBool("Attack", false);
+
+        }
+
         if (Input.GetKeyDown(KeyCode.Space) && jumpCount <= 2)
         {
             _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
             jumpCount++;
             anim.SetBool("Grounded", false);
+            source.PlayOneShot(jump_sound);
         }
+
         if (Input.GetKeyDown(KeyCode.C) && jumpCount == 0) {
             anim.SetBool("Attack", true);
              }
@@ -58,12 +67,12 @@ public class player2d_controller : MonoBehaviour
         switch (col.gameObject.tag)
         {
             case "ground":
-                Debug.Log("123");
                 anim.SetBool("Grounded", true);
                 jumpCount = 0;
                 break;
             case "spike":
                 Debug.Log("Dead");
+                source.PlayOneShot(hurt_sound);
                 blood.GetComponent<ParticleSystem>().enableEmission = true;
                 StartCoroutine(stopBlood());
                 break;
