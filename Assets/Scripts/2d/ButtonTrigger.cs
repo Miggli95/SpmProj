@@ -10,7 +10,11 @@ public class ButtonTrigger : MonoBehaviour {
     void OnTriggerEnter(Collider col)
     {
         Debug.Log("tag" + col.gameObject.tag);
+<<<<<<< HEAD
         if (col.CompareTag("player") || col.CompareTag("movableBox"))  // Movablebox --> implement
+=======
+        if (col.CompareTag("player"))  // Movablebox --> implement
+>>>>>>> parent of 948922f... sounds to animation and movable box trigger
         {
             Debug.Log("Is pressed");
             anim.SetBool("IsPressed", true);
