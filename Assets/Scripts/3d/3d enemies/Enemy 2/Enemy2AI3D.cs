@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.AI;
 using UnityEngine;
 
-public class Enemy2AI3D: MonoBehaviour
+public class Enemy2AI3D : MonoBehaviour
 {
     public GameObject Player;
 
@@ -27,6 +27,11 @@ public class Enemy2AI3D: MonoBehaviour
     private Rigidbody enemy;
     private float timetoDeath;
 
+    private AudioSource source1;
+    public AudioClip walking;
+    public AudioClip dash;
+    private Vector3 lastPosition;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -34,6 +39,8 @@ public class Enemy2AI3D: MonoBehaviour
         enemy = GetComponent<Rigidbody>();
         enemyState = GetInitialEnemyState();
         enemyState.Enter();
+        source1 = GetComponent<AudioSource>();
+        source1.clip = walking;
     }
 
     // Update is called once per frame
@@ -46,6 +53,14 @@ public class Enemy2AI3D: MonoBehaviour
         {
             ChangeEnemyState(Player.transform.position, enemyStateData);
         }
+
+        float distance = Vector3.Distance(lastPosition, gameObject.transform.position);
+        Debug.Log(distance);
+        if (distance > 0.05){
+            if(!source1.isPlaying)
+            source1.PlayOneShot(walking);
+        }
+        lastPosition = gameObject.transform.position;
     }
 
     private void ChangeEnemyState(Vector3 pos, Enemy2StateData enemyStateData)
