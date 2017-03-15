@@ -30,6 +30,7 @@ public class CharController : MonoBehaviour
     public float rotationSpeed;
     private CollisionFlags colFlags;
     public GameManager manager;
+   
     float rotationY;
     // Use this for initialization
     void Start()
@@ -70,8 +71,7 @@ public class CharController : MonoBehaviour
         moveDir.x = destination.x * speed;
         moveDir.z = destination.z * speed;
 
-        print("isGrounded" + controller.isGrounded);
-
+        
         if (!jump)
         {
             if (controller.isGrounded)
@@ -87,6 +87,7 @@ public class CharController : MonoBehaviour
                 doubleJump = Input.GetKeyDown(KeyCode.Space);
             }
         }
+
         if (!previouslyGrounded && controller.isGrounded)
         {
             jumping = false;
@@ -97,6 +98,7 @@ public class CharController : MonoBehaviour
         if (controller.isGrounded)
         {
             moveDir.y -= stickToGroundForce;
+            controller.GetComponent<Rigidbody>().AddForceAtPosition(Vector3.up * 1000, transform.position, ForceMode.Impulse);
             if (jump)
             {
                 moveDir.y = jumpSpeed;
@@ -136,6 +138,7 @@ public class CharController : MonoBehaviour
   private void OnControllerColliderHit(ControllerColliderHit hit)
   {
         Rigidbody body = hit.collider.attachedRigidbody;
+
         //dont move the rigidbody if the character is on top of it
 
         if (colFlags == CollisionFlags.Below)
@@ -149,9 +152,11 @@ public class CharController : MonoBehaviour
         }
        body.AddForceAtPosition(controller.velocity* 0.1f, hit.point, ForceMode.Impulse);
     }
+
+
     public void OnCollisionEnter(Collision col)
     {
-
+        Rigidbody body = col.collider.attachedRigidbody;
         switch (col.gameObject.tag)
         {
             
@@ -160,6 +165,9 @@ public class CharController : MonoBehaviour
                 if (col.gameObject.transform.position.y - transform.position.y <= -0.9f)
                 {
                     col.gameObject.GetComponent<EnemyAI3D>().deathAni();
+                    print("collision enemy");
+                    moveDir.y += 4;
+                    controller.Move(moveDir);
                     
                 }
                 else
