@@ -99,7 +99,7 @@ public class player2d_controller : MonoBehaviour
 
             case "spike":
                 Debug.Log("Trigger WORK HE DIED");
-                Application.LoadLevel(0);
+                //Application.LoadLevel(0);
                 break;
 
             case "button":                               /// början på kod till button/door switch
