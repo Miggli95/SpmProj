@@ -126,6 +126,10 @@ public class CharController : MonoBehaviour
             manager.ResetProgression();
         }
         
+        if(controller.isGrounded)
+        {
+            moveDir.y = 0;
+        } 
 
     }
 
