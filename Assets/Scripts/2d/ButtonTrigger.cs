@@ -8,7 +8,7 @@ public class ButtonTrigger : MonoBehaviour {
     void OnTriggerEnter(Collider col)
     {
         Debug.Log("tag" + col.gameObject.tag);
-        if (col.CompareTag("player"))  // Movablebox --> implement
+        if (col.CompareTag("player")||col.CompareTag("movableBox"))  // Movablebox --> implement
         {
             Debug.Log("Is pressed");
             anim.SetBool("IsPressed", true);
