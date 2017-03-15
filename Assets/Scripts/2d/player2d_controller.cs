@@ -70,6 +70,17 @@ public class player2d_controller : MonoBehaviour
         }
 
         // GetComponent<MeshRenderer>().flipX = h.x < 0 ? true : false;
+        if (gotKey == 1)
+        {
+
+            Destroy(GameObject.FindWithTag("lockerLv1"));
+        }
+        if (gotKey == 2)
+        {
+
+            Destroy(GameObject.FindWithTag("lockerLv1"));
+        }
+
     }
 
     public void OnCollisionEnter(Collision col)
