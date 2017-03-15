@@ -9,7 +9,12 @@ public class player2d_controller : MonoBehaviour
 
     public int jumpCount;
     public bool grounded;
+
     private Rigidbody _rigi;
+
+    private Vector3 spawn;
+    public GameObject blood;
+
 
     public Animator anim;
     public AudioClip run_sound;
@@ -18,13 +23,15 @@ public class player2d_controller : MonoBehaviour
 
     public bool buttonIsPressed = false; // for button
 
-    public Transform blood;
+  //  public Transform blood;
     // Use this for initialization
     void Start()
     {
+        spawn = transform.position;
+
         _rigi = transform.GetComponent<Rigidbody>();
         anim = gameObject.GetComponent<Animator>();
-        blood.GetComponent<ParticleSystem>().enableEmission = false;
+     //   blood.GetComponent<ParticleSystem>().enableEmission = false;
     }
 
     // Update is called once per frame
@@ -63,13 +70,15 @@ public class player2d_controller : MonoBehaviour
                 jumpCount = 0;
                 break;
             case "spike":
-                Debug.Log("Dead");
-                blood.GetComponent<ParticleSystem>().enableEmission = true;
-                StartCoroutine(stopBlood());
+
+              //  blood.GetComponent<ParticleSystem>().enableEmission = true;
+              //  StartCoroutine(stopBlood());
                 break;
             case "enemy":
                 if(col.gameObject.transform.position.y- transform.position.y <= -0.2f)
                  {
+
+                    print("I hit enemy");
                     col.gameObject.GetComponent<EnemyAI2D>().deathAni();
                     _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
                 }
@@ -89,8 +98,11 @@ public class player2d_controller : MonoBehaviour
         {
 
             case "spike":
-                Debug.Log("Trigger WORK HE DIED");
-                Application.LoadLevel(0);
+                Debug.Log("Trigger WORKING");
+                Instantiate(blood, transform.position, Quaternion.identity);
+               transform.position = spawn;
+                Debug.Log("spawned");
+          //      Application.LoadLevel(0);  
                 break;
 
             case "button":                               /// början på kod till button/door switch
@@ -115,11 +127,11 @@ public class player2d_controller : MonoBehaviour
 
     }
 
-    IEnumerator stopBlood()
+   IEnumerator stopBlood()
     {
         yield return new WaitForSeconds(1f);
         blood.GetComponent<ParticleSystem>().enableEmission = false;
 
-    }
+   }
 
 }
