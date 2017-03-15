@@ -24,20 +24,11 @@ public class player2d_controller : MonoBehaviour
 
     public bool buttonIsPressed = false; // for button
 
-    private void CheckKeyAndDestroy()
-    {
-        if (gotKey == 1)
-        {
+   
+   
+       
 
-            Destroy(GameObject.FindWithTag("lockerLv1"));
-        }
-        if (gotKey == 2)
-        {
-
-            Destroy(GameObject.FindWithTag("lockerLv2"));
-        }
-
-    }
+    
     // Use this for initialization
     void Start()
     {
@@ -83,7 +74,16 @@ public class player2d_controller : MonoBehaviour
             anim.SetBool("Attack", true);
         }
 
+        if (gotKey == 1)
+        {
 
+            Destroy(GameObject.FindWithTag("lockerLv1"));
+        }
+        if (gotKey == 2)
+        {
+
+            Destroy(GameObject.FindWithTag("lockerLv2"));
+        }
 
         // GetComponent<MeshRenderer>().flipX = h.x < 0 ? true : false;
 
@@ -112,7 +112,7 @@ public class player2d_controller : MonoBehaviour
                     Debug.Log(col.gameObject.GetComponent<EnemyAI2D>().getDamage());
                 break;
         }
-
+        
     }
 
 
