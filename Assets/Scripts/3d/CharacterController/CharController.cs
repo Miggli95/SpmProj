@@ -70,6 +70,8 @@ public class CharController : MonoBehaviour
         moveDir.x = destination.x * speed;
         moveDir.z = destination.z * speed;
 
+        print("isGrounded" + controller.isGrounded);
+
         if (!jump)
         {
             if (controller.isGrounded)
