@@ -9,7 +9,7 @@ public class player2d_controller : MonoBehaviour
 
     public int jumpCount;
     public bool grounded;
-
+    public int gotKey = 0;
     private Rigidbody _rigi;
 
     private Vector3 spawn;
@@ -101,7 +101,12 @@ public class player2d_controller : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
+        if (col.gameObject.CompareTag("key"))
+        {
+            col.gameObject.SetActive(false);
+            gotKey++;
 
+        }
         switch (col.gameObject.tag)
         {
 
@@ -130,7 +135,11 @@ public class player2d_controller : MonoBehaviour
                 }
 
                 break;
-
+        //    case     "key":
+         //       Debug.Log("standing on button");
+        //        gameObject.CompareTag("key").SetActive(false);
+       //         gotKey++;
+                break;
         }
 
 
