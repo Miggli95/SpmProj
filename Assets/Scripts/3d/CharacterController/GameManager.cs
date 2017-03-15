@@ -6,20 +6,39 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     int levelComplete;
-    int unlockedAbilities;
+    int numberOfAbilities;
+    List<int> unlockedAbilities;
+  
 	void Start()
     {
         levelComplete = PlayerPrefs.GetInt("Level");
-        unlockedAbilities = PlayerPrefs.GetInt("Abilities");
+        numberOfAbilities = PlayerPrefs.GetInt("numberOfAbilities");
+        unlockedAbilities = new List<int>();
+        print("numberOfAbilities" + numberOfAbilities);
+        for (int i = 0; i < numberOfAbilities; i++)
+        {
+            print("add ability" + PlayerPrefs.GetInt("Ability" + i));
+            unlockedAbilities.Add(PlayerPrefs.GetInt("Ability" + i));
+        }
 	}
 
     public void UnlockAbility(int ability)
     {
-        if (ability > unlockedAbilities)
+        if (!unlockedAbilities.Contains(ability))
+        {
+            unlockedAbilities.Add(ability);
+        }
+
+        PlayerPrefs.SetInt("numberOfAbilities", unlockedAbilities.Count);
+        for (int i = 0; i < unlockedAbilities.Count; i++)
+        {
+            PlayerPrefs.SetInt("Ability" + i, unlockedAbilities[i]);
+        }
+       /* if (ability > unlockedAbilities)
         {
             unlockedAbilities = ability;
             PlayerPrefs.SetInt("Abilities", unlockedAbilities);
-        }
+        }*/
     }
 
     public void LevelComplete(int level)
@@ -33,10 +52,7 @@ public class GameManager : MonoBehaviour
 
     public void ResetProgression()
     {
-        levelComplete = 0;
-        PlayerPrefs.SetInt("Level", levelComplete);
-        unlockedAbilities = 0;
-        PlayerPrefs.SetInt("Abilities", unlockedAbilities);
+        PlayerPrefs.DeleteAll();
     }
 
     public bool isLevelComplete(int level)
@@ -46,6 +62,6 @@ public class GameManager : MonoBehaviour
 
     public bool HaveAbility(int ability)
     {
-        return unlockedAbilities >= ability;
+        return unlockedAbilities.Contains(ability);
     }
 }

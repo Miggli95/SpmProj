@@ -30,7 +30,7 @@ public class CharController : MonoBehaviour
     public float rotationSpeed;
     private CollisionFlags colFlags;
     public GameManager manager;
-   
+    private bool slam = false;
     float rotationY;
     // Use this for initialization
     void Start()
@@ -40,6 +40,10 @@ public class CharController : MonoBehaviour
         rotationY = transform.rotation.y;
     }
 
+    public bool isSlaming()
+    {
+        return slam;
+    }
     // Update is called once per frame
     float curMouse = 0;
     float lastMouse = 0;
@@ -98,7 +102,7 @@ public class CharController : MonoBehaviour
         if (controller.isGrounded)
         {
             moveDir.y -= stickToGroundForce;
-            controller.GetComponent<Rigidbody>().AddForceAtPosition(Vector3.up * 1000, transform.position, ForceMode.Impulse);
+            //controller.GetComponent<Rigidbody>().AddForceAtPosition(Vector3.up * 1000, transform.position, ForceMode.Impulse);
             if (jump)
             {
                 moveDir.y = jumpSpeed;
@@ -120,18 +124,34 @@ public class CharController : MonoBehaviour
             doubleJump = false;
         }
 
+       
+
         colFlags = controller.Move(moveDir * Time.fixedDeltaTime);
 
+        //print("isSlaming" + slam);
         //test code reset progression of gameManager
         if (Input.GetKeyDown(KeyCode.R))
         {
             manager.ResetProgression();
         }
-        
-        if(controller.isGrounded)
+
+        if (controller.isGrounded)
         {
             moveDir.y = 0;
-        } 
+            slam = false;
+        }
+
+        else
+        {
+            if (manager.HaveAbility((int)Abilities.slam))
+            {
+                if (Input.GetKeyDown(KeyCode.V))
+                {
+                    moveDir.y = -jumpSpeed;
+                    slam = true;
+                }
+            }
+        }
 
     }
 
