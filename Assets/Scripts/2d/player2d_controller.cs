@@ -32,7 +32,8 @@ public class player2d_controller : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        spawn1 = transform.position;
+
+        spawn1 = new Vector3(-3, 2, 0);           // första spawnen, spawn1 = transform.position för att komma åt där karaktären är.
         spawn2 = new Vector3(5, -11, 0);
 
         _rigi = transform.GetComponent<Rigidbody>();
