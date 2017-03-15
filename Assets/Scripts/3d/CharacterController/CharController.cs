@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+enum Abilities
+{
+    doubleJump = 1,
+    slam = 2 
+}
+   
 
 public class CharController : MonoBehaviour
 {
@@ -23,6 +29,7 @@ public class CharController : MonoBehaviour
     bool previouslyGrounded;
     public float rotationSpeed;
     private CollisionFlags colFlags;
+    public GameManager manager;
     float rotationY;
     // Use this for initialization
     void Start()
@@ -47,6 +54,7 @@ public class CharController : MonoBehaviour
         {
             charinput.Normalize();
         }
+        
        transform.Rotate(Vector3.up, rotationY);
 
         // transform.Rotate(0, charinput.x * rotationSpeed, 0);
@@ -64,14 +72,19 @@ public class CharController : MonoBehaviour
 
         if (!jump)
         {
-            jump = Input.GetKeyDown(KeyCode.Space);
+            if (controller.isGrounded)
+            {
+                jump = Input.GetKeyDown(KeyCode.Space);
+            }
         }
 
-        if (!doubleJump && jumping)
+        if (manager.HaveAbility((int)Abilities.doubleJump))
         {
-            doubleJump = Input.GetKeyDown(KeyCode.Space);
+            if (!doubleJump && jumping)
+            {
+                doubleJump = Input.GetKeyDown(KeyCode.Space);
+            }
         }
-
         if (!previouslyGrounded && controller.isGrounded)
         {
             jumping = false;
@@ -105,9 +118,12 @@ public class CharController : MonoBehaviour
 
         colFlags = controller.Move(moveDir * Time.fixedDeltaTime);
 
-        //print("Update");
-        //print("input" + input);
-        //transform.position = transform.position - (rotation * Vector3.up );
+        //test code reset progression of gameManager
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            manager.ResetProgression();
+        }
+        
 
     }
 
