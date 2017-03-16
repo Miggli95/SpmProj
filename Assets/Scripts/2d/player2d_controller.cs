@@ -21,9 +21,10 @@ public class player2d_controller : MonoBehaviour
     public AudioClip run_sound;
     public AudioClip jump_sound;
     public AudioClip hurt_sound;
+    public AudioClip flip_sound;
 
     public bool buttonIsPressed = false; // for button
-
+    private bool facingRight;
    
    
        
@@ -41,7 +42,7 @@ public class player2d_controller : MonoBehaviour
 
         //   blood.GetComponent<ParticleSystem>().enableEmission = false;
         source = GetComponent<AudioSource>();
-
+        facingRight= true;
     }
 
     // Update is called once per frame
@@ -51,15 +52,25 @@ public class player2d_controller : MonoBehaviour
     }
     void FixedUpdate()
     {
-        float h = Input.GetAxis("Horizontal");
+        float move = Input.GetAxis("Horizontal");
         //moving the player
-        _rigi.AddForce((Vector2.right * speed) * h);
-        if (h < 0 || h > 0)
+        _rigi.AddForce((Vector2.right * speed) * move);
+        if (move < 0 || move > 0)
         {
             source.PlayOneShot(run_sound);
             anim.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal")));
             anim.SetBool("Attack", false);
 
+        }
+
+        if (move > 0 && !facingRight)
+        {
+            Flip();
+        }
+        else if (move<0 && facingRight)
+        {
+            Flip();
+        
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && jumpCount <= 2)
@@ -86,7 +97,14 @@ public class player2d_controller : MonoBehaviour
 
 
     }
+    void Flip() {
 
+        source.PlayOneShot(flip_sound);
+        facingRight = !facingRight;
+        Vector3 theScale = transform.localScale;
+        theScale.z *= -1;
+        transform.localScale = theScale;
+    }
     public void OnCollisionEnter(Collision col)
     {
 
