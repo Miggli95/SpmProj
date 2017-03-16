@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class player2d_controller : MonoBehaviour
 {
     public float speed = 50f;
@@ -9,7 +9,7 @@ public class player2d_controller : MonoBehaviour
 
     public int jumpCount;
     public bool grounded;
-    public int gotKey = 0;
+    public bool gotKey =  false;
     private Rigidbody _rigi;
 
     private Vector3 spawn1,spawn2;
@@ -75,16 +75,12 @@ public class player2d_controller : MonoBehaviour
             anim.SetBool("Attack", true);
         }
 
-        if (gotKey == 1)
+        if (gotKey)
         {
 
-            Destroy(GameObject.FindWithTag("lockerLv1"));
+            Destroy(GameObject.FindWithTag("locker"));
         }
-        if (gotKey == 2)
-        {
-
-            Destroy(GameObject.FindWithTag("lockerLv2"));
-        }
+        
 
         // GetComponent<MeshRenderer>().flipX = h.x < 0 ? true : false;
 
@@ -120,12 +116,7 @@ public class player2d_controller : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.CompareTag("key"))
-        {
-            col.gameObject.SetActive(false);
-            gotKey++;
-
-        }
+     
         switch (col.gameObject.tag)
         {
 
@@ -161,13 +152,18 @@ public class player2d_controller : MonoBehaviour
 
                 break;
             case "levelExit":
-                Application.LoadLevel(1);
+                int levelToLoad = SceneManager.GetActiveScene().buildIndex + 1;
+                if(levelToLoad<=SceneManager.sceneCount)
+                SceneManager.LoadScene(levelToLoad);
+                gotKey = false;
+                //Application.LoadLevel(SceneManager.);
+                
                 break;
-                //    case     "key":
-                //       Debug.Log("standing on button");
-                //        gameObject.CompareTag("key").SetActive(false);
-                //         gotKey++;
-                //break;
+                    case     "key":
+                       Debug.Log("standing on button");
+                        col.gameObject.SetActive(false);
+                         gotKey= true;
+                break;
         }
 
 

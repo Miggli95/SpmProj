@@ -10,7 +10,7 @@ public class Enemy2Deal : EnemyState2 {
     private float dashtimer = 0.0f;
     private float resettimer = 0.0f;
 
-    private AudioSource[] sources;
+    private AudioSource source1;
     private AudioClip dashSound;
     public Enemy2Deal(Enemy2AI3D ai)
     {
@@ -81,12 +81,12 @@ public class Enemy2Deal : EnemyState2 {
     }
     private void Dash(NavMeshAgent agent)
     {
-        sources = ai.GetComponents<AudioSource>();
+        source1 = ai.GetComponent<AudioSource>();
         dashSound = ai.dash;
         Debug.Log("started dashing");
         if (resettimer == 0.0f)
         {
-            sources[0].PlayOneShot(dashSound);
+            source1.PlayOneShot(dashSound);
             agent.velocity += ai.transform.forward * ai.getDashSpeed();
             resettimer = 0.7f;
         }

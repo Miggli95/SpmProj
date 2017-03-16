@@ -20,7 +20,7 @@ public class EnemyAI2D : MonoBehaviour {
     private bool isDead = false;
     private string currentState;
     private Rigidbody enemy;
-    private float timetoDeath = 0.0f;
+    private float timetoDeath;
     void Start () {
         enemy = GetComponent<Rigidbody>();
         currentState = "idle";
@@ -29,8 +29,6 @@ public class EnemyAI2D : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         calcState();
-        if (timetoDeath != 0.0f) 
-        timetoDeath -= Time.deltaTime;
         switch (currentState) {
             case "idle":
                 idle();
@@ -89,9 +87,9 @@ public class EnemyAI2D : MonoBehaviour {
     }
     private void dead()
     {
-
-        //if (timetoDeath <= 0.0f)
-            
+        timetoDeath -= Time.deltaTime;
+        if (timetoDeath <= 0)
+            Destroy(gameObject);
     }
 
 
@@ -111,10 +109,9 @@ public class EnemyAI2D : MonoBehaviour {
         BoxCollider boxy = GetComponent<BoxCollider>();
         boxy.enabled= false;
 
-        timetoDeath = 0.5f;
+        timetoDeath = 3;
         currentState = "dead";
         enemy.velocity = new Vector3(0, -2, 0);
         Debug.Log("Killed enemy");
-        Destroy(gameObject);
     }        
 }

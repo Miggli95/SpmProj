@@ -27,7 +27,7 @@ public class ButtonTrigger : MonoBehaviour {
     {
         GameObject.Find("Door").gameObject.GetComponent<DoorSlide>().closeDoor();
         Debug.Log("is not Pressed");
-        if (col.CompareTag("player")) // Movablebox-- > implement
+        if (col.CompareTag("player") || col.CompareTag("movableBox")) // Movablebox-- > implement
             anim.SetBool("IsPressed", false);
         
     }
