@@ -12,6 +12,7 @@ public class Enemy2Deal : EnemyState2 {
 
     private AudioSource[] sources;
     private AudioClip dashSound;
+    private AudioClip dashChargeSound;
     public Enemy2Deal(Enemy2AI3D ai)
     {
         if (ai == null)
@@ -34,11 +35,18 @@ public class Enemy2Deal : EnemyState2 {
             ai.transform.rotation = Quaternion.Slerp(ai.transform.rotation, rotation, Time.deltaTime);
             Dash(agent);
         }
-        if(!notdashing && dashtimer > 0.0f)
+
+        
+        if (!notdashing && dashtimer > 0.0f)
         {
             dashtimer -= deltaTime;
+            sources = ai.GetComponents<AudioSource>();
+            dashChargeSound = ai.dashCharge;
 
-
+            if (!sources[2].isPlaying)
+            {
+                sources[2].PlayOneShot(dashChargeSound);
+            }
         }
         if(!notdashing && resettimer > 0.0f)
         {

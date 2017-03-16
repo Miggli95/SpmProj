@@ -31,6 +31,7 @@ public class Enemy2AI3D : MonoBehaviour
     public AudioClip walking;
     public AudioClip dash;
     public AudioClip electricStatic;
+    public AudioClip dashCharge;
     private Vector3 lastPosition;
 
     void Start()
@@ -57,7 +58,6 @@ public class Enemy2AI3D : MonoBehaviour
         }
 
         float distance = Vector3.Distance(lastPosition, gameObject.transform.position);
-        Debug.Log(distance);
         if (distance > 0.05){
             if(!sources[0].isPlaying)
             sources[0].PlayOneShot(walking);
@@ -65,8 +65,7 @@ public class Enemy2AI3D : MonoBehaviour
         lastPosition = gameObject.transform.position;
         if (!sources[1].isPlaying)
         {
-            float d = Random.Range(2, 5);
-            sources[1].PlayDelayed(d);
+            sources[1].PlayDelayed(0.5f);
         }
     }
 
