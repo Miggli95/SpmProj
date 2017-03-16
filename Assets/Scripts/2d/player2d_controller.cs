@@ -7,8 +7,8 @@ public class player2d_controller : MonoBehaviour
     public float speed = 50f;
     public float jumpPower = 150f;
 
-    public int jumpCount;
-    public bool grounded;
+    private int jumpCount;
+    private bool grounded;
     public bool gotKey =  false;
     private Rigidbody _rigi;
 
@@ -48,7 +48,7 @@ public class player2d_controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+       
     }
     void FixedUpdate()
     {
@@ -73,15 +73,17 @@ public class player2d_controller : MonoBehaviour
         
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && jumpCount <= 2)
+        if (Input.GetKeyDown(KeyCode.Space) && jumpCount >=1)
         {
             _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
-            jumpCount++;
+            jumpCount--;
+            grounded = false;
             anim.SetBool("Grounded", false);
             source.PlayOneShot(jump_sound);
-        }
 
-        if (Input.GetKeyDown(KeyCode.C) && jumpCount == 0)
+        } 
+
+        if (Input.GetKeyDown(KeyCode.C) && grounded)
         {
             anim.SetBool("Attack", true);
         }
@@ -91,8 +93,12 @@ public class player2d_controller : MonoBehaviour
 
             Destroy(GameObject.FindWithTag("locker"));
         }
-        
 
+
+        if (grounded == true)
+        {
+            jumpCount = 2;
+        }
         // GetComponent<MeshRenderer>().flipX = h.x < 0 ? true : false;
 
 
@@ -113,12 +119,12 @@ public class player2d_controller : MonoBehaviour
 
             case "movableBox":
             anim.SetBool("Grounded", true);
-            jumpCount = 0;
+            jumpCount = 2;
             break;
 
             case "ground":
                 anim.SetBool("Grounded", true);
-                jumpCount = 0;
+                jumpCount = 2;
                 break;
 
             case "enemy":
@@ -131,6 +137,10 @@ public class player2d_controller : MonoBehaviour
                 }
                 else
                     Debug.Log(col.gameObject.GetComponent<EnemyAI2D>().getDamage());
+                break;
+
+            case "locker" :
+                Debug.Log("Player need a key !!!!!!!");
                 break;
         }
         
