@@ -92,6 +92,12 @@ public class player2d_controller : MonoBehaviour
 
         switch (col.gameObject.tag)
         {
+
+            case "movableBox":
+            anim.SetBool("Grounded", true);
+            jumpCount = 0;
+            break;
+
             case "ground":
                 anim.SetBool("Grounded", true);
                 jumpCount = 0;
@@ -151,6 +157,7 @@ public class player2d_controller : MonoBehaviour
                 }
 
                 break;
+
             case "levelExit":
                 int levelToLoad = SceneManager.GetActiveScene().buildIndex + 1;
                 if(levelToLoad<=SceneManager.sceneCount)
@@ -159,6 +166,7 @@ public class player2d_controller : MonoBehaviour
                 //Application.LoadLevel(SceneManager.);
                 
                 break;
+
                     case     "key":
                        Debug.Log("standing on button");
                         col.gameObject.SetActive(false);
@@ -172,9 +180,12 @@ public class player2d_controller : MonoBehaviour
     void Die(Vector3 spawn)
     {
         Instantiate(blood, transform.position, Quaternion.identity); // spelar upp blood på den "spike" du träffar
-        transform.position = spawn;   // spawn
+          
+        
+       transform.position = spawn;   // spawn
     }
 
+    
     IEnumerator stopBlood()
     {
         yield return new WaitForSeconds(1f);
