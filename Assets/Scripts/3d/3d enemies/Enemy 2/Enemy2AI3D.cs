@@ -59,8 +59,10 @@ public class Enemy2AI3D : MonoBehaviour
 
         float distance = Vector3.Distance(lastPosition, gameObject.transform.position);
         if (distance > 0.05){
-            if(!sources[0].isPlaying)
-            sources[0].PlayOneShot(walking);
+            if (!sources[0].isPlaying)
+            {
+                sources[0].PlayOneShot(walking);
+            }
         }
         lastPosition = gameObject.transform.position;
         if (!sources[1].isPlaying)
