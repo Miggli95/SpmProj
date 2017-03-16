@@ -27,8 +27,9 @@ public class EnemyAI3D : MonoBehaviour
     private Rigidbody enemy;
     private float timetoDeath;
 
-    private AudioSource source1;
+    private AudioSource[] sources;
     public AudioClip walking;
+    public AudioClip sonarPing;
     private Vector3 lastPosition;
     void Start()
     {
@@ -37,8 +38,9 @@ public class EnemyAI3D : MonoBehaviour
         enemy = GetComponent<Rigidbody>();
         enemyState = GetInitialEnemyState();
         enemyState.Enter();
-        source1 = GetComponent<AudioSource>();
-        source1.clip = walking;
+        sources = GetComponents<AudioSource>();
+        sources[0].clip = walking;
+        sources[1].clip = sonarPing;
     }
 
     // Update is called once per frame
@@ -56,12 +58,17 @@ public class EnemyAI3D : MonoBehaviour
         //Debug.Log(distance);
         if(distance > 0.1)
         {
-            if (!source1.isPlaying)
+            if (!sources[0].isPlaying)
             {
-                source1.PlayOneShot(walking);
+                sources[0].PlayOneShot(walking);
             }
         }
         lastPosition = gameObject.transform.position;
+
+        if (!sources[1].isPlaying)
+        {
+            sources[1].PlayDelayed(2);
+        }
     }
 
     private void ChangeEnemyState(Vector3 pos, EnemyStateData enemyStateData)
