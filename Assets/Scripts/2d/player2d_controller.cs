@@ -7,8 +7,8 @@ public class player2d_controller : MonoBehaviour
     public float speed = 50f;
     public float jumpPower = 150f;
 
-    private int jumpCount;
-    private bool grounded;
+    public int jumpCount;
+    public bool grounded;
     public bool gotKey =  false;
     private Rigidbody _rigi;
 
@@ -21,10 +21,9 @@ public class player2d_controller : MonoBehaviour
     public AudioClip run_sound;
     public AudioClip jump_sound;
     public AudioClip hurt_sound;
-    public AudioClip flip_sound;
 
     public bool buttonIsPressed = false; // for button
-    private bool facingRight;
+
    
    
        
@@ -42,20 +41,20 @@ public class player2d_controller : MonoBehaviour
 
         //   blood.GetComponent<ParticleSystem>().enableEmission = false;
         source = GetComponent<AudioSource>();
-        facingRight= true;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-       
+
     }
     void FixedUpdate()
     {
-        float move = Input.GetAxis("Horizontal");
+        float h = Input.GetAxis("Horizontal");
         //moving the player
-        _rigi.AddForce((Vector2.right * speed) * move);
-        if (move < 0 || move > 0)
+        _rigi.AddForce((Vector2.right * speed) * h);
+        if (h < 0 || h > 0)
         {
             source.PlayOneShot(run_sound);
             anim.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal")));
@@ -63,27 +62,15 @@ public class player2d_controller : MonoBehaviour
 
         }
 
-        if (move > 0 && !facingRight)
-        {
-            Flip();
-        }
-        else if (move<0 && facingRight)
-        {
-            Flip();
-        
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space) && jumpCount >=1)
+        if (Input.GetKeyDown(KeyCode.Space) && jumpCount <= 2)
         {
             _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
-            jumpCount--;
-            grounded = false;
+            jumpCount++;
             anim.SetBool("Grounded", false);
             source.PlayOneShot(jump_sound);
+        }
 
-        } 
-
-        if (Input.GetKeyDown(KeyCode.C) && grounded)
+        if (Input.GetKeyDown(KeyCode.C) && jumpCount == 0)
         {
             anim.SetBool("Attack", true);
         }
@@ -93,38 +80,21 @@ public class player2d_controller : MonoBehaviour
 
             Destroy(GameObject.FindWithTag("locker"));
         }
+        
 
-
-        if (grounded == true)
-        {
-            jumpCount = 2;
-        }
         // GetComponent<MeshRenderer>().flipX = h.x < 0 ? true : false;
 
 
     }
-    void Flip() {
 
-        source.PlayOneShot(flip_sound);
-        facingRight = !facingRight;
-        Vector3 theScale = transform.localScale;
-        theScale.z *= -1;
-        transform.localScale = theScale;
-    }
     public void OnCollisionEnter(Collision col)
     {
 
         switch (col.gameObject.tag)
         {
-
-            case "movableBox":
-            anim.SetBool("Grounded", true);
-            jumpCount = 2;
-            break;
-
             case "ground":
                 anim.SetBool("Grounded", true);
-                jumpCount = 2;
+                jumpCount = 0;
                 break;
 
             case "enemy":
@@ -137,10 +107,6 @@ public class player2d_controller : MonoBehaviour
                 }
                 else
                     Debug.Log(col.gameObject.GetComponent<EnemyAI2D>().getDamage());
-                break;
-
-            case "locker" :
-                Debug.Log("Player need a key !!!!!!!");
                 break;
         }
         
@@ -185,7 +151,6 @@ public class player2d_controller : MonoBehaviour
                 }
 
                 break;
-
             case "levelExit":
                 int levelToLoad = SceneManager.GetActiveScene().buildIndex + 1;
                 if(levelToLoad<=SceneManager.sceneCount)
@@ -194,7 +159,6 @@ public class player2d_controller : MonoBehaviour
                 //Application.LoadLevel(SceneManager.);
                 
                 break;
-
                     case     "key":
                        Debug.Log("standing on button");
                         col.gameObject.SetActive(false);
@@ -208,12 +172,9 @@ public class player2d_controller : MonoBehaviour
     void Die(Vector3 spawn)
     {
         Instantiate(blood, transform.position, Quaternion.identity); // spelar upp blood på den "spike" du träffar
-          
-        
-       transform.position = spawn;   // spawn
+        transform.position = spawn;   // spawn
     }
 
-    
     IEnumerator stopBlood()
     {
         yield return new WaitForSeconds(1f);

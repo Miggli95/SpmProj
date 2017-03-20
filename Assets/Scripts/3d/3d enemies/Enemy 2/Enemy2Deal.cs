@@ -10,9 +10,8 @@ public class Enemy2Deal : EnemyState2 {
     private float dashtimer = 0.0f;
     private float resettimer = 0.0f;
 
-    private AudioSource[] sources;
+    private AudioSource source1;
     private AudioClip dashSound;
-    private AudioClip dashChargeSound;
     public Enemy2Deal(Enemy2AI3D ai)
     {
         if (ai == null)
@@ -35,18 +34,11 @@ public class Enemy2Deal : EnemyState2 {
             ai.transform.rotation = Quaternion.Slerp(ai.transform.rotation, rotation, Time.deltaTime);
             Dash(agent);
         }
-
-        
-        if (!notdashing && dashtimer > 0.0f)
+        if(!notdashing && dashtimer > 0.0f)
         {
             dashtimer -= deltaTime;
-            sources = ai.GetComponents<AudioSource>();
-            dashChargeSound = ai.dashCharge;
 
-            if (!sources[2].isPlaying)
-            {
-                sources[2].PlayOneShot(dashChargeSound);
-            }
+
         }
         if(!notdashing && resettimer > 0.0f)
         {
@@ -89,12 +81,12 @@ public class Enemy2Deal : EnemyState2 {
     }
     private void Dash(NavMeshAgent agent)
     {
-        sources[0] = ai.GetComponent<AudioSource>();
+        source1 = ai.GetComponent<AudioSource>();
         dashSound = ai.dash;
         Debug.Log("started dashing");
         if (resettimer == 0.0f)
         {
-            sources[0].PlayOneShot(dashSound);
+            source1.PlayOneShot(dashSound);
             agent.velocity += ai.transform.forward * ai.getDashSpeed();
             resettimer = 0.7f;
         }
