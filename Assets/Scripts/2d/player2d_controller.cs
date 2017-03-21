@@ -52,13 +52,15 @@ public class player2d_controller : MonoBehaviour
         float move = Input.GetAxis("Horizontal");
         //moving the player
         _rigi.AddForce((Vector2.right * speed) * move);
-        if (move < 0 || move > 0)
+        if (move < 0.5 || move > 0.5)
         {
-            source.PlayOneShot(run_sound);
+
+            Invoke("RunSound",2);
             anim.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal")));
             anim.SetBool("Attack", false);
 
         }
+        
         if (move > 0 && !facingRight)
         {
             Flip();
@@ -80,16 +82,22 @@ public class player2d_controller : MonoBehaviour
         }
         else {
             onGround = false;
+            
         }
         Debug.Log(onGround);
 
         if (Input.GetKeyDown(KeyCode.Space) && onGround)
         {
+         
+            source.PlayOneShot(jump_sound);
             _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
             canDoubleJump = true;
         }
         else if (Input.GetKeyDown(KeyCode.Space) && !onGround && canDoubleJump) {
-            _rigi.AddForce(Vector3.up *jumpPower*3);
+            
+            source.PlayOneShot(jump_sound);
+            _rigi.Sleep();
+            _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
             canDoubleJump = false;
         }
 
@@ -136,7 +144,7 @@ public class player2d_controller : MonoBehaviour
         {
 
             case "movableBox":
-            anim.SetBool("Grounded", true);
+           anim.SetBool("Grounded", true);
           
             break;
 
@@ -239,7 +247,12 @@ public class player2d_controller : MonoBehaviour
        transform.position = spawn;   // spawn
     }
 
-    
+    void RunSound()
+    {
+        source.PlayOneShot(run_sound);
+        
+    }
+
     IEnumerator stopBlood()
     {
         yield return new WaitForSeconds(1f);
