@@ -7,8 +7,9 @@ public class player2d_controller : MonoBehaviour
     public float speed = 50f;
     public float jumpPower = 150f;
 
-    private int jumpCount;
-    public bool OnGround;
+    
+    public bool onGround;
+    public bool canDoubleJump;
     public bool gotKey =  false;
     private Rigidbody _rigi;
 
@@ -69,20 +70,31 @@ public class player2d_controller : MonoBehaviour
         }
         RaycastHit hit;
         Vector3 physicsCentre = this.transform.position + this.GetComponent<CapsuleCollider>().center;
-        Debug.DrawRay(physicsCentre, Vector3.down,Color.red, 1);
-        if (Physics.Raycast(physicsCentre, Vector3.down, out hit, 1))
+        Debug.DrawRay(physicsCentre, Vector3.down*0.415f,Color.red, 1);
+        if (Physics.Raycast(physicsCentre, Vector3.down, out hit, 0.415f))
         {
             if (hit.transform.gameObject.tag != "player")
             {
-                OnGround = true;
+                onGround = true;
             }
         }
         else {
-            OnGround = false;
+            onGround = false;
         }
-        Debug.Log(OnGround);
+        Debug.Log(onGround);
 
-        if (Input.GetKeyDown(KeyCode.Space) && jumpCount >= 1)
+        if (Input.GetKeyDown(KeyCode.Space) && onGround)
+        {
+            _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
+            canDoubleJump = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.Space) && !onGround && canDoubleJump) {
+            _rigi.AddForce(Vector3.up *jumpPower*3);
+            canDoubleJump = false;
+        }
+
+
+        /*if (Input.GetKeyDown(KeyCode.Space) && jumpCount >= 1)
         {
             _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
             jumpCount--;
@@ -90,12 +102,12 @@ public class player2d_controller : MonoBehaviour
             anim.SetBool("Grounded", false);
             source.PlayOneShot(jump_sound);
 
-        }
+        }*/
     }
     void FixedUpdate()
     {
               
-         if (Input.GetKeyDown(KeyCode.C) && OnGround)
+         if (Input.GetKeyDown(KeyCode.C) && onGround)
         {
             anim.SetBool("Attack", true);
         }
@@ -107,11 +119,6 @@ public class player2d_controller : MonoBehaviour
         }
 
 
-        if (OnGround == true)
-        {
-            jumpCount = 2;
-        }
-       
 
     }
     void Flip() {
@@ -130,12 +137,12 @@ public class player2d_controller : MonoBehaviour
 
             case "movableBox":
             anim.SetBool("Grounded", true);
-            jumpCount = 2;
+          
             break;
 
             case "ground":
                 anim.SetBool("Grounded", true);
-                jumpCount = 2;
+               
                 break;
 
             case "enemy":
