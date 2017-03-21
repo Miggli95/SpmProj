@@ -27,9 +27,11 @@ public class Enemy2AI3D : MonoBehaviour
     private Rigidbody enemy;
     private float timetoDeath;
 
-    private AudioSource source1;
+    private AudioSource[] sources;
     public AudioClip walking;
     public AudioClip dash;
+    public AudioClip electricStatic;
+    public AudioClip dashCharge;
     private Vector3 lastPosition;
 
     void Start()
@@ -39,8 +41,9 @@ public class Enemy2AI3D : MonoBehaviour
         enemy = GetComponent<Rigidbody>();
         enemyState = GetInitialEnemyState();
         enemyState.Enter();
-        source1 = GetComponent<AudioSource>();
-        source1.clip = walking;
+        sources = GetComponents<AudioSource>();
+        sources[0].clip = walking;
+        sources[1].clip = electricStatic;
     }
 
     // Update is called once per frame
@@ -55,12 +58,17 @@ public class Enemy2AI3D : MonoBehaviour
         }
 
         float distance = Vector3.Distance(lastPosition, gameObject.transform.position);
-        Debug.Log(distance);
         if (distance > 0.05){
-            if(!source1.isPlaying)
-            source1.PlayOneShot(walking);
+            if (!sources[0].isPlaying)
+            {
+                sources[0].PlayOneShot(walking);
+            }
         }
         lastPosition = gameObject.transform.position;
+        if (!sources[1].isPlaying)
+        {
+            sources[1].PlayDelayed(0.5f);
+        }
     }
 
     private void ChangeEnemyState(Vector3 pos, Enemy2StateData enemyStateData)
