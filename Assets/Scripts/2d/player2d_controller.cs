@@ -200,9 +200,17 @@ public class player2d_controller : MonoBehaviour
                         col.gameObject.SetActive(false);
                          gotKey= true;
                 break;
+
+            case "Level1":
+                SceneManager.LoadScene("level1");
+                break;
+
+            case "Level2":
+                SceneManager.LoadScene("Level2");
+                break;
         }
 
-
+        
     }
 
     void Die(Vector3 spawn)
