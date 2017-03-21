@@ -8,7 +8,7 @@ public class player2d_controller : MonoBehaviour
     public float jumpPower = 150f;
 
     private int jumpCount;
-    private bool grounded;
+    public bool OnGround;
     public bool gotKey =  false;
     private Rigidbody _rigi;
 
@@ -48,10 +48,6 @@ public class player2d_controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
-    }
-    void FixedUpdate()
-    {
         float move = Input.GetAxis("Horizontal");
         //moving the player
         _rigi.AddForce((Vector2.right * speed) * move);
@@ -62,28 +58,44 @@ public class player2d_controller : MonoBehaviour
             anim.SetBool("Attack", false);
 
         }
-
         if (move > 0 && !facingRight)
         {
             Flip();
         }
-        else if (move<0 && facingRight)
+        else if (move < 0 && facingRight)
         {
             Flip();
-        
-        }
 
-        if (Input.GetKeyDown(KeyCode.Space) && jumpCount >=1)
+        }
+        RaycastHit hit;
+        Vector3 physicsCentre = this.transform.position + this.GetComponent<CapsuleCollider>().center;
+        Debug.DrawRay(physicsCentre, Vector3.down,Color.red, 1);
+        if (Physics.Raycast(physicsCentre, Vector3.down, out hit, 1))
+        {
+            if (hit.transform.gameObject.tag != "player")
+            {
+                OnGround = true;
+            }
+        }
+        else {
+            OnGround = false;
+        }
+        Debug.Log(OnGround);
+
+        if (Input.GetKeyDown(KeyCode.Space) && jumpCount >= 1)
         {
             _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
             jumpCount--;
-            grounded = false;
+            OnGround = false;
             anim.SetBool("Grounded", false);
             source.PlayOneShot(jump_sound);
 
-        } 
-
-        if (Input.GetKeyDown(KeyCode.C) && grounded)
+        }
+    }
+    void FixedUpdate()
+    {
+              
+         if (Input.GetKeyDown(KeyCode.C) && OnGround)
         {
             anim.SetBool("Attack", true);
         }
@@ -95,12 +107,11 @@ public class player2d_controller : MonoBehaviour
         }
 
 
-        if (grounded == true)
+        if (OnGround == true)
         {
             jumpCount = 2;
         }
-        // GetComponent<MeshRenderer>().flipX = h.x < 0 ? true : false;
-
+       
 
     }
     void Flip() {
