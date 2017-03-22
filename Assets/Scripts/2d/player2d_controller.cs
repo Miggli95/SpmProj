@@ -230,6 +230,13 @@ public class player2d_controller : MonoBehaviour
             case "Level2":
                 SceneManager.LoadScene("Level2");
                 break;
+            case "Level3":
+                SceneManager.LoadScene("level3(3D)");
+                break;
+
+            case "bossLevel":
+                SceneManager.LoadScene("BossLevel");
+                break;
         }
 
         
