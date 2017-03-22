@@ -48,7 +48,6 @@ public class player2d_controller : MonoBehaviour
     {
        
         //moving the player
-<<<<<<< HEAD
         
           float move = Input.GetAxis("Horizontal");
             _rigi.AddForce((Vector2.right * speed) * move);
@@ -56,18 +55,6 @@ public class player2d_controller : MonoBehaviour
             anim.SetBool("Attack", false);
             if (move > 0 && !facingRight)
          {
-=======
-        _rigi.AddForce((Vector2.right * speed) * move);
-        if (move < 0 || move > 0)
-        {
-            source.PlayOneShot(run_sound);
-            anim.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal")));
-            anim.SetBool("Attack", false);
-
-        }
-        if (move > 0 && !facingRight)
-        {
->>>>>>> parent of 338c682... minor fix
             Flip();
           }
         else if (move < 0 && facingRight)
@@ -100,12 +87,8 @@ public class player2d_controller : MonoBehaviour
 
         }
         else if (Input.GetKeyDown(KeyCode.Space) && !onGround && canDoubleJump) {
-<<<<<<< HEAD
             _rigi.Sleep();
             _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
-=======
-            _rigi.AddForce(Vector3.up *jumpPower*3);
->>>>>>> parent of 338c682... minor fix
             canDoubleJump = false;
         }
 
@@ -258,12 +241,8 @@ public class player2d_controller : MonoBehaviour
         transform.position = spawn;   // spawn
     }
 
-<<<<<<< HEAD
    
 
-=======
-    
->>>>>>> parent of 338c682... minor fix
     IEnumerator stopBlood()
     {
         yield return new WaitForSeconds(1f);
