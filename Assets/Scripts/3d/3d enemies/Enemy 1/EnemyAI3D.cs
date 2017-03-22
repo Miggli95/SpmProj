@@ -148,26 +148,6 @@ public class EnemyAI3D : MonoBehaviour
     {
         Destroy(gameObject);
     }
-    public void OnCollisionEnter(Collision col)
-    {
-        Rigidbody body = col.collider.attachedRigidbody;
-        switch (col.gameObject.tag)
-        {
-            case "Player":
-                if (col.collider == Player.GetComponent<CapsuleCollider>())
-                {
-                    if (transform.position.y - col.gameObject.transform.position.y <= -0.9f)
-                    {
-                        Debug.Log("Hit head");
 
-                    }
-                    else
-                        Debug.Log("Hit body");
-                }
-
-                break;
-
-        }
-    }
 
 }

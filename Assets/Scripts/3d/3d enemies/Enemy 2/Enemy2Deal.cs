@@ -29,17 +29,16 @@ public class Enemy2Deal : EnemyState2 {
         }
         if (!notdashing && dashtimer <= 0.0f)
         {
-
+            var lookPos = pos - ai.transform.position;
+            lookPos.y = 0;
+            var rotation = Quaternion.LookRotation(lookPos);
+            ai.transform.rotation = Quaternion.Slerp(ai.transform.rotation, rotation, Time.deltaTime);
             Dash(agent);
         }
 
         
         if (!notdashing && dashtimer > 0.0f)
         {
-            var lookPos = pos - ai.transform.position;
-            lookPos.y = 0;
-            var rotation = Quaternion.LookRotation(lookPos);
-            ai.transform.rotation = Quaternion.Slerp(ai.transform.rotation, rotation, Time.deltaTime);
             dashtimer -= deltaTime;
             sources = ai.GetComponents<AudioSource>();
             dashChargeSound = ai.dashCharge;

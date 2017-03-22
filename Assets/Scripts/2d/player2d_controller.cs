@@ -19,17 +19,14 @@ public class player2d_controller : MonoBehaviour
 
     public Animator anim;
     private AudioSource source;
-    public AudioClip run_sound;
+    
     public AudioClip jump_sound;
     public AudioClip hurt_sound;
     public AudioClip flip_sound;
 
     public bool buttonIsPressed = false; // for button
     private bool facingRight;
-   
-   
-       
-
+    private CountdownTimer countdownTimer;
     
     // Use this for initialization
     void Start()
@@ -49,30 +46,28 @@ public class player2d_controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float move = Input.GetAxis("Horizontal");
+       
         //moving the player
-        _rigi.AddForce((Vector2.right * speed) * move);
-        if (move < 0.5 || move > 0.5)
-        {
-
-            Invoke("RunSound",2);
+        
+          float move = Input.GetAxis("Horizontal");
+            _rigi.AddForce((Vector2.right * speed) * move);
             anim.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal")));
             anim.SetBool("Attack", false);
-
-        }
-        
-        if (move > 0 && !facingRight)
-        {
+            if (move > 0 && !facingRight)
+         {
             Flip();
-        }
+          }
         else if (move < 0 && facingRight)
-        {
+         {
             Flip();
 
-        }
+         }
+        
+
+       
         RaycastHit hit;
         Vector3 physicsCentre = this.transform.position + this.GetComponent<CapsuleCollider>().center;
-        Debug.DrawRay(physicsCentre, Vector3.down*0.415f,Color.red, 1);
+        Debug.DrawRay(physicsCentre, Vector3.down * 0.415f, Color.red, 1);
         if (Physics.Raycast(physicsCentre, Vector3.down, out hit, 0.415f))
         {
             if (hit.transform.gameObject.tag != "player")
@@ -82,26 +77,23 @@ public class player2d_controller : MonoBehaviour
         }
         else {
             onGround = false;
-            
         }
         Debug.Log(onGround);
 
         if (Input.GetKeyDown(KeyCode.Space) && onGround)
         {
-         
-            source.PlayOneShot(jump_sound);
             _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
             canDoubleJump = true;
+
         }
         else if (Input.GetKeyDown(KeyCode.Space) && !onGround && canDoubleJump) {
-            
-            source.PlayOneShot(jump_sound);
             _rigi.Sleep();
             _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
             canDoubleJump = false;
         }
 
 
+       
         /*if (Input.GetKeyDown(KeyCode.Space) && jumpCount >= 1)
         {
             _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
@@ -115,11 +107,7 @@ public class player2d_controller : MonoBehaviour
     void FixedUpdate()
     {
               
-         if (Input.GetKeyDown(KeyCode.C) && onGround)
-        {
-            anim.SetBool("Attack", true);
-        }
-
+        
         if (gotKey)
         {
 
@@ -144,7 +132,7 @@ public class player2d_controller : MonoBehaviour
         {
 
             case "movableBox":
-           anim.SetBool("Grounded", true);
+            anim.SetBool("Grounded", true);
           
             break;
 
@@ -172,7 +160,13 @@ public class player2d_controller : MonoBehaviour
         
     }
 
-
+    void OnCollisionExit(Collision col)
+    {
+        if (col.gameObject.tag == "ground"|| col.gameObject.tag == "movableBox")
+            onGround = false;
+        anim.SetBool("Grounded", false);
+        
+    }
 
     void OnTriggerEnter(Collider col)
     {
@@ -184,7 +178,7 @@ public class player2d_controller : MonoBehaviour
               
                 source.PlayOneShot(hurt_sound);
                 Die(spawn1);
-
+                countdownTimer.timer -= 2f;
     
                 break;
 
@@ -192,7 +186,7 @@ public class player2d_controller : MonoBehaviour
 
                 source.PlayOneShot(hurt_sound);
                 Die(spawn2);
-
+                countdownTimer.timer -= 2f;
 
                 break;
 
@@ -215,7 +209,9 @@ public class player2d_controller : MonoBehaviour
             case "levelExit":
                 int levelToLoad = SceneManager.GetActiveScene().buildIndex + 1;
                 if(levelToLoad<=SceneManager.sceneCount)
+                    
                 SceneManager.LoadScene(levelToLoad);
+                //countdownTimer.timer = 90f;
                 gotKey = false;
                 //Application.LoadLevel(SceneManager.);
                 
@@ -242,16 +238,10 @@ public class player2d_controller : MonoBehaviour
     void Die(Vector3 spawn)
     {
         Instantiate(blood, transform.position, Quaternion.identity); // spelar upp blood på den "spike" du träffar
-          
-        
-       transform.position = spawn;   // spawn
+        transform.position = spawn;   // spawn
     }
 
-    void RunSound()
-    {
-        source.PlayOneShot(run_sound);
-        
-    }
+   
 
     IEnumerator stopBlood()
     {

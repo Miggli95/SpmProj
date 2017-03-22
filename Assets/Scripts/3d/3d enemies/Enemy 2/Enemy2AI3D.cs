@@ -152,27 +152,20 @@ public class Enemy2AI3D : MonoBehaviour
      {
          MoveSpeed = newSpeed;
      }
-    void OnTriggerEnter(Collider other)
-    {
-        if (other == Player.GetComponent<SphereCollider>())
-        {
-            Destroy(gameObject);
-        }
-    }
-            /* public void deathAni()
-             {
-                 enemy.constraints = RigidbodyConstraints.FreezePositionX;
+    /* public void deathAni()
+     {
+         enemy.constraints = RigidbodyConstraints.FreezePositionX;
 
-                 BoxCollider boxy = GetComponent<BoxCollider>();
-                 boxy.enabled = false;
+         BoxCollider boxy = GetComponent<BoxCollider>();
+         boxy.enabled = false;
 
-                 timetoDeath = 3;
-                 currentState = "dead";
-                 enemy.velocity = new Vector3(0, -2, 0);
-                 Debug.Log("Killed enemy");
-             }*/
+         timetoDeath = 3;
+         currentState = "dead";
+         enemy.velocity = new Vector3(0, -2, 0);
+         Debug.Log("Killed enemy");
+     }*/
 
 
 
 
-        }
+}
