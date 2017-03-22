@@ -21,9 +21,14 @@ public class EnemyAI2D : MonoBehaviour {
     private string currentState;
     private Rigidbody enemy;
     private float timetoDeath;
+
+    private AudioSource[] sources;
+    public AudioClip patrolSound;
+    public AudioClip dealDamageSound;
     void Start () {
         enemy = GetComponent<Rigidbody>();
         currentState = "idle";
+        sources = GetComponents<AudioSource>();
     }
 	
 	// Update is called once per frame
@@ -72,9 +77,19 @@ public class EnemyAI2D : MonoBehaviour {
         if (points.Length == 0)
             return;
         if (points[destPoint].position.x > transform.position.x)
+        {
             enemy.velocity = new Vector3(MoveSpeed, enemy.velocity.y, enemy.velocity.z);
+            sources[0].clip = patrolSound;
+            if (!sources[0].isPlaying)
+                sources[0].PlayOneShot(patrolSound);
+        }
         else
+        {
             enemy.velocity = new Vector3(-MoveSpeed, enemy.velocity.y, enemy.velocity.z);
+            sources[0].clip = patrolSound;
+            if (!sources[0].isPlaying)
+                sources[0].PlayOneShot(patrolSound);
+        }
         if(Mathf.Abs(points[destPoint].position.x - transform.position.x) <= 0.1)
             destPoint = (destPoint + 1) % points.Length;
     }
@@ -104,6 +119,9 @@ public class EnemyAI2D : MonoBehaviour {
     }
     public void deathAni()
     {
+        sources[1].clip = dealDamageSound;
+        if (!sources[1].isPlaying)
+            sources[1].PlayOneShot(dealDamageSound);
         enemy.constraints = RigidbodyConstraints.FreezePositionX;
         
         BoxCollider boxy = GetComponent<BoxCollider>();
