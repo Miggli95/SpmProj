@@ -31,13 +31,16 @@ public class CharController : MonoBehaviour
     private CollisionFlags colFlags;
     public GameManager manager;
     private bool slam = false;
+    private SphereCollider slamAoE;
     float rotationY;
+    private float slamtimer = 0.0f;
     // Use this for initialization
     void Start()
     {
         position = transform.position;
         controller = GetComponent<CharacterController>();
         rotationY = transform.rotation.y;
+        slamAoE = GetComponent<SphereCollider>();
     }
 
     public bool isSlaming()
@@ -137,6 +140,11 @@ public class CharController : MonoBehaviour
 
         if (controller.isGrounded)
         {
+            if (slam)
+            {
+                slamAoE.enabled = true;
+                slamtimer = 0.1f;
+            }
             moveDir.y = 0;
             slam = false;
         }
@@ -150,6 +158,14 @@ public class CharController : MonoBehaviour
                     moveDir.y = -jumpSpeed;
                     slam = true;
                 }
+            }
+        }
+        if (slamtimer > 0.0f)
+        {
+            slamtimer -= Time.deltaTime;
+            if (slamtimer <= 0.0f)
+            {
+                slamAoE.enabled = false;
             }
         }
 
@@ -185,13 +201,13 @@ public class CharController : MonoBehaviour
                 if (col.gameObject.transform.position.y - transform.position.y <= -0.9f)
                 {
                     col.gameObject.GetComponent<EnemyAI3D>().deathAni();
-                    print("collision enemy");
-                    moveDir.y += 4;
-                    controller.Move(moveDir);
+                    //print("collision enemy");
+                    //moveDir.y += 4;
+                    //controller.Move(moveDir);
                     
                 }
-                else
-                    Debug.Log("hit for: " + col.gameObject.GetComponent<EnemyAI3D>().getDamage() + " damage");
+                //else
+                   // Debug.Log("hit for: " + col.gameObject.GetComponent<EnemyAI3D>().getDamage() + " damage");
                 break;
         }
 
