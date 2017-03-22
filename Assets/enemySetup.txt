@@ -1,0 +1,15 @@
+To make a 3D enemy do what you want it to do:
+
+First pull in an appropriate prefab into your scene, currently that would mean either 3D Enemy 1 or 2.
+
+Next, in the EnemyAI3D script drag in the player object in the slot labled Player, this will allow the enemy to know where the player is.
+
+After this you can change many variables such as speed, patrol range and aggro range. Play with these a bit so that an enemy doesn't aggro too far away, 
+you don't want an enemy on platform 3 to be chasing the player when they are on platform 2 
+
+Next create waypoints, do this by rightclicking in the scene hierarchy and select create empty, drag this empty object to wherever you want a waypoint for the enemy to patrol. A good habit here is to name the waypoint
+something other than "GameObject". Next go back to the script and under Points declare how many points you will want. Next drag the waypoints into the list that is created in the order you want the enemy to patrol,
+the enemy will reset to the first one after finishing the last one.
+
+
+
