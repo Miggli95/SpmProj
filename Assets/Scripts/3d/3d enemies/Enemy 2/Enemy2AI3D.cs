@@ -165,7 +165,14 @@ public class Enemy2AI3D : MonoBehaviour
          Debug.Log("Killed enemy");
      }*/
 
-
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other == Player.GetComponent<SphereCollider>())
+        {
+            Destroy(gameObject);
+            //this is where enter to vunerable stage will be
+        }
+    }
 
 
 }

@@ -32,6 +32,8 @@ public class CharController : MonoBehaviour
     public GameManager manager;
     private bool slam = false;
     float rotationY;
+    private SphereCollider aoeSlam;
+    private float slamTimer = 0.0f;
     public GameObject slamCollider;
     // Use this for initialization
     void Start()
@@ -39,6 +41,7 @@ public class CharController : MonoBehaviour
         position = transform.position;
         controller = GetComponent<CharacterController>();
         rotationY = transform.rotation.y;
+        aoeSlam = GetComponent<SphereCollider>();
     }
 
     public bool isSlaming()
@@ -51,11 +54,19 @@ public class CharController : MonoBehaviour
     void Update()
     {
         t += Time.deltaTime;
-        slamCollider.SetActive(slam);
+        //slamCollider.SetActive(slam);
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
         rotationY = rotationSpeed * Input.GetAxis("Mouse X");
         charinput = new Vector2(horizontal, vertical);
+        if(slamTimer > 0.0f)
+        {
+            slamTimer -= Time.deltaTime;
+            if(slamTimer <= 0.0f)
+            {
+                aoeSlam.enabled = false;
+            }
+        }
         if (charinput.sqrMagnitude > 1)
         {
             charinput.Normalize();
@@ -138,6 +149,11 @@ public class CharController : MonoBehaviour
 
         if (controller.isGrounded)
         {
+            if (slam)
+            {
+                aoeSlam.enabled = true;
+                slamTimer = 0.1f;
+            }
             moveDir.y = 0;
             slam = false;
            
