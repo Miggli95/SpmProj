@@ -29,9 +29,9 @@ public class player2d_controller : MonoBehaviour
     private CountdownTimer countdownTimer;
     
     // Use this for initialization
-    void Start()
+    IEnumerator Start()
     {
-
+        yield return new WaitForSeconds(9f);
         spawn1 = new Vector3(-3, 2, 0);           // första spawnen, spawn1 = transform.position för att komma åt där karaktären är.
         spawn2 = new Vector3(5, -11, 0);
 
