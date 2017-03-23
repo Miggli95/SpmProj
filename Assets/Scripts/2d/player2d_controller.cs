@@ -23,7 +23,7 @@ public class player2d_controller : MonoBehaviour
     public AudioClip jump_sound;
     public AudioClip hurt_sound;
     public AudioClip flip_sound;
-
+    private Vector3 currentSpawn;
     public bool buttonIsPressed = false; // for button
     private bool facingRight;
     private CountdownTimer countdownTimer;
@@ -157,8 +157,8 @@ public class player2d_controller : MonoBehaviour
                     col.gameObject.GetComponent<EnemyAI2D>().deathAni();
                     _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
                 }
-               // else
-                   // Debug.Log(col.gameObject.GetComponent<EnemyAI2D>().getDamage());
+               else
+                   col.gameObject.GetComponent<EnemyAI2D>().getDamage();
                 break;
 
             case "locker" :
@@ -193,7 +193,7 @@ public class player2d_controller : MonoBehaviour
             case "spike2":
 
                 source.PlayOneShot(hurt_sound);
-                Die(spawn2);
+                Die(spawn2); //det är är otroligt lat
                 countdownTimer.timer -= 2f;
 
                 break;
@@ -250,7 +250,7 @@ public class player2d_controller : MonoBehaviour
         
     }
 
-    void Die(Vector3 spawn)
+    public void Die(Vector3 spawn)
     {
         Instantiate(blood, transform.position, Quaternion.identity); // spelar upp blood på den "spike" du träffar
         transform.position = spawn;   // spawn
