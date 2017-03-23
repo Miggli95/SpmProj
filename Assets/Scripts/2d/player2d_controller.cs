@@ -147,7 +147,6 @@ public class player2d_controller : MonoBehaviour
                 if (col.gameObject.transform.position.y - transform.position.y <= -0.2f)
                 {
 
-                    print("I hit enemy");
                     col.gameObject.GetComponent<EnemyAI2D>().deathAni();
                     _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
                 }
@@ -210,7 +209,7 @@ public class player2d_controller : MonoBehaviour
 
             case "levelExit":
                 int levelToLoad = SceneManager.GetActiveScene().buildIndex + 1;
-                if(levelToLoad<=SceneManager.sceneCount)
+                //if(levelToLoad<=SceneManager.sceneCount)
                     
                 SceneManager.LoadScene(levelToLoad);
                 //countdownTimer.timer = 90f;
