@@ -10,9 +10,9 @@ public class CountdownTimer : MonoBehaviour {
     public Text timerSecond;
     private Image fillImg;
 
-	// Use this for initialization
-	void Start () {
-        
+    // Use this for initialization
+     IEnumerator Start() {
+        yield return new WaitForSeconds(9f);
         fillImg = this.GetComponent<Image>();
         time = timer;
 	}
@@ -20,7 +20,7 @@ public class CountdownTimer : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         timer -= Time.deltaTime;
-        fillImg.fillAmount = time / timer;
+        fillImg.fillAmount = timer / time;
         timerSecond.text = "Time : "+ timer.ToString("f2");
 
         if (timer <= 0)
