@@ -20,7 +20,7 @@ public class ObjectRotater3D : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		if (rotationSpeed == 0)
 			return;
 		else

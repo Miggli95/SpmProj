@@ -53,6 +53,7 @@
      <Compile Include="Assets\Scripts\2d\DoorSlide.cs" />
      <Compile Include="Assets\Scripts\2d\EnemyAI2D.cs" />
      <Compile Include="Assets\Scripts\2d\ExitDoor.cs" />
+     <Compile Include="Assets\Scripts\2d\PickAKey.cs" />
      <Compile Include="Assets\Scripts\2d\Portal.cs" />
      <Compile Include="Assets\Scripts\2d\StaticFootstep.cs" />
      <Compile Include="Assets\Scripts\2d\player2d_controller.cs" />
@@ -71,11 +72,13 @@
      <Compile Include="Assets\Scripts\3d\3d enemies\Enemy 2\Enemy2Patrol.cs" />
      <Compile Include="Assets\Scripts\3d\3d enemies\Enemy 2\Enemy2StateData.cs" />
      <Compile Include="Assets\Scripts\3d\3d enemies\Enemy 2\EnemyState2.cs" />
+     <Compile Include="Assets\Scripts\3d\BreakableGlass.cs" />
      <Compile Include="Assets\Scripts\3d\CharacterController\CameraScript.cs" />
      <Compile Include="Assets\Scripts\3d\CharacterController\CharController.cs" />
      <Compile Include="Assets\Scripts\3d\CharacterController\GameManager.cs" />
      <Compile Include="Assets\Scripts\3d\CharacterController\UnlockAbility.cs" />
      <Compile Include="Assets\Scripts\3d\ObjectRotater3D.cs" />
+     <Compile Include="Assets\Scripts\3d\Respawn.cs" />
      <Compile Include="Assets\Scripts\testScript.cs" />
      <None Include="Assets\enemySetup.txt" />
      <None Include="Assets\Haruko\ReadMe.txt" />
