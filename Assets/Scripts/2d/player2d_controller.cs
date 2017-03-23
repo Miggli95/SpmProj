@@ -27,7 +27,7 @@ public class player2d_controller : MonoBehaviour
     public bool buttonIsPressed = false; // for button
     private bool facingRight;
     private CountdownTimer countdownTimer;
-    
+    public ParticleSystem pe ;
     // Use this for initialization
     IEnumerator Start()
     {
@@ -41,6 +41,8 @@ public class player2d_controller : MonoBehaviour
         //   blood.GetComponent<ParticleSystem>().enableEmission = false;
         source = GetComponent<AudioSource>();
         facingRight= true;
+
+        pe = gameObject.GetComponent<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -76,10 +78,11 @@ public class player2d_controller : MonoBehaviour
         else if (move < 0 && facingRight)
         {
             Flip();
-
         }
 
+        if (move == 0) {
 
+        }
 
         RaycastHit hit;
         Vector3 physicsCentre = this.transform.position + this.GetComponent<CapsuleCollider>().center;
