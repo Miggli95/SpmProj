@@ -46,7 +46,7 @@ public class player2d_controller : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
        
         
@@ -63,7 +63,7 @@ public class player2d_controller : MonoBehaviour
 
         }*/
     }
-    void FixedUpdate()
+    void Update()
     {
        
         //moving the player
