@@ -39,46 +39,63 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEngine">
-      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+      <HintPath>D:/Software/Unity/5.5.1f/Editor/Data/Managed/UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+      <HintPath>D:/Software/Unity/5.5.1f/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\2d\ButtonTrigger.cs" />
+     <Compile Include="Assets\Scripts\2d\CollisionTrigger.cs" />
+     <Compile Include="Assets\Scripts\2d\CountdownTimer.cs" />
+     <Compile Include="Assets\Scripts\2d\Destroy.cs" />
+     <Compile Include="Assets\Scripts\2d\DoorSlide.cs" />
      <Compile Include="Assets\Scripts\2d\EnemyAI2D.cs" />
+     <Compile Include="Assets\Scripts\2d\ExitDoor.cs" />
      <Compile Include="Assets\Scripts\2d\Portal.cs" />
+     <Compile Include="Assets\Scripts\2d\StaticFootstep.cs" />
      <Compile Include="Assets\Scripts\2d\player2d_controller.cs" />
+     <Compile Include="Assets\Scripts\2d\playerCam.cs" />
      <Compile Include="Assets\Scripts\2d\test.cs" />
-     <Compile Include="Assets\Scripts\3d\3d enemies\Deal.cs" />
-     <Compile Include="Assets\Scripts\3d\3d enemies\Enemy2AI3D.cs" />
-     <Compile Include="Assets\Scripts\3d\3d enemies\Enemy2Deal.cs" />
-     <Compile Include="Assets\Scripts\3d\3d enemies\EnemyAI3D.cs" />
-     <Compile Include="Assets\Scripts\3d\3d enemies\EnemyState.cs" />
-     <Compile Include="Assets\Scripts\3d\3d enemies\EnemyStateData.cs" />
-     <Compile Include="Assets\Scripts\3d\3d enemies\Idle.cs" />
-     <Compile Include="Assets\Scripts\3d\3d enemies\Patrol.cs" />
+     <Compile Include="Assets\Scripts\3d\3d enemies\Enemy 1\Deal.cs" />
+     <Compile Include="Assets\Scripts\3d\3d enemies\Enemy 1\Death.cs" />
+     <Compile Include="Assets\Scripts\3d\3d enemies\Enemy 1\EnemyAI3D.cs" />
+     <Compile Include="Assets\Scripts\3d\3d enemies\Enemy 1\EnemyState.cs" />
+     <Compile Include="Assets\Scripts\3d\3d enemies\Enemy 1\EnemyStateData.cs" />
+     <Compile Include="Assets\Scripts\3d\3d enemies\Enemy 1\Idle.cs" />
+     <Compile Include="Assets\Scripts\3d\3d enemies\Enemy 1\Patrol.cs" />
+     <Compile Include="Assets\Scripts\3d\3d enemies\Enemy 2\Enemy2AI3D.cs" />
+     <Compile Include="Assets\Scripts\3d\3d enemies\Enemy 2\Enemy2Deal.cs" />
+     <Compile Include="Assets\Scripts\3d\3d enemies\Enemy 2\Enemy2Idle.cs" />
+     <Compile Include="Assets\Scripts\3d\3d enemies\Enemy 2\Enemy2Patrol.cs" />
+     <Compile Include="Assets\Scripts\3d\3d enemies\Enemy 2\Enemy2StateData.cs" />
+     <Compile Include="Assets\Scripts\3d\3d enemies\Enemy 2\EnemyState2.cs" />
      <Compile Include="Assets\Scripts\3d\CharacterController\CameraScript.cs" />
      <Compile Include="Assets\Scripts\3d\CharacterController\CharController.cs" />
+     <Compile Include="Assets\Scripts\3d\CharacterController\GameManager.cs" />
+     <Compile Include="Assets\Scripts\3d\CharacterController\UnlockAbility.cs" />
+     <Compile Include="Assets\Scripts\3d\ObjectRotater3D.cs" />
      <Compile Include="Assets\Scripts\testScript.cs" />
+     <None Include="Assets\enemySetup.txt" />
      <None Include="Assets\Haruko\ReadMe.txt" />
  <Reference Include="UnityEngine.UI">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ <HintPath>D:/Software/Unity/5.5.1f/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ <HintPath>D:/Software/Unity/5.5.1f/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.PlaymodeTestsRunner">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/PlaymodeTestsRunner/UnityEngine.PlaymodeTestsRunner.dll</HintPath>
+ <HintPath>D:/Software/Unity/5.5.1f/Editor/Data/UnityExtensions/Unity/PlaymodeTestsRunner/UnityEngine.PlaymodeTestsRunner.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Analytics">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
+ <HintPath>D:/Software/Unity/5.5.1f/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.HoloLens">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
+ <HintPath>D:/Software/Unity/5.5.1f/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.VR">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
+ <HintPath>D:/Software/Unity/5.5.1f/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
