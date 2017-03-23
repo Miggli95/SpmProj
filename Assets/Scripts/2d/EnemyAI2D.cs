@@ -33,6 +33,7 @@ public class EnemyAI2D : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        
         calcState();
         switch (currentState) {
             case "idle":
@@ -52,9 +53,11 @@ public class EnemyAI2D : MonoBehaviour {
 
     private void calcState()
     {
+
         if (Mathf.Abs(Player.transform.position.x - transform.position.x) <= PatrolRangeX && Mathf.Abs(Player.transform.position.y - transform.position.y) <= PatrolRangeY)
             if (Mathf.Abs(Player.transform.position.x - transform.position.x) <= AggroRangeX && Mathf.Abs(Player.transform.position.y - transform.position.y) <= AggroRangeY)
             {
+                Debug.Log(Player.transform.position.x);
                 setSpeed(2);
                 currentState = "deal";
             }
@@ -95,6 +98,7 @@ public class EnemyAI2D : MonoBehaviour {
     }
     private void deal()
     {
+        Debug.Log("trying to chase!");
         if (Player.transform.position.x > transform.position.x)
             enemy.velocity = new Vector3(MoveSpeed, enemy.velocity.y, enemy.velocity.z);
         else

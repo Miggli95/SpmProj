@@ -78,7 +78,7 @@ public class player2d_controller : MonoBehaviour
         else {
             onGround = false;
         }
-        Debug.Log(onGround);
+        //Debug.Log(onGround);
 
         if (Input.GetKeyDown(KeyCode.Space) && onGround)
         {
