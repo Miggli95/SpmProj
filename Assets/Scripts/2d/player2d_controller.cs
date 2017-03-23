@@ -65,6 +65,7 @@ public class player2d_controller : MonoBehaviour
     }
     void FixedUpdate()
     {
+       
         //moving the player
 
         float move = Input.GetAxis("Horizontal");
@@ -74,13 +75,16 @@ public class player2d_controller : MonoBehaviour
         if (move > 0 && !facingRight)
         {
             Flip();
+            pe.Play();
         }
         else if (move < 0 && facingRight)
         {
             Flip();
+            pe.Play();
         }
 
         if (move == 0) {
+            pe.Stop();
 
         }
 
