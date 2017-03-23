@@ -32,6 +32,7 @@ public class CharController : MonoBehaviour
     public GameManager manager;
     private bool slam = false;
     float rotationY;
+    public GameObject slamCollider;
     // Use this for initialization
     void Start()
     {
@@ -50,7 +51,7 @@ public class CharController : MonoBehaviour
     void Update()
     {
         t += Time.deltaTime;
-
+        slamCollider.SetActive(slam);
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
         rotationY = rotationSpeed * Input.GetAxis("Mouse X");
@@ -139,6 +140,7 @@ public class CharController : MonoBehaviour
         {
             moveDir.y = 0;
             slam = false;
+           
         }
 
         else
