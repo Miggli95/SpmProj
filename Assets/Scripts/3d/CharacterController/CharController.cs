@@ -36,6 +36,8 @@ public class CharController : MonoBehaviour
     private float slamTimer = 0.0f;
     public GameObject slamCollider;
 
+    public GameObject SlamEffect;
+
 
     private Vector3 spawn1, spawn2;
 
@@ -186,6 +188,7 @@ public class CharController : MonoBehaviour
                 {
                     moveDir.y = -jumpSpeed;
                     slam = true;
+                    Instantiate(SlamEffect, transform.position, Quaternion.identity);
                 }
             }
         }
