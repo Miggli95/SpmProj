@@ -47,50 +47,7 @@ public class player2d_controller : MonoBehaviour
     void Update()
     {
        
-        //moving the player
         
-          float move = Input.GetAxis("Horizontal");
-            _rigi.AddForce((Vector2.right * speed) * move);
-            anim.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal")));
-            anim.SetBool("Attack", false);
-            if (move > 0 && !facingRight)
-         {
-            Flip();
-          }
-        else if (move < 0 && facingRight)
-         {
-            Flip();
-
-         }
-        
-
-       
-        RaycastHit hit;
-        Vector3 physicsCentre = this.transform.position + this.GetComponent<CapsuleCollider>().center;
-        Debug.DrawRay(physicsCentre, Vector3.down * 0.415f, Color.red, 1);
-        if (Physics.Raycast(physicsCentre, Vector3.down, out hit, 0.415f))
-        {
-            if (hit.transform.gameObject.tag != "player")
-            {
-                onGround = true;
-            }
-        }
-        else {
-            onGround = false;
-        }
-        //Debug.Log(onGround);
-
-        if (Input.GetKeyDown(KeyCode.Space) && onGround)
-        {
-            _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
-            canDoubleJump = true;
-
-        }
-        else if (Input.GetKeyDown(KeyCode.Space) && !onGround && canDoubleJump) {
-            _rigi.Sleep();
-            _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
-            canDoubleJump = false;
-        }
 
 
        
@@ -106,8 +63,53 @@ public class player2d_controller : MonoBehaviour
     }
     void FixedUpdate()
     {
-              
-        
+        //moving the player
+
+        float move = Input.GetAxis("Horizontal");
+        _rigi.AddForce((Vector2.right * speed) * move);
+        anim.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal")));
+        anim.SetBool("Attack", false);
+        if (move > 0 && !facingRight)
+        {
+            Flip();
+        }
+        else if (move < 0 && facingRight)
+        {
+            Flip();
+
+        }
+
+
+
+        RaycastHit hit;
+        Vector3 physicsCentre = this.transform.position + this.GetComponent<CapsuleCollider>().center;
+        Debug.DrawRay(physicsCentre, Vector3.down * 0.415f, Color.red, 1);
+        if (Physics.Raycast(physicsCentre, Vector3.down, out hit, 0.415f))
+        {
+            if (hit.transform.gameObject.tag != "player")
+            {
+                onGround = true;
+            }
+        }
+        else
+        {
+            onGround = false;
+        }
+        //Debug.Log(onGround);
+
+        if (Input.GetKeyDown(KeyCode.Space) && onGround)
+        {
+            _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
+            canDoubleJump = true;
+
+        }
+        else if (Input.GetKeyDown(KeyCode.Space) && !onGround && canDoubleJump)
+        {
+            _rigi.Sleep();
+            _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
+            canDoubleJump = false;
+        }
+
         if (gotKey)
         {
 
@@ -145,12 +147,11 @@ public class player2d_controller : MonoBehaviour
                 if (col.gameObject.transform.position.y - transform.position.y <= -0.2f)
                 {
 
-                    print("I hit enemy");
                     col.gameObject.GetComponent<EnemyAI2D>().deathAni();
                     _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
                 }
-                else
-                    Debug.Log(col.gameObject.GetComponent<EnemyAI2D>().getDamage());
+               // else
+                   // Debug.Log(col.gameObject.GetComponent<EnemyAI2D>().getDamage());
                 break;
 
             case "locker" :
@@ -208,7 +209,7 @@ public class player2d_controller : MonoBehaviour
 
             case "levelExit":
                 int levelToLoad = SceneManager.GetActiveScene().buildIndex + 1;
-                if(levelToLoad<=SceneManager.sceneCount)
+                //if(levelToLoad<=SceneManager.sceneCount)
                     
                 SceneManager.LoadScene(levelToLoad);
                 //countdownTimer.timer = 90f;

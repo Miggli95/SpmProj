@@ -82,6 +82,7 @@
     <Compile Include="Assets\Scripts\2d\DoorSlide.cs" />
     <Compile Include="Assets\Scripts\2d\EnemyAI2D.cs" />
     <Compile Include="Assets\Scripts\2d\ExitDoor.cs" />
+    <Compile Include="Assets\Scripts\2d\PickAKey.cs" />
     <Compile Include="Assets\Scripts\2d\Portal.cs" />
     <Compile Include="Assets\Scripts\2d\StaticFootstep.cs" />
     <Compile Include="Assets\Scripts\2d\player2d_controller.cs" />
