@@ -35,18 +35,32 @@ public class CharController : MonoBehaviour
     private SphereCollider aoeSlam;
     private float slamTimer = 0.0f;
     public GameObject slamCollider;
+
+
+    private Vector3 spawn1, spawn2;
+
+    
+
+
+
     // Use this for initialization
     void Start()
     {
+        spawn1 = new Vector3(3, 10, 2);
+
         position = transform.position;
         controller = GetComponent<CharacterController>();
         rotationY = transform.rotation.y;
         aoeSlam = GetComponent<SphereCollider>();
+
+        Death(spawn1);
     }
 
-    public void Death()
-    {
 
+
+    public void Death(Vector3 Spawn)
+    {
+        transform.position = Spawn;
     }
 
     public bool isSlaming()

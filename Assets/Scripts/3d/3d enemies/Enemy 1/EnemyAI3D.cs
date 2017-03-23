@@ -84,6 +84,10 @@ public class EnemyAI3D : MonoBehaviour
 
     public int getDamage()
     {
+        Vector3 spawn = new Vector3(6, 14, 2);
+         
+        Player.GetComponent<CharController>().Death(spawn);
+        
         return damage;
     }
 
