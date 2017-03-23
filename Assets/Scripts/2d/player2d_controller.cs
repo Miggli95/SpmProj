@@ -150,8 +150,8 @@ public class player2d_controller : MonoBehaviour
                     col.gameObject.GetComponent<EnemyAI2D>().deathAni();
                     _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
                 }
-                else
-                    Debug.Log(col.gameObject.GetComponent<EnemyAI2D>().getDamage());
+               // else
+                   // Debug.Log(col.gameObject.GetComponent<EnemyAI2D>().getDamage());
                 break;
 
             case "locker" :
