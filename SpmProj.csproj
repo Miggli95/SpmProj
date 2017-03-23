@@ -106,6 +106,7 @@
     <Compile Include="Assets\Scripts\3d\CharacterController\GameManager.cs" />
     <Compile Include="Assets\Scripts\3d\CharacterController\UnlockAbility.cs" />
     <Compile Include="Assets\Scripts\3d\ObjectRotater3D.cs" />
+    <Compile Include="Assets\Scripts\3d\Respawn.cs" />
     <Compile Include="Assets\Scripts\testScript.cs" />
   </ItemGroup>
   <ItemGroup>
