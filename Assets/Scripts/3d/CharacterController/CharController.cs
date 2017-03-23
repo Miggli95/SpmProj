@@ -44,6 +44,11 @@ public class CharController : MonoBehaviour
         aoeSlam = GetComponent<SphereCollider>();
     }
 
+    public void Death()
+    {
+
+    }
+
     public bool isSlaming()
     {
         return slam;
@@ -212,6 +217,8 @@ public class CharController : MonoBehaviour
                     Debug.Log("hit for: " + col.gameObject.GetComponent<EnemyAI3D>().getDamage() + " damage");
                 break;
         }
+
+        
 
     }
 }

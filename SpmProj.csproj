@@ -100,6 +100,7 @@
     <Compile Include="Assets\Scripts\3d\3d enemies\Enemy 2\Enemy2Patrol.cs" />
     <Compile Include="Assets\Scripts\3d\3d enemies\Enemy 2\Enemy2StateData.cs" />
     <Compile Include="Assets\Scripts\3d\3d enemies\Enemy 2\EnemyState2.cs" />
+    <Compile Include="Assets\Scripts\3d\BreakableGlass.cs" />
     <Compile Include="Assets\Scripts\3d\CharacterController\CameraScript.cs" />
     <Compile Include="Assets\Scripts\3d\CharacterController\CharController.cs" />
     <Compile Include="Assets\Scripts\3d\CharacterController\GameManager.cs" />
