@@ -108,13 +108,14 @@ public class player2d_controller : MonoBehaviour
         {
             _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
             canDoubleJump = true;
-
+            source.PlayOneShot(jump_sound);
         }
         else if (Input.GetKeyDown(KeyCode.Space) && !onGround && canDoubleJump)
         {
             _rigi.Sleep();
             _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
             canDoubleJump = false;
+            source.PlayOneShot(jump_sound);
         }
 
         if (gotKey)
