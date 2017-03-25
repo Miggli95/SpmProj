@@ -8,7 +8,7 @@ public class player2d_controller : MonoBehaviour
     public float jumpPower = 150f;
 
     
-    public bool onGround;
+   
     public bool canDoubleJump;
     public bool gotKey =  false;
     private Rigidbody _rigi;
@@ -29,9 +29,9 @@ public class player2d_controller : MonoBehaviour
     private CountdownTimer countdownTimer;
     public ParticleSystem pe ;
     // Use this for initialization
-    IEnumerator Start()
+    void Start()
     {
-        yield return new WaitForSeconds(9f);
+        
         spawn1 = new Vector3(-3, 2, 0);           // första spawnen, spawn1 = transform.position för att komma åt där karaktären är.
         spawn2 = new Vector3(5, -11, 0);
 
@@ -65,10 +65,11 @@ public class player2d_controller : MonoBehaviour
     }
     void Update()
     {
-       
-        //moving the player
+     
 
-        float move = Input.GetAxis("Horizontal");
+    //moving the player
+
+    float move = Input.GetAxis("Horizontal");
         _rigi.AddForce((Vector2.right * speed) * move);
         anim.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal")));
         anim.SetBool("Attack", false);
@@ -88,7 +89,8 @@ public class player2d_controller : MonoBehaviour
 
         }
 
-        RaycastHit hit;
+        IsGrounded();
+       /* RaycastHit hit;
         Vector3 physicsCentre = this.transform.position + this.GetComponent<CapsuleCollider>().center;
         Debug.DrawRay(physicsCentre, Vector3.down * 0.415f, Color.red, 1);
         if (Physics.Raycast(physicsCentre, Vector3.down, out hit, 0.415f))
@@ -103,14 +105,14 @@ public class player2d_controller : MonoBehaviour
             onGround = false;
         }
         //Debug.Log(onGround);
-
-        if (Input.GetKeyDown(KeyCode.Space) && onGround)
+*/
+        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
         {
             _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
             canDoubleJump = true;
             source.PlayOneShot(jump_sound);
         }
-        else if (Input.GetKeyDown(KeyCode.Space) && !onGround && canDoubleJump)
+        else if (Input.GetKeyDown(KeyCode.Space) && !IsGrounded() && canDoubleJump)
         {
             _rigi.Sleep();
             _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
@@ -124,9 +126,33 @@ public class player2d_controller : MonoBehaviour
             Destroy(GameObject.FindWithTag("locker"));
         }
 
-
+        
 
     }
+    private bool IsGrounded()
+    {
+        Vector3 physicCentre = this.GetComponent<CapsuleCollider>().bounds.center;
+        Vector3 leftRayStart;
+        Vector3 rightRayStart;
+        RaycastHit hit;
+        leftRayStart = this.GetComponent<CapsuleCollider>().bounds.center;
+        rightRayStart= this.GetComponent<CapsuleCollider>().bounds.center;
+        leftRayStart.x -= this.GetComponent<CapsuleCollider>().bounds.extents.x;
+        rightRayStart.x += this.GetComponent<CapsuleCollider>().bounds.extents.x;
+
+        Debug.DrawRay(leftRayStart, Vector3.down * 0.415f, Color.red);
+        Debug.DrawRay(rightRayStart, Vector3.down * 0.415f, Color.green);
+        if (Physics.Raycast(leftRayStart, Vector3.down, out hit, 0.415f))
+        {
+            return true;
+        }
+        if (Physics.Raycast(rightRayStart, Vector3.down, out hit, 0.415f))
+        {
+            return true;
+        }
+        return false;
+    }
+
     void Flip() {
 
         source.PlayOneShot(flip_sound);
@@ -172,7 +198,7 @@ public class player2d_controller : MonoBehaviour
     void OnCollisionExit(Collision col)
     {
         if (col.gameObject.tag == "ground"|| col.gameObject.tag == "movableBox")
-            onGround = false;
+            
         anim.SetBool("Grounded", false);
         
     }
@@ -265,7 +291,6 @@ public class player2d_controller : MonoBehaviour
         blood.GetComponent<ParticleSystem>().enableEmission = false;
 
     }
-
-
+   
 
 }
