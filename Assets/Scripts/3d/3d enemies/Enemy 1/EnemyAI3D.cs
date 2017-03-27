@@ -152,6 +152,22 @@ public class EnemyAI3D : MonoBehaviour
     {
         Destroy(gameObject);
     }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.collider == Player.GetComponent<CapsuleCollider>())
+        {
+            print(transform.position.y - Player.transform.position.y);
+            if (transform.position.y-Player.transform.position.y <= -1.2f)
+            {
 
+                //Player.GetComponent<CharController>().forceJump();
+                //kill();
+            }
+            else
+            {
+                getDamage();
+            }
+        }
+    }
 
 }

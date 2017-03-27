@@ -42,7 +42,7 @@ public class CharController : MonoBehaviour
 
 
     public Vector3 spawn1, spawn2;
-
+    
     
 
 
@@ -195,6 +195,17 @@ public class CharController : MonoBehaviour
                 }
             }
         }
+        RaycastHit rayhit;
+        if(Physics.Raycast(transform.position, Vector3.down, out rayhit))
+        {
+
+            if(rayhit.collider.tag == "enemy" && rayhit.distance < 1.1f)
+            {
+                print(rayhit.distance);
+                rayhit.collider.GetComponent<EnemyAI3D>().deathAni();
+                forceJump();
+            }
+        }
 
     }
 
@@ -216,29 +227,10 @@ public class CharController : MonoBehaviour
        body.AddForceAtPosition(controller.velocity* 0.1f, hit.point, ForceMode.Impulse);
     }
 
-
-    public void OnCollisionEnter(Collision col)
+    public void forceJump()
     {
-        Rigidbody body = col.collider.attachedRigidbody;
-        switch (col.gameObject.tag)
-        {
-            
-            case "enemy":
-                Debug.Log(col.gameObject.transform.position.y - transform.position.y);
-                if (col.gameObject.transform.position.y - transform.position.y <= -0.9f)
-                {
-                    col.gameObject.GetComponent<EnemyAI3D>().deathAni();
-                    print("collision enemy");
-                    moveDir.y += 4;
-                    controller.Move(moveDir);
-                    
-                }
-                else
-                    Debug.Log("hit for: " + col.gameObject.GetComponent<EnemyAI3D>().getDamage() + " damage");
-                break;
-        }
-
-        
-
+        moveDir.y = jumpSpeed;
     }
+
+   
 }
