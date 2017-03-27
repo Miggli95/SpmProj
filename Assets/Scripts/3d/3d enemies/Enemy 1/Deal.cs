@@ -21,6 +21,35 @@ public class Deal : EnemyState
     }
     public EnemyStateData Update(Vector3 pos, float deltaTime, NavMeshAgent agent)
     {
+        RaycastHit rayhit;
+        if (Physics.Raycast(ai.transform.position, Vector3.forward, out rayhit))
+        {
+            if (rayhit.collider.tag == "Player" && rayhit.distance < 0.5f)
+            {
+                ai.getDamage();
+            }
+        }
+        if (Physics.Raycast(ai.transform.position, Vector3.left, out rayhit))
+        {
+            if (rayhit.collider.tag == "Player" && rayhit.distance < 0.5f)
+            {
+                ai.getDamage();
+            }
+        }
+        if (Physics.Raycast(ai.transform.position, Vector3.right, out rayhit))
+        {
+            if (rayhit.collider.tag == "Player" && rayhit.distance < 0.5f)
+            {
+                ai.getDamage();
+            }
+        }
+        if (Physics.Raycast(ai.transform.position, Vector3.back, out rayhit))
+        {
+            if (rayhit.collider.tag == "Player" && rayhit.distance < 0.5f)
+            {
+                ai.getDamage();
+            }
+        }
         agent.destination = pos;
         var enemyStateData = GetEnemyStateData(pos, agent);
         return enemyStateData;
