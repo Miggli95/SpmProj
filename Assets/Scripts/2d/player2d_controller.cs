@@ -209,7 +209,7 @@ public class player2d_controller : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-     
+        print(col.gameObject);
         switch (col.gameObject.tag)
         {
 
