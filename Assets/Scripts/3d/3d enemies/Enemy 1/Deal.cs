@@ -24,28 +24,28 @@ public class Deal : EnemyState
         RaycastHit rayhit;
         if (Physics.Raycast(ai.transform.position, Vector3.forward, out rayhit))
         {
-            if (rayhit.collider.tag == "Player" && rayhit.distance < 0.5f)
+            if (rayhit.collider.tag == "Player" && rayhit.distance < 0.3f)
             {
                 ai.getDamage();
             }
         }
         if (Physics.Raycast(ai.transform.position, Vector3.left, out rayhit))
         {
-            if (rayhit.collider.tag == "Player" && rayhit.distance < 0.5f)
+            if (rayhit.collider.tag == "Player" && rayhit.distance < 0.3f)
             {
                 ai.getDamage();
             }
         }
         if (Physics.Raycast(ai.transform.position, Vector3.right, out rayhit))
         {
-            if (rayhit.collider.tag == "Player" && rayhit.distance < 0.5f)
+            if (rayhit.collider.tag == "Player" && rayhit.distance < 0.3f)
             {
                 ai.getDamage();
             }
         }
         if (Physics.Raycast(ai.transform.position, Vector3.back, out rayhit))
         {
-            if (rayhit.collider.tag == "Player" && rayhit.distance < 0.5f)
+            if (rayhit.collider.tag == "Player" && rayhit.distance < 0.3f)
             {
                 ai.getDamage();
             }

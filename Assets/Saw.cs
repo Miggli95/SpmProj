@@ -9,7 +9,7 @@ public class Saw : MonoBehaviour {
 
     private void OnTriggerEnter(Collider col)
     {
-        if(col.gameObject.CompareTag("Player"))
+        if(col.gameObject.CompareTag("Player")&& col == col.GetComponent<CapsuleCollider>())
         {
             col.gameObject.GetComponent<CharController>().Death(col.gameObject.GetComponent<CharController>().spawn1);
             
