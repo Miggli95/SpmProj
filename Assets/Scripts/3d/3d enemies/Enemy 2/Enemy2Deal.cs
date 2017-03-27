@@ -23,6 +23,35 @@ public class Enemy2Deal : EnemyState2 {
     }
     public Enemy2StateData Update(Vector3 pos, float deltaTime, NavMeshAgent agent)
     {
+        RaycastHit rayhit;
+        if (Physics.Raycast(ai.transform.position, Vector3.forward, out rayhit))
+        {
+            if (rayhit.collider.tag == "Player" && rayhit.distance < 0.5f)
+            {
+                ai.getDamage();
+            }
+        }
+        if (Physics.Raycast(ai.transform.position, Vector3.left, out rayhit))
+        {
+            if (rayhit.collider.tag == "Player" && rayhit.distance < 0.5f)
+            {
+                ai.getDamage();
+            }
+        }
+        if (Physics.Raycast(ai.transform.position, Vector3.right, out rayhit))
+        {
+            if (rayhit.collider.tag == "Player" && rayhit.distance < 0.5f)
+            {
+                ai.getDamage();
+            }
+        }
+        if (Physics.Raycast(ai.transform.position, Vector3.back, out rayhit))
+        {
+            if (rayhit.collider.tag == "Player" && rayhit.distance < 0.5f)
+            {
+                ai.getDamage();
+            }
+        }
         if (notdashing)
         {
             agent.destination = pos;
@@ -42,7 +71,7 @@ public class Enemy2Deal : EnemyState2 {
             var lookPos = pos - ai.transform.position;
             lookPos.y = 0;
             var rotation = Quaternion.LookRotation(lookPos);
-            ai.transform.rotation = Quaternion.Slerp(ai.transform.rotation, rotation, Time.deltaTime);
+            ai.transform.rotation = Quaternion.Slerp(ai.transform.rotation, rotation, 1);
             dashtimer -= deltaTime;
             sources = ai.GetComponents<AudioSource>();
             dashChargeSound = ai.dashCharge;
@@ -77,6 +106,11 @@ public class Enemy2Deal : EnemyState2 {
     {
         var enemyStateData = new Enemy2StateData();
         enemyStateData.Pos = pos;
+        if (ai.isIncapacitated)
+        {
+            enemyStateData.NewState = new Enemy2Incapacitated(ai);
+            return enemyStateData;
+        }
         if (agent.remainingDistance > Mathf.Sqrt(ai.AggroRangeX * ai.AggroRangeX + ai.AggroRangeZ * ai.AggroRangeZ))
         {
             ai.EndChase();
@@ -89,6 +123,7 @@ public class Enemy2Deal : EnemyState2 {
             resettimer = 0.0f;
             notdashing = false;
         }
+
         return enemyStateData;
     }
     private void Dash(NavMeshAgent agent)

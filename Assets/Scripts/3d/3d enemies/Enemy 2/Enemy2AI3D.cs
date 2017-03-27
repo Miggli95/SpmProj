@@ -7,6 +7,7 @@ public class Enemy2AI3D : MonoBehaviour
 {
     public GameObject Player;
 
+    public bool isIncapacitated = false;
     public float MoveSpeed = 2.5f;
     public float DashSpeed = 5.0f;
     public float DashRange = 3.0f;
@@ -144,33 +145,31 @@ public class Enemy2AI3D : MonoBehaviour
 
 
 
-     public int getDamage()
-     {
-         return damage;
-     }
-     public void setSpeed(int newSpeed)
+    public int getDamage()
+    {
+        Vector3 spawn = new Vector3(6, 14, 2);
+
+        Player.GetComponent<CharController>().Death(spawn);
+
+        return damage;
+    }
+    public void setSpeed(int newSpeed)
      {
          MoveSpeed = newSpeed;
      }
-    /* public void deathAni()
-     {
-         enemy.constraints = RigidbodyConstraints.FreezePositionX;
-
-         BoxCollider boxy = GetComponent<BoxCollider>();
-         boxy.enabled = false;
-
-         timetoDeath = 3;
-         currentState = "dead";
-         enemy.velocity = new Vector3(0, -2, 0);
-         Debug.Log("Killed enemy");
-     }*/
 
     private void OnTriggerEnter(Collider other)
     {
         if(other == Player.GetComponent<SphereCollider>())
         {
+            isIncapacitated = true;
+        }
+    }
+    public void deathAni()
+    {
+        if (isIncapacitated)
+        {
             Destroy(gameObject);
-            //this is where enter to vunerable stage will be
         }
     }
 
