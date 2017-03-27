@@ -86,7 +86,6 @@
     <Compile Include="Assets\Scripts\2d\PickAKey.cs" />
     <Compile Include="Assets\Scripts\2d\Portal.cs" />
     <Compile Include="Assets\Scripts\2d\StaticFootstep.cs" />
-    <Compile Include="Assets\Scripts\2d\TextSign.cs" />
     <Compile Include="Assets\Scripts\2d\player2d_controller.cs" />
     <Compile Include="Assets\Scripts\2d\playerCam.cs" />
     <Compile Include="Assets\Scripts\2d\test.cs" />

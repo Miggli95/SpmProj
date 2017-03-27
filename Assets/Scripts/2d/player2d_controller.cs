@@ -29,7 +29,6 @@ public class player2d_controller : MonoBehaviour
     private CountdownTimer countdownTimer;
     public ParticleSystem pe ;
     // Use this for initialization
-    public GameObject Exitsign;
     void Start()
     {
         
@@ -44,7 +43,6 @@ public class player2d_controller : MonoBehaviour
         facingRight= true;
 
         pe = gameObject.GetComponent<ParticleSystem>();
-        Exitsign.SetActive(false);
     }
 
     // Update is called once per frame
@@ -192,7 +190,6 @@ public class player2d_controller : MonoBehaviour
 
             case "locker" :
                 Debug.Log("Player need a key !!!!!!!");
-                Exitsign.SetActive(true);
                 break;
         }
         
