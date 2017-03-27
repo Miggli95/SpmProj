@@ -32,9 +32,10 @@ public class player2d_controller : MonoBehaviour
     public GameObject Exitsign;
     void Start()
     {
-        
-        spawn1 = new Vector3(-3, 2, 0);           // första spawnen, spawn1 = transform.position för att komma åt där karaktären är.
-        spawn2 = new Vector3(5, -11, 0);
+
+        //  spawn1 = new Vector3(-3, 2, 0);           // första spawnen, spawn1 = transform.position för att komma åt där karaktären är.
+        //  spawn2 = new Vector3(5, -11, 0);
+        spawn1 = transform.position;
 
         _rigi = transform.GetComponent<Rigidbody>();
         anim = gameObject.GetComponent<Animator>();
@@ -220,10 +221,10 @@ public class player2d_controller : MonoBehaviour
     
                 break;
 
-            case "spike2":
+            case "spike2": // spawn1 ----> spawn2 tempo ställt till spawn1
 
                 source.PlayOneShot(hurt_sound);
-                Die(spawn2); //det är är otroligt lat
+                Die(spawn1); //det är är otroligt lat
                 countdownTimer.timer -= 2f;
 
                 break;
