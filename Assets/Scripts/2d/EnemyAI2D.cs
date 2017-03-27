@@ -98,9 +98,19 @@ public class EnemyAI2D : MonoBehaviour {
     private void deal()
     {
         if (Player.transform.position.x > transform.position.x)
+        {
             enemy.velocity = new Vector3(MoveSpeed, enemy.velocity.y, enemy.velocity.z);
+            sources[0].clip = patrolSound;
+            if (!sources[0].isPlaying)
+                sources[0].PlayOneShot(patrolSound);
+        }
         else
+        {
             enemy.velocity = new Vector3(-MoveSpeed, enemy.velocity.y, enemy.velocity.z);
+            sources[0].clip = patrolSound;
+            if (!sources[0].isPlaying)
+                sources[0].PlayOneShot(patrolSound);
+        }
     }
     private void dead()
     {
