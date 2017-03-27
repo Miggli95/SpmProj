@@ -38,8 +38,10 @@ public class CharController : MonoBehaviour
 
     public GameObject SlamEffect;
 
+    
 
-    private Vector3 spawn1, spawn2;
+
+    public Vector3 spawn1, spawn2;
 
     
 
@@ -48,7 +50,7 @@ public class CharController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        spawn1 = new Vector3(3, 10, 2);
+        spawn1 = new Vector3(0, 25, 0);
 
         position = transform.position;
         controller = GetComponent<CharacterController>();
@@ -62,6 +64,7 @@ public class CharController : MonoBehaviour
 
     public void Death(Vector3 Spawn)
     {
+        print("died");
         transform.position = Spawn;
     }
 
