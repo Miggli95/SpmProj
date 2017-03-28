@@ -24,7 +24,9 @@ public class EnemyAI2D : MonoBehaviour {
 
     private AudioSource[] sources;
     public AudioClip patrolSound;
-    public AudioClip dealDamageSound;
+    public AudioClip[] dealDamageSound;
+    private int clipIndex;
+
     void Start () {
         enemy = GetComponent<Rigidbody>();
         currentState = "idle";
@@ -142,9 +144,10 @@ public class EnemyAI2D : MonoBehaviour {
     }
     public void deathAni()
     {
-        sources[1].clip = dealDamageSound;
+        clipIndex = Random.Range(0, dealDamageSound.Length);
         if (!sources[1].isPlaying)
-            sources[1].PlayOneShot(dealDamageSound);
+            sources[1].PlayOneShot(dealDamageSound[clipIndex]);
+
         enemy.constraints = RigidbodyConstraints.FreezePositionX;
         
         BoxCollider boxy = GetComponent<BoxCollider>();

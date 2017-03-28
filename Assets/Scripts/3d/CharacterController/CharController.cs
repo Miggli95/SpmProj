@@ -206,8 +206,13 @@ public class CharController : MonoBehaviour
             }
             if (rayhit.collider.tag == "enemy2" && rayhit.distance < 1.7f)
             {
-                print(rayhit.distance);
                 rayhit.collider.GetComponent<Enemy2AI3D>().deathAni();
+                forceJump();
+            }
+            if (rayhit.collider.tag == "enemy3" && rayhit.distance < 1.3f)
+            {
+                print("hit enemy3 " + rayhit.distance);
+                rayhit.collider.GetComponent<Enemy3AI3D>().deathAni();
                 forceJump();
             }
         }

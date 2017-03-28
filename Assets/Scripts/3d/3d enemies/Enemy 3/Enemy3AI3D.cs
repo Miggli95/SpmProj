@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.AI;
 using UnityEngine;
 
-public class EnemyAI3D : MonoBehaviour
+public class Enemy3AI3D : MonoBehaviour
 {
     public GameObject Player;
 
@@ -20,17 +20,16 @@ public class EnemyAI3D : MonoBehaviour
     protected NavMeshAgent agent;
     public Transform[] points;
     public int destPoint = 0;
-
+    private int health = 2;
 
     private bool isDead = false;
-    private EnemyState enemyState;
+    private EnemyState3 enemyState;
     private Rigidbody enemy;
     private float timetoDeath;
 
-    private AudioSource[] sources;
-    public AudioClip walking;
-    public AudioClip sonarPing;
-    public AudioClip hurtPlayer;
+    //private AudioSource[] sources;
+   // public AudioClip walking;
+    //public AudioClip sonarPing;
     private Vector3 lastPosition;
     void Start()
     {
@@ -39,15 +38,15 @@ public class EnemyAI3D : MonoBehaviour
         enemy = GetComponent<Rigidbody>();
         enemyState = GetInitialEnemyState();
         enemyState.Enter();
-        sources = GetComponents<AudioSource>();
-        sources[0].clip = walking;
-        sources[1].clip = sonarPing;
+       // sources = GetComponents<AudioSource>();
+       // sources[0].clip = walking;
+       // sources[1].clip = sonarPing;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
         var enemyStateData = enemyState.Update(Player.transform.position, Time.deltaTime, agent);
         //calcState(enemyStateData);
         if (enemyStateData.NewState != null)
@@ -57,7 +56,7 @@ public class EnemyAI3D : MonoBehaviour
 
         float distance = Vector3.Distance(lastPosition, gameObject.transform.position);
         //Debug.Log(distance);
-        if(distance > 0.1)
+       /* if (distance > 0.1)
         {
             if (!sources[0].isPlaying)
             {
@@ -69,10 +68,10 @@ public class EnemyAI3D : MonoBehaviour
         if (!sources[1].isPlaying)
         {
             sources[1].PlayDelayed(2);
-        }
+        }*/
     }
 
-    private void ChangeEnemyState(Vector3 pos, EnemyStateData enemyStateData)
+    private void ChangeEnemyState(Vector3 pos, Enemy3StateData enemyStateData)
     {
         enemyState.Exit();
         enemyState = enemyStateData.NewState;
@@ -85,33 +84,28 @@ public class EnemyAI3D : MonoBehaviour
 
     public int getDamage()
     {
-        if (!sources[2].isPlaying)
-        {
-            sources[2].PlayOneShot(hurtPlayer);
-        }
-
         Vector3 spawn = new Vector3(6, 14, 2);
-         
+
         Player.GetComponent<CharController>().Death(spawn);
-        
+
         return damage;
     }
 
-    private EnemyState GetInitialEnemyState()
+    private EnemyState3 GetInitialEnemyState()
     {
-        EnemyState enemyState = null;
+        EnemyState3 enemyState = null;
         if (Mathf.Abs(Player.transform.position.x - transform.position.x) <= PatrolRangeX && Mathf.Abs(Player.transform.position.y - transform.position.y) <= PatrolRangeY && Mathf.Abs(Player.transform.position.z - transform.position.z) <= PatrolRangeZ)
             if (Mathf.Abs(Player.transform.position.x - transform.position.x) <= AggroRangeX && Mathf.Abs(Player.transform.position.y - transform.position.y) <= AggroRangeY && Mathf.Abs(Player.transform.position.y - transform.position.y) <= AggroRangeZ)
             {
-                enemyState = new Deal(this);
+                enemyState = new Enemy3Deal(this);
             }
             else
             {
-                enemyState = new Patrol(this);
+                enemyState = new Enemy3Patrol(this);
                 GotoNextPoint();
             }
         else
-            enemyState= new  Idle(this);
+            enemyState = new Enemy3Idle(this);
         return enemyState;
     }
     public void GotoNextPoint()
@@ -152,18 +146,31 @@ public class EnemyAI3D : MonoBehaviour
 
     public void deathAni()
     {
-        enemyState = new Death(this);
+        takeDamage();
     }
+    private void takeDamage()
+    {
+        health--;
+        if(health == 1)
+        {
+            Destroy(gameObject.transform.GetChild(0).gameObject);
+        }
+        if(health == 0)
+        {
+            kill();
+        }
+    }
+
     public void kill()
     {
         Destroy(gameObject);
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.collider == Player.GetComponent<CapsuleCollider>())
+        if (collision.collider == Player.GetComponent<CapsuleCollider>())
         {
             print(transform.position.y - Player.transform.position.y);
-            if (transform.position.y-Player.transform.position.y <= -1.2f)
+            if (transform.position.y - Player.transform.position.y <= -1.2f)
             {
 
                 //Player.GetComponent<CharController>().forceJump();
