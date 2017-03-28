@@ -24,19 +24,13 @@ public class TextSign : MonoBehaviour {
         
     }
 
-    void OnCollisionEnter(Collision other) {
-
-        if (other.gameObject.name == "player")
-        {
-            CollText1.SetActive(true);
-        }
-    }
-    void OnCollisionExit(Collision other)
-    {
-        if (other.gameObject.name == "player")
-        {
-            CollText1.SetActive(false);
-        }
-    }
     
+
+    public void TextOn() {
+        CollText1.SetActive(true);
+    }
+
+    public void TextOff() {
+        CollText1.SetActive(false);
+    }
 }

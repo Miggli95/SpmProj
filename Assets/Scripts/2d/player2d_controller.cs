@@ -27,7 +27,7 @@ public class player2d_controller : MonoBehaviour
     private CountdownTimer countdownTimer;
     public ParticleSystem pe ;
     // Use this for initialization
-    public GameObject Exitsign;
+    
 
     public GameManager gm;
     void Start()
@@ -45,7 +45,7 @@ public class player2d_controller : MonoBehaviour
         facingRight= true;
 
         pe = gameObject.GetComponent<ParticleSystem>();
-        Exitsign.SetActive(false);
+        
 
     }
 
@@ -119,12 +119,15 @@ public class player2d_controller : MonoBehaviour
             _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
             canDoubleJump = true;
             source.PlayOneShot(jump_sound);
+            anim.SetBool("Grounded", false);
         }
-        else if (Input.GetKeyDown(KeyCode.Space) && !IsGrounded() && canDoubleJump)
+         if (Input.GetKeyDown(KeyCode.Space) && !IsGrounded() && canDoubleJump)
         {
             _rigi.Sleep();
             _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
             canDoubleJump = false;
+            
+            anim.SetBool("SecJump", true);
             source.PlayOneShot(jump_sound);
         }
 
@@ -179,12 +182,12 @@ public class player2d_controller : MonoBehaviour
 
             case "movableBox":
             anim.SetBool("Grounded", true);
-          
-            break;
+                anim.SetBool("SecJump",false);
+                break;
 
             case "ground":
                 anim.SetBool("Grounded", true);
-               
+                anim.SetBool("SecJump", false);
                 break;
 
             case "enemy":
@@ -200,7 +203,7 @@ public class player2d_controller : MonoBehaviour
 
             case "locker" :
                 Debug.Log("Player need a key !!!!!!!");
-                Exitsign.SetActive(true);
+                
                 break;
         }
         
@@ -208,9 +211,9 @@ public class player2d_controller : MonoBehaviour
 
     void OnCollisionExit(Collision col)
     {
-        if (col.gameObject.tag == "ground"|| col.gameObject.tag == "movableBox")
+       // if (col.gameObject.tag == "ground"|| col.gameObject.tag == "movableBox")
             
-        anim.SetBool("Grounded", false);
+       // anim.SetBool("Grounded", false);
         
     }
 
