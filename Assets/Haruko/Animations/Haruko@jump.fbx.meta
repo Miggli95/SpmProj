@@ -149,7 +149,7 @@ ModelImporter:
     - serializedVersion: 16
       name: JumpNew
       takeName: Take 001
-      firstFrame: 5
+      firstFrame: 7
       lastFrame: 50
       wrapMode: 0
       orientationOffsetY: 0

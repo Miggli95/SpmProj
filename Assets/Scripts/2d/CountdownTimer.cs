@@ -11,8 +11,8 @@ public class CountdownTimer : MonoBehaviour {
     private Image fillImg;
 
     // Use this for initialization
-     IEnumerator Start() {
-        yield return new WaitForSeconds(9f);
+     void Start() {
+        
         fillImg = this.GetComponent<Image>();
         time = timer;
 	}
