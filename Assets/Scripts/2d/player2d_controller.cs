@@ -6,8 +6,6 @@ public class player2d_controller : MonoBehaviour
 {
     public float speed = 50f;
     public float jumpPower = 150f;
-
-    
    
     public bool canDoubleJump;
     public bool gotKey =  false;
@@ -29,7 +27,9 @@ public class player2d_controller : MonoBehaviour
     private CountdownTimer countdownTimer;
     public ParticleSystem pe ;
     // Use this for initialization
-    public GameObject Exitsign;
+    
+
+    public GameManager gm;
     void Start()
     {
 
@@ -45,7 +45,8 @@ public class player2d_controller : MonoBehaviour
         facingRight= true;
 
         pe = gameObject.GetComponent<ParticleSystem>();
-        Exitsign.SetActive(false);
+        
+
     }
 
     // Update is called once per frame
@@ -68,11 +69,15 @@ public class player2d_controller : MonoBehaviour
     }
     void Update()
     {
-     
 
-    //moving the player
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Debug.Log("kkkkkkkkk");
+            gm.ResetProgression();
+        }
+        //moving the player
 
-    float move = Input.GetAxis("Horizontal");
+        float move = Input.GetAxis("Horizontal");
         _rigi.AddForce((Vector2.right * speed) * move);
         anim.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal")));
         anim.SetBool("Attack", false);
@@ -114,14 +119,19 @@ public class player2d_controller : MonoBehaviour
             _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
             canDoubleJump = true;
             source.PlayOneShot(jump_sound);
+            anim.SetBool("Grounded", false);
         }
-        else if (Input.GetKeyDown(KeyCode.Space) && !IsGrounded() && canDoubleJump)
+         if (Input.GetKeyDown(KeyCode.Space) && !IsGrounded() && canDoubleJump)
         {
             _rigi.Sleep();
             _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
             canDoubleJump = false;
+            
+            anim.SetBool("SecJump", true);
             source.PlayOneShot(jump_sound);
         }
+
+       
 
         if (gotKey)
         {
@@ -172,12 +182,12 @@ public class player2d_controller : MonoBehaviour
 
             case "movableBox":
             anim.SetBool("Grounded", true);
-          
-            break;
+                anim.SetBool("SecJump",false);
+                break;
 
             case "ground":
                 anim.SetBool("Grounded", true);
-               
+                anim.SetBool("SecJump", false);
                 break;
 
             case "enemy":
@@ -193,7 +203,7 @@ public class player2d_controller : MonoBehaviour
 
             case "locker" :
                 Debug.Log("Player need a key !!!!!!!");
-                Exitsign.SetActive(true);
+                
                 break;
         }
         
@@ -201,9 +211,9 @@ public class player2d_controller : MonoBehaviour
 
     void OnCollisionExit(Collision col)
     {
-        if (col.gameObject.tag == "ground"|| col.gameObject.tag == "movableBox")
+       // if (col.gameObject.tag == "ground"|| col.gameObject.tag == "movableBox")
             
-        anim.SetBool("Grounded", false);
+       // anim.SetBool("Grounded", false);
         
     }
 
@@ -253,6 +263,7 @@ public class player2d_controller : MonoBehaviour
                 //countdownTimer.timer = 90f;
                 gotKey = false;
                 //Application.LoadLevel(SceneManager.);
+                gm.LevelComplete(levelToLoad);
                 
                 break;
 
@@ -267,17 +278,25 @@ public class player2d_controller : MonoBehaviour
                 break;
 
             case "Level2":
-                SceneManager.LoadScene("Level2");
+                if (gm.isLevelComplete(1))
+                {
+                    SceneManager.LoadScene("Level2");
+                }
                 break;
             case "Level3":
-                SceneManager.LoadScene("level3(3D)");
+                if (gm.isLevelComplete(2))
+                {
+                   SceneManager.LoadScene("level3(3D)");
+                }
                 break;
 
             case "bossLevel":
-                SceneManager.LoadScene("BossLevel");
+                if (gm.isLevelComplete(3))
+                {
+                    SceneManager.LoadScene("BossLevel");
+                }
                 break;
         }
-
         
     }
 
