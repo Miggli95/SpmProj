@@ -76,9 +76,9 @@ public class Enemy2Deal : EnemyState2 {
             sources = ai.GetComponents<AudioSource>();
             dashChargeSound = ai.dashCharge;
 
-            if (!sources[2].isPlaying)
+           if (!sources[0].isPlaying)
             {
-                sources[2].PlayOneShot(dashChargeSound);
+                sources[0].PlayOneShot(dashChargeSound);
             }
         }
         if(!notdashing && resettimer > 0.0f)
