@@ -69,11 +69,15 @@ public class player2d_controller : MonoBehaviour
     }
     void Update()
     {
-     
 
-    //moving the player
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Debug.Log("kkkkkkkkk");
+            gm.ResetProgression();
+        }
+        //moving the player
 
-    float move = Input.GetAxis("Horizontal");
+        float move = Input.GetAxis("Horizontal");
         _rigi.AddForce((Vector2.right * speed) * move);
         anim.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal")));
         anim.SetBool("Attack", false);
@@ -123,6 +127,8 @@ public class player2d_controller : MonoBehaviour
             canDoubleJump = false;
             source.PlayOneShot(jump_sound);
         }
+
+       
 
         if (gotKey)
         {
@@ -254,7 +260,7 @@ public class player2d_controller : MonoBehaviour
                 //countdownTimer.timer = 90f;
                 gotKey = false;
                 //Application.LoadLevel(SceneManager.);
-                gm.LevelComplete(levelToLoad -1);
+                gm.LevelComplete(levelToLoad);
                 
                 break;
 

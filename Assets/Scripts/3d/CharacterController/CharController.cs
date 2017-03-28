@@ -168,6 +168,7 @@ public class CharController : MonoBehaviour
         //test code reset progression of gameManager
         if (Input.GetKeyDown(KeyCode.R))
         {
+
             manager.ResetProgression();
         }
 
