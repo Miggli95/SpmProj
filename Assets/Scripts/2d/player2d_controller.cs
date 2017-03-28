@@ -6,8 +6,6 @@ public class player2d_controller : MonoBehaviour
 {
     public float speed = 50f;
     public float jumpPower = 150f;
-
-    
    
     public bool canDoubleJump;
     public bool gotKey =  false;
@@ -30,6 +28,8 @@ public class player2d_controller : MonoBehaviour
     public ParticleSystem pe ;
     // Use this for initialization
     public GameObject Exitsign;
+
+    public GameManager gm;
     void Start()
     {
 
@@ -46,6 +46,7 @@ public class player2d_controller : MonoBehaviour
 
         pe = gameObject.GetComponent<ParticleSystem>();
         Exitsign.SetActive(false);
+
     }
 
     // Update is called once per frame
@@ -253,6 +254,7 @@ public class player2d_controller : MonoBehaviour
                 //countdownTimer.timer = 90f;
                 gotKey = false;
                 //Application.LoadLevel(SceneManager.);
+                gm.LevelComplete(levelToLoad -1);
                 
                 break;
 
@@ -267,17 +269,25 @@ public class player2d_controller : MonoBehaviour
                 break;
 
             case "Level2":
-                SceneManager.LoadScene("Level2");
+                if (gm.isLevelComplete(1))
+                {
+                    SceneManager.LoadScene("Level2");
+                }
                 break;
             case "Level3":
-                SceneManager.LoadScene("level3(3D)");
+                if (gm.isLevelComplete(2))
+                {
+                   SceneManager.LoadScene("level3(3D)");
+                }
                 break;
 
             case "bossLevel":
-                SceneManager.LoadScene("BossLevel");
+                if (gm.isLevelComplete(3))
+                {
+                    SceneManager.LoadScene("BossLevel");
+                }
                 break;
         }
-
         
     }
 
