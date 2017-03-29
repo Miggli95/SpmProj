@@ -176,7 +176,6 @@ public class player2d_controller : MonoBehaviour
     }
     public void OnCollisionEnter(Collision col)
     {
-
         switch (col.gameObject.tag)
         {
 

@@ -144,10 +144,10 @@ public class EnemyAI2D : MonoBehaviour {
     }
     public void deathAni()
     {
-        clipIndex = Random.Range(0, dealDamageSound.Length);
+        /*clipIndex = Random.Range(0, dealDamageSound.Length);
         if (!sources[1].isPlaying)
             sources[1].PlayOneShot(dealDamageSound[clipIndex]);
-
+            */
         enemy.constraints = RigidbodyConstraints.FreezePositionX;
         
         BoxCollider boxy = GetComponent<BoxCollider>();
