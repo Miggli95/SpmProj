@@ -287,6 +287,7 @@ public class player2d_controller : MonoBehaviour
                 {
                    SceneManager.LoadScene("level3(3D)");
                 }
+              
                 break;
 
             case "bossLevel":

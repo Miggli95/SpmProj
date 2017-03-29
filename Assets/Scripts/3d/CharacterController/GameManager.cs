@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    int levelComplete;
+    public int levelComplete;
     int numberOfAbilities;
     List<int> unlockedAbilities;
   
