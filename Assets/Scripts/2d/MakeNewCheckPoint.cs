@@ -17,9 +17,11 @@ public class MakeNewCheckPoint : MonoBehaviour {
 	}
     void OnTriggerEnter(Collider other)
     {
-        if (other.name == "player")
-        {
-            playerScript.currentCheckPoint = gameObject;
-        }
+
+        playerScript.currentCheckPoint= gameObject;
+       // if (other.name == "player")
+        //{
+         //   playerScript.currentCheckPoint = gameObject;
+        //}
     }
 }

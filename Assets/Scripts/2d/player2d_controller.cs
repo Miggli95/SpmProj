@@ -230,8 +230,8 @@ public class player2d_controller : MonoBehaviour
             case "spike":
               
                 source.PlayOneShot(hurt_sound);
-                 Die(spawn1);
-               // Respwn();
+                // Die(spawn1);
+               Respwn();
                 countdownTimer.timer -= 2f;
     
                 break;
