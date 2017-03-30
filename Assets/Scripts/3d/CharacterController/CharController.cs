@@ -59,7 +59,7 @@ public class CharController : MonoBehaviour
         rotationY = transform.rotation.y;
         aoeSlam = GetComponent<SphereCollider>();
 
-        Death();
+       // Death();
     }
 
 
