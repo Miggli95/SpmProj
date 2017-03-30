@@ -5,9 +5,9 @@ using UnityEngine;
 enum Abilities
 {
     doubleJump = 1,
-    slam = 2 
+    slam = 2
 }
-   
+
 
 public class CharController : MonoBehaviour
 {
@@ -16,8 +16,10 @@ public class CharController : MonoBehaviour
     bool input = false;
     float t;
     CharacterController controller;
-    [SerializeField] private float stickToGroundForce;
-    [SerializeField] private float gravityMultiplier;
+    [SerializeField]
+    private float stickToGroundForce;
+    [SerializeField]
+    private float gravityMultiplier;
     Vector3 charinput;
     Vector3 moveDir;
     public float speed;
@@ -38,12 +40,12 @@ public class CharController : MonoBehaviour
 
     public GameObject SlamEffect;
 
-    
+
 
 
     public Vector3 spawn1, spawn2;
-    
-    
+
+
 
 
 
@@ -57,15 +59,16 @@ public class CharController : MonoBehaviour
         rotationY = transform.rotation.y;
         aoeSlam = GetComponent<SphereCollider>();
 
-        Death(spawn1);
+        Death();
     }
 
 
 
-    public void Death(Vector3 Spawn)
+    public void Death()
     {
         print("died");
-        transform.position = Spawn;
+
+        transform.position = manager.getSpawnPoint();
     }
 
     public bool isSlaming()
@@ -83,10 +86,10 @@ public class CharController : MonoBehaviour
         float vertical = Input.GetAxis("Vertical");
         rotationY = rotationSpeed * Input.GetAxis("Mouse X");
         charinput = new Vector2(horizontal, vertical);
-        if(slamTimer > 0.0f)
+        if (slamTimer > 0.0f)
         {
             slamTimer -= Time.deltaTime;
-            if(slamTimer <= 0.0f)
+            if (slamTimer <= 0.0f)
             {
                 aoeSlam.enabled = false;
             }
@@ -95,8 +98,8 @@ public class CharController : MonoBehaviour
         {
             charinput.Normalize();
         }
-        
-       transform.Rotate(Vector3.up, rotationY);
+
+        transform.Rotate(Vector3.up, rotationY);
 
         // transform.Rotate(0, charinput.x * rotationSpeed, 0);
 
@@ -111,7 +114,7 @@ public class CharController : MonoBehaviour
         moveDir.x = destination.x * speed;
         moveDir.z = destination.z * speed;
 
-        
+
         if (!jump)
         {
             if (controller.isGrounded)
@@ -160,7 +163,7 @@ public class CharController : MonoBehaviour
             doubleJump = false;
         }
 
-       
+
 
         colFlags = controller.Move(moveDir * Time.fixedDeltaTime);
 
@@ -181,7 +184,7 @@ public class CharController : MonoBehaviour
             }
             moveDir.y = 0;
             slam = false;
-           
+
         }
 
         else
@@ -197,10 +200,10 @@ public class CharController : MonoBehaviour
             }
         }
         RaycastHit rayhit;
-        if(Physics.Raycast(transform.position, Vector3.down, out rayhit))
+        if (Physics.Raycast(transform.position, Vector3.down, out rayhit))
         {
 
-            if(rayhit.collider.tag == "enemy" && rayhit.distance < 1.4f)
+            if (rayhit.collider.tag == "enemy" && rayhit.distance < 1.4f)
             {
                 rayhit.collider.GetComponent<EnemyAI3D>().deathAni();
                 forceJump();
@@ -220,8 +223,8 @@ public class CharController : MonoBehaviour
 
     }
 
-  private void OnControllerColliderHit(ControllerColliderHit hit)
-  {
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
         Rigidbody body = hit.collider.attachedRigidbody;
 
         //dont move the rigidbody if the character is on top of it
@@ -235,7 +238,7 @@ public class CharController : MonoBehaviour
         {
             return;
         }
-       body.AddForceAtPosition(controller.velocity* 0.1f, hit.point, ForceMode.Impulse);
+        body.AddForceAtPosition(controller.velocity * 0.1f, hit.point, ForceMode.Impulse);
     }
 
     public void forceJump()
@@ -243,5 +246,5 @@ public class CharController : MonoBehaviour
         moveDir.y = jumpSpeed;
     }
 
-   
+
 }

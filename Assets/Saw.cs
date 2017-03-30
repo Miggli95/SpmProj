@@ -1,29 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Saw : MonoBehaviour {
+public class Saw : MonoBehaviour
+{
 
 
     // Use this for initialization
-
-    private void OnTriggerEnter(Collider col)
+    // public GameManager manager;
+    private void OnTriggerEnter(Collider other)
     {
-        if(col.gameObject.CompareTag("Player")&& col == col.GetComponent<CapsuleCollider>())
+
+        if (other.gameObject.CompareTag("Player"))
         {
-            col.gameObject.GetComponent<CharController>().Death(col.gameObject.GetComponent<CharController>().spawn1);
-            
+            other.gameObject.GetComponent<CharController>().Death();
         }
     }
-    void Start () {
+    void Start()
+    {
 
 
 
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 }

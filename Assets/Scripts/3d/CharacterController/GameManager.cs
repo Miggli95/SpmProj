@@ -8,7 +8,8 @@ public class GameManager : MonoBehaviour
     public int levelComplete;
     int numberOfAbilities;
     List<int> unlockedAbilities;
-  
+    public List<Transform> respawns;
+    int currentRespawn = 0;
 	void Start()
     {
         levelComplete = PlayerPrefs.GetInt("Level");
@@ -21,6 +22,12 @@ public class GameManager : MonoBehaviour
             unlockedAbilities.Add(PlayerPrefs.GetInt("Ability" + i));
         }
 	}
+
+    public Vector3 getSpawnPoint()
+    {
+        print("spawn " + currentRespawn);
+        return respawns[currentRespawn].position;
+    }
 
     public void UnlockAbility(int ability)
     {
@@ -39,6 +46,14 @@ public class GameManager : MonoBehaviour
             unlockedAbilities = ability;
             PlayerPrefs.SetInt("Abilities", unlockedAbilities);
         }*/
+    }
+    
+    public void setRespawn(int i)
+    {
+        if (i > currentRespawn)
+        {
+            currentRespawn = i;
+        }
     }
 
     public void LevelComplete(int level)
