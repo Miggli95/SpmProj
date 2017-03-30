@@ -294,7 +294,7 @@ public class player2d_controller : MonoBehaviour
                 int levelToLoad = SceneManager.GetActiveScene().buildIndex + 1;
                 //if(levelToLoad<=SceneManager.sceneCount)
                     
-                SceneManager.LoadScene(levelToLoad);
+                SceneManager.LoadScene(4);
                 //countdownTimer.timer = 90f;
                 gotKey = false;
                 //Application.LoadLevel(SceneManager.);
