@@ -31,7 +31,7 @@ public class MakeNewCheckPoint : MonoBehaviour {
         playerScript.currentCheckPoint= gameObject;
         Text.SetActive(true);
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         Text.SetActive(false);
         Destroy(soundClip);
         // if (other.name == "player")
