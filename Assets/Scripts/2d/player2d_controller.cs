@@ -21,7 +21,7 @@ public class player2d_controller : MonoBehaviour
     public AudioClip jump_sound;
     public AudioClip hurt_sound;
     public AudioClip flip_sound;
-    private Vector3 currentSpawn;
+    public GameObject currentCheckPoint;
     public bool buttonIsPressed = false; // for button
     private bool facingRight;
     private CountdownTimer countdownTimer;
@@ -221,11 +221,13 @@ public class player2d_controller : MonoBehaviour
         print(col.gameObject);
         switch (col.gameObject.tag)
         {
+          
 
             case "spike":
               
                 source.PlayOneShot(hurt_sound);
-                Die(spawn1);
+                 Die(spawn1);
+               // Respwn();
                 countdownTimer.timer -= 2f;
     
                 break;
@@ -234,6 +236,7 @@ public class player2d_controller : MonoBehaviour
 
                 source.PlayOneShot(hurt_sound);
                 Die(spawn1); //det är är otroligt lat
+               // Respwn();
                 countdownTimer.timer -= 2f;
 
                 break;
@@ -306,7 +309,11 @@ public class player2d_controller : MonoBehaviour
         transform.position = spawn;   // spawn
     }
 
-   
+    void Respwn()
+    {
+        Instantiate(blood, transform.position, Quaternion.identity);
+        _rigi.transform.position =currentCheckPoint.transform.position;
+    }
 
     IEnumerator stopBlood()
     {
