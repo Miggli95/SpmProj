@@ -24,7 +24,7 @@ public class EnemyAI2D : MonoBehaviour {
 
     private AudioSource[] sources;
     public AudioClip patrolSound;
-    public AudioClip[] deathSound;
+    public AudioClip[] dealDamageSound;
     private int clipIndex;
 
     void Start () {
@@ -155,9 +155,8 @@ public class EnemyAI2D : MonoBehaviour {
         enemy.velocity = new Vector3(0, -2, 0);
         Debug.Log("Killed enemy");
 
-         clipIndex = Random.Range(0, deathSound.Length);
-         if (!sources[1].isPlaying)
-             sources[1].PlayOneShot(deathSound[clipIndex]);
-
+        clipIndex = Random.Range(0, dealDamageSound.Length);
+        if (!sources[1].isPlaying)
+            sources[1].PlayOneShot(dealDamageSound[clipIndex]);
     }
 }
