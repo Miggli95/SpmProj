@@ -43,8 +43,10 @@ public class GameManager : MonoBehaviour
                 return respawns[currentRespawn].position;
                 break;
             case "AlternativeLevel3":
-                print("spawn " + currentRespawn);
-                return respawns[currentRespawn].position;
+
+
+
+                return new Vector3(2, 7, -9);
                 break;
         }
         print("spawn " + currentRespawn);
