@@ -21,31 +21,32 @@ public class Enemy3Deal : EnemyState3
     }
     public Enemy3StateData Update(Vector3 pos, float deltaTime, NavMeshAgent agent)
     {
+        Vector3 raysource = ai.transform.position + new Vector3(0,0.3f,0);
         RaycastHit rayhit;
-        if (Physics.Raycast(ai.transform.position, Vector3.forward, out rayhit))
+        if (Physics.Raycast(raysource, Vector3.forward, out rayhit))
         {
-            if (rayhit.collider.tag == "Player" && rayhit.distance < 0.3f)
+            if (rayhit.collider.tag == "Player" && rayhit.distance < 0.2f)
             {
                 ai.getDamage();
             }
         }
-        if (Physics.Raycast(ai.transform.position, Vector3.left, out rayhit))
+        if (Physics.Raycast(raysource, Vector3.left, out rayhit))
         {
-            if (rayhit.collider.tag == "Player" && rayhit.distance < 0.3f)
+            if (rayhit.collider.tag == "Player" && rayhit.distance < 0.2f)
             {
                 ai.getDamage();
             }
         }
-        if (Physics.Raycast(ai.transform.position, Vector3.right, out rayhit))
+        if (Physics.Raycast(raysource, Vector3.right, out rayhit))
         {
-            if (rayhit.collider.tag == "Player" && rayhit.distance < 0.3f)
+            if (rayhit.collider.tag == "Player" && rayhit.distance < 0.2f)
             {
                 ai.getDamage();
             }
         }
-        if (Physics.Raycast(ai.transform.position, Vector3.back, out rayhit))
+        if (Physics.Raycast(raysource, Vector3.back, out rayhit))
         {
-            if (rayhit.collider.tag == "Player" && rayhit.distance < 0.3f)
+            if (rayhit.collider.tag == "Player" && rayhit.distance < 0.2f)
             {
                 ai.getDamage();
             }

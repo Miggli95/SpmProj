@@ -52,14 +52,15 @@ public class CharController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        spawn1 = new Vector3(0, 25, 0);
+        
 
         position = transform.position;
         controller = GetComponent<CharacterController>();
         rotationY = transform.rotation.y;
         aoeSlam = GetComponent<SphereCollider>();
 
-       // Death();
+
+        // Death();
     }
 
 
@@ -69,6 +70,7 @@ public class CharController : MonoBehaviour
         print("died");
 
         transform.position = manager.getSpawnPoint();
+        transform.localEulerAngles = manager.getRotation();
     }
 
     public bool isSlaming()
@@ -213,7 +215,7 @@ public class CharController : MonoBehaviour
                 rayhit.collider.GetComponent<Enemy2AI3D>().deathAni();
                 forceJump();
             }
-            if (rayhit.collider.tag == "enemy3" && rayhit.distance < 1.3f)
+            if (rayhit.collider.tag == "enemy3" && rayhit.distance < 1.4f)
             {
                 print("hit enemy3 " + rayhit.distance);
                 rayhit.collider.GetComponent<Enemy3AI3D>().deathAni();
@@ -244,6 +246,11 @@ public class CharController : MonoBehaviour
     public void forceJump()
     {
         moveDir.y = jumpSpeed;
+    }
+    public void doSuperJump()
+    {
+        moveDir.y = jumpSpeed*12;
+
     }
 
 
