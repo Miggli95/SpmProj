@@ -85,14 +85,20 @@ public class EnemyAI2D : MonoBehaviour {
             enemy.velocity = new Vector3(MoveSpeed, enemy.velocity.y, enemy.velocity.z);
             sources[0].clip = patrolSound;
             if (!sources[0].isPlaying)
+            {
+                sources[0].pitch = 1;
                 sources[0].PlayOneShot(patrolSound);
+            }
         }
         else
         {
             enemy.velocity = new Vector3(-MoveSpeed, enemy.velocity.y, enemy.velocity.z);
             sources[0].clip = patrolSound;
             if (!sources[0].isPlaying)
+            {
+                sources[0].pitch = 1;
                 sources[0].PlayOneShot(patrolSound);
+            }
         }
         if(Mathf.Abs(points[destPoint].position.x - transform.position.x) <= 0.1)
             destPoint = (destPoint + 1) % points.Length;
@@ -104,14 +110,20 @@ public class EnemyAI2D : MonoBehaviour {
             enemy.velocity = new Vector3(MoveSpeed, enemy.velocity.y, enemy.velocity.z);
             sources[0].clip = patrolSound;
             if (!sources[0].isPlaying)
+            {
+                sources[0].pitch = 1.5f;
                 sources[0].PlayOneShot(patrolSound);
+            }
         }
         else
         {
             enemy.velocity = new Vector3(-MoveSpeed, enemy.velocity.y, enemy.velocity.z);
             sources[0].clip = patrolSound;
             if (!sources[0].isPlaying)
+            {
+                sources[0].pitch = 1.5f;
                 sources[0].PlayOneShot(patrolSound);
+            }
         }
     }
     private void dead()
