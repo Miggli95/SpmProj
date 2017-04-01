@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     int numberOfAbilities;
     List<int> unlockedAbilities;
     public List<Transform> respawns;
+    private Vector3 BOne = new Vector3(-40, 53, 2);
+    private Vector3 BTwo = new Vector3(-40, 53, 2);
     int currentRespawn = 0;
 	void Start()
     {
@@ -25,8 +27,32 @@ public class GameManager : MonoBehaviour
 
     public Vector3 getSpawnPoint()
     {
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "BossLevel":
+                return BOne;
+                break;
+            case "BossLevel 2":
+                return BTwo;
+                break;
+            case "BossLevel 3":
+                return BTwo;
+                break;
+            case "Level3(3D)":
+                print("spawn " + currentRespawn);
+                return respawns[currentRespawn].position;
+                break;
+            case "AlternativeLevel3":
+                print("spawn " + currentRespawn);
+                return respawns[currentRespawn].position;
+                break;
+        }
         print("spawn " + currentRespawn);
         return respawns[currentRespawn].position;
+    }
+    public Vector3 getRotation()
+    {
+        return  new Vector3(0, 90, 0);
     }
 
     public void UnlockAbility(int ability)
