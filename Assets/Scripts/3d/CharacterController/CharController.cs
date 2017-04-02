@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 enum Abilities
 {
@@ -36,6 +38,8 @@ public class CharController : MonoBehaviour
     float rotationY;
     private SphereCollider aoeSlam;
     private float slamTimer = 0.0f;
+    private float flyingTimer = 4.0f;
+    private bool flying = false;
     public GameObject slamCollider;
 
     public GameObject SlamEffect;
@@ -221,6 +225,14 @@ public class CharController : MonoBehaviour
                 forceJump();
             }
         }
+        if (flying)
+        {
+            flyingTimer -= Time.deltaTime;
+            if(flyingTimer <= 0.0f)
+            {
+                loadNextBoss();
+            }
+        }
 
     }
 
@@ -248,8 +260,21 @@ public class CharController : MonoBehaviour
     }
     public void doSuperJump()
     {
+        flying = true;
         moveDir.y = jumpSpeed*12;
 
+    }
+    private void loadNextBoss()
+    {
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "BossLevel":
+                SceneManager.LoadScene("BossLevel 2");
+                break;
+            case "BossLevel 2":
+                SceneManager.LoadScene("BossLevel 3");
+                break;
+        }
     }
 
 
