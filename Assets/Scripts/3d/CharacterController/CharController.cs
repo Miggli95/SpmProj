@@ -214,7 +214,7 @@ public class CharController : MonoBehaviour
                 rayhit.collider.GetComponent<EnemyAI3D>().deathAni();
                 forceJump();
             }
-            if (rayhit.collider.tag == "enemy2" && rayhit.distance < 1.7f)
+            if (rayhit.collider.tag == "enemy2" && rayhit.distance < 1.5f)
             {
                 rayhit.collider.GetComponent<Enemy2AI3D>().deathAni();
                 forceJump();
@@ -223,6 +223,10 @@ public class CharController : MonoBehaviour
             {
                 rayhit.collider.GetComponent<Enemy3AI3D>().deathAni();
                 forceJump();
+            }
+            if (rayhit.collider.tag == "lava" && rayhit.distance < 1.1f)
+            {
+                Death();
             }
         }
         if (flying)
@@ -273,6 +277,9 @@ public class CharController : MonoBehaviour
                 break;
             case "BossLevel 2":
                 SceneManager.LoadScene("BossLevel 3");
+                break;
+            case "BossLevel 3":
+                SceneManager.LoadScene("Hub Level");
                 break;
         }
     }
