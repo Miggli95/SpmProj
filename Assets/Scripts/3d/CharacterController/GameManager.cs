@@ -42,12 +42,14 @@ public class GameManager : MonoBehaviour
                 print("spawn " + currentRespawn);
                 return respawns[currentRespawn].position;
                 break;
-            case "AlternativeLevel3":
+       //     case "AlternativeLevel3":
 
 
 
-                return new Vector3(2, 7, -9);
-                break;
+            //    return new Vector3(2, 7, -9);
+
+
+            //    break;
         }
         print("spawn " + currentRespawn);
         return respawns[currentRespawn].position;
