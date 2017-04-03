@@ -14,6 +14,10 @@ public class GameManager : MonoBehaviour
     int currentRespawn = 0;
 	void Start()
     {
+        
+       
+
+        
         levelComplete = PlayerPrefs.GetInt("Level");
         numberOfAbilities = PlayerPrefs.GetInt("numberOfAbilities");
         unlockedAbilities = new List<int>();
@@ -22,8 +26,17 @@ public class GameManager : MonoBehaviour
         {
             print("add ability" + PlayerPrefs.GetInt("Ability" + i));
             unlockedAbilities.Add(PlayerPrefs.GetInt("Ability" + i));
+
+
         }
-	}
+
+        if (HaveAbility((int)Abilities.slam) && SceneManager.GetActiveScene().buildIndex == 7)
+        {
+
+            currentRespawn = PlayerPrefs.GetInt("CheckpointLvl3");
+            print(currentRespawn + "CheckPoint");
+        }
+    }
 
     public Vector3 getSpawnPoint()
     {
@@ -82,7 +95,11 @@ public class GameManager : MonoBehaviour
     {
         if (i > currentRespawn)
         {
+
+
             currentRespawn = i;
+
+            PlayerPrefs.SetInt("CheckpointLvl3", currentRespawn);
         }
     }
 
