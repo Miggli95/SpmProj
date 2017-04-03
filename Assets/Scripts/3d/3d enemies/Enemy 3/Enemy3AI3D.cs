@@ -29,6 +29,7 @@ public class Enemy3AI3D : MonoBehaviour
 
     private AudioSource[] sources;
     public AudioClip walking;
+    public AudioClip hurtPlayer;
     //public AudioClip sonarPing;
     private Vector3 lastPosition;
     void Start()
@@ -84,6 +85,11 @@ public class Enemy3AI3D : MonoBehaviour
 
     public int getDamage()
     {
+
+        if (!sources[1].isPlaying)
+        {
+            sources[1].PlayOneShot(hurtPlayer);
+        }
         Vector3 spawn = new Vector3(6, 14, 2);
 
         Player.GetComponent<CharController>().Death();

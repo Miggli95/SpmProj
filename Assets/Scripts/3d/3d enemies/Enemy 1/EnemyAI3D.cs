@@ -86,10 +86,10 @@ public class EnemyAI3D : MonoBehaviour
 
     public int getDamage()
     {
-        /*if (!sources[2].isPlaying)
+        if (!sources[2].isPlaying)
         {
             sources[2].PlayOneShot(hurtPlayer);
-        }*/
+        }
          
         Player.GetComponent<CharController>().Death();
         
