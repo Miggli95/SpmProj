@@ -161,8 +161,9 @@ public class EnemyAI2D : MonoBehaviour {
         
         BoxCollider boxy = GetComponent<BoxCollider>();
         boxy.enabled= false;
-
-        timetoDeath = 3;
+        GetComponent<MeshRenderer>().enabled = false;
+        Destroy(gameObject.transform.GetChild(0).gameObject);
+        timetoDeath = 7;
         currentState = "dead";
         enemy.velocity = new Vector3(0, -2, 0);
         Debug.Log("Killed enemy");
