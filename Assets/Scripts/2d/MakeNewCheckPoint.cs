@@ -24,13 +24,16 @@ public class MakeNewCheckPoint : MonoBehaviour {
 	}
     IEnumerator OnTriggerEnter(Collider other)
     {
-        source.PlayOneShot(soundClip);
+        
         Destroy(checkParticle);
         Destroy(checkP2);
         Destroy(checkP3);
         playerScript.currentCheckPoint= gameObject;
         Text.SetActive(true);
-
+        if (!source.isPlaying)
+        {
+                        source.PlayOneShot(soundClip);
+        }
         yield return new WaitForSeconds(2f);
         Text.SetActive(false);
         Destroy(soundClip);
