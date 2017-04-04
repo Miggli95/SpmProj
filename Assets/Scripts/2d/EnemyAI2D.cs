@@ -144,17 +144,7 @@ public class EnemyAI2D : MonoBehaviour {
 
     public int getDamage()
     {
-        Vector3 spawn;
-        if (transform.position.y > 0.0f)
-        {
-            spawn = new Vector3(-3, 2, 0);
-            Player.GetComponent<player2d_controller>().Die(spawn);
-        }
-        else
-        {
-            spawn = new Vector3(5, -11, 0);
-            Player.GetComponent<player2d_controller>().Die(spawn);
-        }
+        Player.GetComponent<player2d_controller>().Respwn();
         return damage;
     }
     public void setSpeed(int newSpeed)
