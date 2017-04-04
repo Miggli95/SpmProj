@@ -344,7 +344,7 @@ public class player2d_controller : MonoBehaviour
         transform.position = spawn;   // spawn
     }
 
-    void Respwn()
+    public void Respwn()
     {
         Instantiate(blood, transform.position, Quaternion.identity);
         _rigi.transform.position =currentCheckPoint.transform.position;
