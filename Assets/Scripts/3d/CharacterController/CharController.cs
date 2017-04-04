@@ -57,7 +57,7 @@ public class CharController : MonoBehaviour
     void Start()
     {
 
-        Death();
+        //Death();
         position = transform.position;
         controller = GetComponent<CharacterController>();
         rotationY = transform.rotation.y;
