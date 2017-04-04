@@ -20,6 +20,7 @@ public class player2d_controller : MonoBehaviour
     
     public AudioClip jump_sound;
     public AudioClip hurt_sound;
+    public AudioClip hurt_sound2;
     public AudioClip flip_sound;
     public GameObject currentCheckPoint;
     public bool buttonIsPressed = false; // for button
@@ -96,10 +97,10 @@ public class player2d_controller : MonoBehaviour
             pe.Play();
         }
 
-        if (move == 0) {
-            pe.Stop();
-
-        }
+       // if (move == 0) {
+      //      pe.Stop();
+//
+    //    }
 
         IsGrounded();
        /* RaycastHit hit;
@@ -230,8 +231,9 @@ public class player2d_controller : MonoBehaviour
             case "spike":
               
                 source.PlayOneShot(hurt_sound);
+                source.PlayOneShot(hurt_sound2);
                 // Die(spawn1);
-               Respwn();
+                Respwn();
                 countdownTimer.timer -= 2f;
     
                 break;
