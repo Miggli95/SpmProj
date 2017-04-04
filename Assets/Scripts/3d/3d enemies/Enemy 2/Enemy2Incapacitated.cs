@@ -17,6 +17,7 @@ public class Enemy2Incapacitated : EnemyState2
     }
     public void Enter()
     {
+        ai.transform.GetChild(0).gameObject.transform.localEulerAngles = new Vector3(0, 0, 180);
         Debug.Log("Entered Incapacitated");
         ai.Pause();
     }
@@ -43,6 +44,7 @@ public class Enemy2Incapacitated : EnemyState2
 
     public void Exit()
     {
+        ai.transform.GetChild(0).gameObject.transform.localEulerAngles = new Vector3(0, 0, 0);
         Debug.Log("Left Incapicated");
     }
 

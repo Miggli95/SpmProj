@@ -56,8 +56,10 @@ public class CharController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
-        //Death();
+        if (SceneManager.GetActiveScene().name == "AlternativeLevel3")
+        {
+            Death();
+        }
         position = transform.position;
         controller = GetComponent<CharacterController>();
         rotationY = transform.rotation.y;
@@ -283,6 +285,13 @@ public class CharController : MonoBehaviour
                 break;
         }
     }
-
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "leveladvancer")
+        {
+            manager.LevelComplete(3);
+            SceneManager.LoadScene("Hub Level");
+        }
+    }
 
 }
