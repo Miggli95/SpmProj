@@ -12,16 +12,14 @@ public class GameManager : MonoBehaviour
     private Vector3 BOne = new Vector3(-40, 53, 2);
     private Vector3 BTwo = new Vector3(-40, 53, 2);
     int currentRespawn = 0;
+
 	void Start()
     {
-        
-       
-
-        
         levelComplete = PlayerPrefs.GetInt("Level");
         numberOfAbilities = PlayerPrefs.GetInt("numberOfAbilities");
         unlockedAbilities = new List<int>();
         print("numberOfAbilities" + numberOfAbilities);
+
         for (int i = 0; i < numberOfAbilities; i++)
         {
             print("add ability" + PlayerPrefs.GetInt("Ability" + i));
@@ -115,7 +113,11 @@ public class GameManager : MonoBehaviour
     public void ResetProgression()
     {
         PlayerPrefs.DeleteAll();
-    }
+        currentRespawn = 0;
+        levelComplete = 0;
+        numberOfAbilities = 0;
+        unlockedAbilities.Clear();
+}
 
     public bool isLevelComplete(int level)
     {

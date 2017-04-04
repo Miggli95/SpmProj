@@ -60,6 +60,7 @@ public class CharController : MonoBehaviour
         {
             Death();
         }
+
         position = transform.position;
         controller = GetComponent<CharacterController>();
         rotationY = transform.rotation.y;
@@ -94,6 +95,7 @@ public class CharController : MonoBehaviour
         float vertical = Input.GetAxis("Vertical");
         rotationY = rotationSpeed * Input.GetAxis("Mouse X");
         charinput = new Vector2(horizontal, vertical);
+
         if (slamTimer > 0.0f)
         {
             slamTimer -= Time.deltaTime;
@@ -177,7 +179,8 @@ public class CharController : MonoBehaviour
 
         //print("isSlaming" + slam);
         //test code reset progression of gameManager
-        if (Input.GetKeyDown(KeyCode.R))
+
+        if (Input.GetKeyDown(KeyCode.R) && SceneManager.GetActiveScene().buildIndex == 4)
         {
 
             manager.ResetProgression();
