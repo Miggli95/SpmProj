@@ -25,12 +25,14 @@ public class EnemyAI2D : MonoBehaviour {
     private AudioSource[] sources;
     public AudioClip patrolSound;
     public AudioClip[] dealDamageSound;
+    public AudioClip heartBeat;
     private int clipIndex;
 
     void Start () {
         enemy = GetComponent<Rigidbody>();
         currentState = "idle";
         sources = GetComponents<AudioSource>();
+        sources[2].clip = heartBeat;
     }
 	
 	// Update is called once per frame
@@ -50,6 +52,11 @@ public class EnemyAI2D : MonoBehaviour {
             case "dead":
                 dead();
                 break;
+        }
+
+        if (!sources[2].isPlaying)
+        {
+            sources[2].PlayDelayed(0.5f);
         }
     }
 
@@ -171,5 +178,6 @@ public class EnemyAI2D : MonoBehaviour {
         clipIndex = Random.Range(0, dealDamageSound.Length);
         if (!sources[1].isPlaying)
             sources[1].PlayOneShot(dealDamageSound[clipIndex]);
+     
     }
 }
