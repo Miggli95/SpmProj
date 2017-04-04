@@ -323,7 +323,7 @@ public class player2d_controller : MonoBehaviour
             case "Level3":
                 if (gm.isLevelComplete(2))
                 {
-                   SceneManager.LoadScene("level3(3D)");
+                   SceneManager.LoadScene("AlternativeLevel3");
                 }
               
                 break;
