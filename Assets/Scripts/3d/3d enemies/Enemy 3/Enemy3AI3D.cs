@@ -30,7 +30,7 @@ public class Enemy3AI3D : MonoBehaviour
     private AudioSource[] sources;
     public AudioClip walking;
     public AudioClip hurtPlayer;
-    //public AudioClip sonarPing;
+    public AudioClip sonarPing;
     private Vector3 lastPosition;
     void Start()
     {
@@ -41,7 +41,7 @@ public class Enemy3AI3D : MonoBehaviour
         enemyState.Enter();
         sources = GetComponents<AudioSource>();
         sources[0].clip = walking;
-       // sources[1].clip = sonarPing;
+        sources[2].clip = sonarPing;
     }
 
     // Update is called once per frame
@@ -66,10 +66,11 @@ public class Enemy3AI3D : MonoBehaviour
         }
         lastPosition = gameObject.transform.position;
 
-      //  if (!sources[1].isPlaying)
-       // {
-       //     sources[1].PlayDelayed(2);
-        //}
+        if (!sources[2].isPlaying)
+        {
+            sources[2].PlayDelayed(2);
+        }
+
     }
 
     private void ChangeEnemyState(Vector3 pos, Enemy3StateData enemyStateData)

@@ -18,7 +18,8 @@ public class BossRoar : MonoBehaviour {
         if (!source1.isPlaying)
         {
             float d = Random.Range(5, 8);
-            Debug.Log(d);
+            float p = Random.Range(0.5f, 1.5f);
+            source1.pitch = p;
             source1.PlayDelayed(d);
         }
     }
