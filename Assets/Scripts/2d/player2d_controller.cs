@@ -26,7 +26,7 @@ public class player2d_controller : MonoBehaviour
     public bool buttonIsPressed = false; // for button
     private bool facingRight;
     private CountdownTimer countdownTimer;
-    public ParticleSystem pe ;
+    //public ParticleSystem pe ;
     // Use this for initialization
     
 
@@ -49,7 +49,7 @@ public class player2d_controller : MonoBehaviour
         source = GetComponent<AudioSource>();
         facingRight= true;
 
-        pe = gameObject.GetComponent<ParticleSystem>();
+        //pe = gameObject.GetComponent<ParticleSystem>();
         
 
     }
@@ -89,12 +89,12 @@ public class player2d_controller : MonoBehaviour
         if (move > 0 && !facingRight)
         {
             Flip();
-            pe.Play();
+           // pe.Play();
         }
         else if (move < 0 && facingRight)
         {
             Flip();
-            pe.Play();
+           // pe.Play();
         }
 
        // if (move == 0) {
