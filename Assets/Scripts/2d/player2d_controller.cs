@@ -28,10 +28,9 @@ public class player2d_controller : MonoBehaviour
     private CountdownTimer countdownTimer;
     
     public bool stopjump;
-    
+
     //public ParticleSystem pe ;
     // Use this for initialization
-    
 
     public GameManager gm;
     void Start()
@@ -157,7 +156,7 @@ public class player2d_controller : MonoBehaviour
             Destroy(GameObject.FindWithTag("locker"));
         }
 
-        
+
 
     }
     private bool IsGrounded()
@@ -327,18 +326,31 @@ public class player2d_controller : MonoBehaviour
                          gotKey= true;
                 break;
 
+
+        }
+
+        
+    }
+
+    public void OnTriggerStay(Collider col)
+    {
+        switch (col.gameObject.tag)
+        {
             case "Level1":
-                SceneManager.LoadScene("level1");
+                if (Input.GetKey(KeyCode.UpArrow))
+                {
+                    SceneManager.LoadScene("level1");
+                }
                 break;
 
             case "Level2":
-                if (gm.isLevelComplete(1))
+                if (gm.isLevelComplete(1) && Input.GetKeyDown(KeyCode.UpArrow))
                 {
                     SceneManager.LoadScene("Level2");
                 }
                 break;
             case "Level3":
-                if (gm.isLevelComplete(2))
+                if (gm.isLevelComplete(2) && Input.GetKeyDown(KeyCode.UpArrow))
                 {
                    SceneManager.LoadScene("AlternativeLevel3");
                 }
@@ -346,13 +358,12 @@ public class player2d_controller : MonoBehaviour
                 break;
 
             case "bossLevel":
-                if (gm.isLevelComplete(3))
+                if (gm.isLevelComplete(3) && Input.GetKeyDown(KeyCode.UpArrow))
                 {
                     SceneManager.LoadScene("BossLevel");
                 }
-                break;
+                break;  
         }
-        
     }
 
     public void Die(Vector3 spawn)
