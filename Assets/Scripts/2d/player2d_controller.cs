@@ -7,7 +7,7 @@ public class player2d_controller : MonoBehaviour
     public float speed = 50f;
     public float jumpPower = 150f;
    
-    public bool canDoubleJump;
+   // public bool canDoubleJump;
     public bool gotKey =  false;
     private Rigidbody _rigi;
 
@@ -26,7 +26,8 @@ public class player2d_controller : MonoBehaviour
     public bool buttonIsPressed = false; // for button
     private bool facingRight;
     private CountdownTimer countdownTimer;
-    public bool inAir;
+    
+    public bool stopjump;
     
     //public ParticleSystem pe ;
     // Use this for initialization
@@ -50,8 +51,8 @@ public class player2d_controller : MonoBehaviour
         //   blood.GetComponent<ParticleSystem>().enableEmission = false;
         source = GetComponent<AudioSource>();
         facingRight= true;
-        inAir = false;
         
+        stopjump = false;
         //pe = gameObject.GetComponent<ParticleSystem>();
 
 
@@ -129,20 +130,20 @@ public class player2d_controller : MonoBehaviour
         {
             _rigi.Sleep();
             _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
-            canDoubleJump = true;
+           // canDoubleJump = true;
             source.PlayOneShot(jump_sound);
             anim.SetBool("Grounded", false);
         }
-         if (Input.GetKeyDown(KeyCode.Space) && !IsGrounded() && canDoubleJump|| Input.GetKeyDown(KeyCode.Space)&& inAir)
+         if (Input.GetKeyDown(KeyCode.Space) && !IsGrounded() && stopjump ==false )
         {
 
             _rigi.Sleep();
             _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
-            canDoubleJump = false;
-            
+         //   canDoubleJump = false;
+            stopjump = true;
             anim.SetBool("SecJump", true);
             source.PlayOneShot(jump_sound);
-            inAir = false;
+            
             //Debug.Log(fallCount);
         } 
         
@@ -174,15 +175,15 @@ public class player2d_controller : MonoBehaviour
         Debug.DrawRay(rightRayStart, Vector3.down * 0.415f, Color.green);
         if (Physics.Raycast(leftRayStart, Vector3.down, out hit, 0.415f))
         {
-            inAir = false;
+            
             return true;
         }
         if (Physics.Raycast(rightRayStart, Vector3.down, out hit, 0.415f))
         {
-            inAir = false;
+            
             return true;
         }
-        inAir = true;
+        
         return false;
     }
 
@@ -207,6 +208,7 @@ public class player2d_controller : MonoBehaviour
             case "ground":
                 anim.SetBool("Grounded", true);
                 anim.SetBool("SecJump", false);
+                stopjump = true;
                 break;
 
             case "enemy":
@@ -230,10 +232,10 @@ public class player2d_controller : MonoBehaviour
 
     void OnCollisionExit(Collision col)
     {
-       // if (col.gameObject.tag == "ground"|| col.gameObject.tag == "movableBox")
-            
-       // anim.SetBool("Grounded", false);
-        
+        if (col.gameObject.tag == "ground"|| col.gameObject.tag == "movableBox")
+
+            stopjump = false;
+
     }
 
     void OnTriggerEnter(Collider col)
