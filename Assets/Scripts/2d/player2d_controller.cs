@@ -133,6 +133,7 @@ public class player2d_controller : MonoBehaviour
             source.PlayOneShot(jump_sound);
             anim.SetBool("Grounded", false);
         }
+         if (Input.GetKeyDown(KeyCode.Space) && !IsGrounded() && canDoubleJump|| Input.GetKeyDown(KeyCode.Space)&& inAir)
         {
 
             _rigi.Sleep();
