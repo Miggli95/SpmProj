@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     List<int> unlockedAbilities;
     public List<Transform> respawns;
     private Vector3 BOne = new Vector3(-40, 53, 2);
+    private Vector3 BAlt = new Vector3(0, 5, 0);
     private Vector3 BTwo = new Vector3(-40, 53, 2);
     int currentRespawn = 0;
 
@@ -53,15 +54,19 @@ public class GameManager : MonoBehaviour
                 print("spawn " + currentRespawn);
                 return respawns[currentRespawn].position;
                 break;
-       //     case "AlternativeLevel3":
+            case "AlternativeBossLevel":
+                return BAlt;
+                break;
+                //     case "AlternativeLevel3":
 
 
 
-            //    return new Vector3(2, 7, -9);
+                //    return new Vector3(2, 7, -9);
 
 
-            //    break;
+                //    break;
         }
+
         print("spawn " + currentRespawn);
         return respawns[currentRespawn].position;
     }

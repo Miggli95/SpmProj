@@ -273,6 +273,11 @@ public class CharController : MonoBehaviour
         moveDir.y = jumpSpeed*12;
 
     }
+    public void doSortaSuperJump()
+    {
+        moveDir.y = jumpSpeed * 2;
+
+    }
     private void loadNextBoss()
     {
         switch (SceneManager.GetActiveScene().name)
