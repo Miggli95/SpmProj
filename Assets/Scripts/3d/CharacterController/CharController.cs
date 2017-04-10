@@ -42,7 +42,7 @@ public class CharController : MonoBehaviour
     private bool flying = false;
     public GameObject slamCollider;
 
-    public GameObject SlamEffect;
+    public GameObject ShockWave;
     bool lockedRotation;
 
 
@@ -198,6 +198,7 @@ public class CharController : MonoBehaviour
             if (slam)
             {
                 aoeSlam.enabled = true;
+                Instantiate(ShockWave, transform.position, Quaternion.Euler(90,0,0));
                 slamTimer = 0.1f;
             }
             moveDir.y = 0;
@@ -213,7 +214,7 @@ public class CharController : MonoBehaviour
                 {
                     moveDir.y = -jumpSpeed;
                     slam = true;
-                    Instantiate(SlamEffect, transform.position, Quaternion.identity);
+                   
                 }
             }
         }
