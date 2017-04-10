@@ -21,12 +21,11 @@ public class Enemy3AI3D : MonoBehaviour
     public Transform[] points;
     public int destPoint = 0;
     private int health = 2;
-
+    private float deathtimer = 0.5f;
     private bool isDead = false;
     private EnemyState3 enemyState;
     private Rigidbody enemy;
-    private float timetoDeath;
-
+    private bool capeableofDamage = true;
     private AudioSource[] sources;
     public AudioClip walking;
     public AudioClip hurtPlayer;
@@ -70,7 +69,12 @@ public class Enemy3AI3D : MonoBehaviour
         {
             sources[2].PlayDelayed(8);
         }
-
+        if (capeableofDamage == false)
+        {
+            deathtimer -= Time.deltaTime;
+            if (deathtimer <= 0)
+                capeableofDamage = true;
+        }
     }
 
     private void ChangeEnemyState(Vector3 pos, Enemy3StateData enemyStateData)
@@ -154,17 +158,22 @@ public class Enemy3AI3D : MonoBehaviour
     public void deathAni()
     {
         takeDamage();
+        print("took damage");
     }
     private void takeDamage()
     {
-        health--;
-        if(health == 1)
+        if (capeableofDamage)
         {
-            Destroy(gameObject.transform.GetChild(0).gameObject);
-        }
-        if(health == 0)
-        {
-            kill();
+            capeableofDamage = false;
+            health--;
+            if (health == 1)
+            {
+                Destroy(gameObject.transform.GetChild(0).gameObject);
+            }
+            if (health == 0)
+            {
+                kill();
+            }
         }
     }
 

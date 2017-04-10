@@ -57,6 +57,9 @@ public class GameManager : MonoBehaviour
             case "AlternativeBossLevel":
                 return BAlt;
                 break;
+            case "testScene":
+                return BOne;
+                break;
                 //     case "AlternativeLevel3":
 
 
