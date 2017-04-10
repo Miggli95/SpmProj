@@ -10,17 +10,18 @@ public class BossRoar : MonoBehaviour {
 	void Start () {
         source1 = GetComponent<AudioSource>();
         source1.clip = roarSound;
-	}
+
+        if (!source1.isPlaying)
+        {
+            float p = Random.Range(0.5f, 1.5f);
+            source1.pitch = p;
+            source1.PlayDelayed(2);
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {
         
-        if (!source1.isPlaying)
-        {
-            float d = Random.Range(5, 8);
-            float p = Random.Range(0.5f, 1.5f);
-            source1.pitch = p;
-            source1.PlayDelayed(d);
-        }
+        
     }
 }

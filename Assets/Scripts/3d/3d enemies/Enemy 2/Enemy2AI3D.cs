@@ -31,9 +31,12 @@ public class Enemy2AI3D : MonoBehaviour
     private AudioSource[] sources;
     public AudioClip walking;
     public AudioClip dash;
-    public AudioClip electricStatic;
+    public AudioClip heartBeat;
     public AudioClip dashCharge;
     private Vector3 lastPosition;
+    public AudioClip incapacitate;
+    public AudioClip hurtenemy;
+
 
     void Start()
     {
@@ -44,7 +47,7 @@ public class Enemy2AI3D : MonoBehaviour
         enemyState.Enter();
         sources = GetComponents<AudioSource>();
         sources[0].clip = walking;
-        sources[1].clip = electricStatic;
+        sources[1].clip = heartBeat;
     }
 
     // Update is called once per frame
@@ -68,7 +71,7 @@ public class Enemy2AI3D : MonoBehaviour
         lastPosition = gameObject.transform.position;
         if (!sources[1].isPlaying)
         {
-            sources[1].PlayDelayed(0.5f);
+            sources[1].PlayDelayed(8);
         }
     }
 
@@ -169,6 +172,10 @@ public class Enemy2AI3D : MonoBehaviour
     {
         if (isIncapacitated)
         {
+           // if (!sources[2].isPlaying)
+           // {
+           //     sources[2].PlayOneShot(hurtenemy);
+           // }
             Destroy(gameObject);
         }
     }

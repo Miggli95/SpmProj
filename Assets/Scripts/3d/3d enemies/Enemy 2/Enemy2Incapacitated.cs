@@ -7,6 +7,9 @@ public class Enemy2Incapacitated : EnemyState2
 {
     private Enemy2AI3D ai;
     private float recoverytime = 4.0f;
+
+    private AudioSource[] sources;
+    public AudioClip incapacitate;
     public Enemy2Incapacitated(Enemy2AI3D ai)
     {
         if (ai == null)
@@ -18,6 +21,9 @@ public class Enemy2Incapacitated : EnemyState2
     public void Enter()
     {
         ai.transform.GetChild(0).gameObject.transform.localEulerAngles = new Vector3(0, 0, 180);
+        sources = ai.GetComponents<AudioSource>();
+        incapacitate = ai.incapacitate;
+        sources[2].PlayOneShot(incapacitate);
         Debug.Log("Entered Incapacitated");
         ai.Pause();
     }

@@ -68,7 +68,7 @@ public class Enemy3AI3D : MonoBehaviour
 
         if (!sources[2].isPlaying)
         {
-            sources[2].PlayDelayed(2);
+            sources[2].PlayDelayed(8);
         }
 
     }
