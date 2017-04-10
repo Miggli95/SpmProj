@@ -13,13 +13,26 @@ public class CameraScript : MonoBehaviour
     public float max;
     private float rotationYOffset = 0;
     Vector3 offset;
-
-
+    bool lockedRotation = false;
+    Quaternion rotation;
     // Use this for initialization
     void Start()
     {
         offset = target.transform.position - transform.position;
         rotationX = transform.rotation.x;
+    }
+
+    public void LockRotation(Vector3 rotation)
+    {
+        this.rotation = Quaternion.Euler(rotation);
+        lockedRotation = true;
+        target.GetComponent<CharController>().LockRotation(rotation.y);
+    }
+
+    public void ReleaseCamera()
+    {
+        lockedRotation = false;
+        target.GetComponent<CharController>().ReleaseRotation();
     }
 
     // Update is called once per frame
@@ -34,7 +47,12 @@ public class CameraScript : MonoBehaviour
         //float angleX = Mathf.LerpAngle(currentAngleX,desiredAngleX,Time.deltaTime*damping);
         rotationX -= rotationSpeed * Input.GetAxis("Mouse Y");
         rotationX = Mathf.Clamp(rotationX, min, max);
-        Quaternion rotation = Quaternion.Euler(rotationX, angleY, 0);
+
+        if (!lockedRotation)
+        {
+            rotation = Quaternion.Euler(rotationX, angleY, 0);
+        }
+
         transform.position = target.transform.position - (rotation * offset);
         transform.LookAt(target.transform);
 

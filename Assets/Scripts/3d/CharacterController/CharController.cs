@@ -43,7 +43,7 @@ public class CharController : MonoBehaviour
     public GameObject slamCollider;
 
     public GameObject SlamEffect;
-
+    bool lockedRotation;
 
 
 
@@ -93,7 +93,6 @@ public class CharController : MonoBehaviour
         //slamCollider.SetActive(slam);
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-        rotationY = rotationSpeed * Input.GetAxis("Mouse X");
         charinput = new Vector2(horizontal, vertical);
 
         if (slamTimer > 0.0f)
@@ -109,8 +108,16 @@ public class CharController : MonoBehaviour
             charinput.Normalize();
         }
 
-        transform.Rotate(Vector3.up, rotationY);
+        if (!lockedRotation)
+        {
+            rotationY = rotationSpeed * Input.GetAxis("Mouse X");
+            transform.Rotate(Vector3.up, rotationY);
+        }
 
+        else
+        {
+            transform.rotation = Quaternion.Euler(0,rotationY,0);
+        }
         // transform.Rotate(0, charinput.x * rotationSpeed, 0);
 
         Vector3 destination = transform.forward * charinput.y + transform.right * charinput.x; //Quaternion.Euler(0, transform.rotation.y, 0) * (transform.forward * charinput.y);
@@ -210,6 +217,7 @@ public class CharController : MonoBehaviour
                 }
             }
         }
+
         RaycastHit rayhit;
         if (Physics.Raycast(transform.position, Vector3.down, out rayhit))
         {
@@ -243,6 +251,17 @@ public class CharController : MonoBehaviour
             }
         }
 
+    }
+
+    public void LockRotation(float rotationY)
+    {
+        this.rotationY = rotationY;
+        lockedRotation = true;
+    }
+
+    public void ReleaseRotation()
+    {
+        lockedRotation = false;
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
