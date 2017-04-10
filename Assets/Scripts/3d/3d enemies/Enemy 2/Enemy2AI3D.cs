@@ -28,6 +28,10 @@ public class Enemy2AI3D : MonoBehaviour
     private Rigidbody enemy;
     private float timetoDeath;
 
+    public Material blue;
+    public Material red;
+
+
     private AudioSource[] sources;
     public AudioClip walking;
     public AudioClip dash;
@@ -36,10 +40,12 @@ public class Enemy2AI3D : MonoBehaviour
     private Vector3 lastPosition;
     public AudioClip incapacitate;
     public AudioClip hurtenemy;
-
+    public Renderer rend;
 
     void Start()
     {
+        rend = GetComponent<Renderer>();
+
         agent = GetComponent<NavMeshAgent>();
         agent.autoBraking = false;
         enemy = GetComponent<Rigidbody>();
