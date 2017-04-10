@@ -40,13 +40,13 @@ public class CameraScript : MonoBehaviour
 
         RaycastHit hit;
         Physics.Raycast(transform.position, transform.forward, out hit);
-        if (!hit.transform.gameObject.CompareTag("Player"))
+        /*if (!hit.transform.gameObject.CompareTag("Player"))
         {
 
             transform.position = transform.position - transform.forward*2;
                 //offset.z--;
                // offset.y+=1/7f;
             
-        }
+        }*/
     }
 }

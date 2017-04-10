@@ -162,7 +162,7 @@ public class CharController : MonoBehaviour
         }
         else
         {
-            moveDir += Physics.gravity * gravityMultiplier * Time.fixedDeltaTime;
+            moveDir += Physics.gravity * gravityMultiplier * Time.deltaTime;
         }
 
         if (doubleJump)
@@ -175,7 +175,7 @@ public class CharController : MonoBehaviour
 
 
 
-        colFlags = controller.Move(moveDir * Time.fixedDeltaTime);
+        colFlags = controller.Move(moveDir * Time.deltaTime);
 
         //print("isSlaming" + slam);
         //test code reset progression of gameManager
