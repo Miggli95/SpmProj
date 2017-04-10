@@ -46,6 +46,11 @@ public class CharController : MonoBehaviour
     bool lockedRotation;
 
 
+    public AudioSource[] clip;
+    public AudioClip SlamSound;
+
+
+
 
     public Vector3 spawn1, spawn2;
 
@@ -56,6 +61,9 @@ public class CharController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        clip = GetComponents<AudioSource>();
+        clip[0].clip = SlamSound;
+
         if (SceneManager.GetActiveScene().name == "AlternativeLevel3")
         {
             Death();
@@ -200,6 +208,8 @@ public class CharController : MonoBehaviour
                 aoeSlam.enabled = true;
                 Instantiate(ShockWave, transform.position, Quaternion.Euler(90,0,0));
                 slamTimer = 0.1f;
+
+                clip[0].PlayOneShot(SlamSound);
             }
             moveDir.y = 0;
             slam = false;
