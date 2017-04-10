@@ -28,6 +28,7 @@ public class player2d_controller : MonoBehaviour
     private CountdownTimer countdownTimer;
     
     public bool stopjump;
+    public int movefps;
 
     //public ParticleSystem pe ;
     // Use this for initialization
@@ -86,7 +87,7 @@ public class player2d_controller : MonoBehaviour
         //moving the player
 
         float move = Input.GetAxis("Horizontal");
-        _rigi.AddForce((Vector2.right * speed) * move);
+        _rigi.AddForce((Vector2.right * speed) * move*Time.deltaTime*movefps);
         anim.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal")));
         anim.SetBool("Attack", false);
         if (move > 0 && !facingRight)
