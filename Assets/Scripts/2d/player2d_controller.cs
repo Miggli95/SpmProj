@@ -28,7 +28,7 @@ public class player2d_controller : MonoBehaviour
     private CountdownTimer countdownTimer;
     
     public bool stopjump;
-    public int movefps;
+    float t;
 
     //public ParticleSystem pe ;
     // Use this for initialization
@@ -78,7 +78,7 @@ public class player2d_controller : MonoBehaviour
     }
     void Update()
     {
-
+        t += Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.R))
         {
             Debug.Log("kkkkkkkkk");
@@ -87,7 +87,7 @@ public class player2d_controller : MonoBehaviour
         //moving the player
 
         float move = Input.GetAxis("Horizontal");
-        _rigi.AddForce((Vector2.right * speed) * move*Time.deltaTime*movefps);
+        _rigi.AddForce((Vector2.right * speed) * move);
         anim.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal")));
         anim.SetBool("Attack", false);
         if (move > 0 && !facingRight)
