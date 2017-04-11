@@ -7,19 +7,53 @@ public class CameraLockedZone : MonoBehaviour
    public  CameraScript cameraScript;
 
     public Vector3 rotation;
+    public float y;
+    public bool lockedRotation = false;
+    public bool lockedYPosition = false;
+    public bool releaseY = false;
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") )
         {
-            cameraScript.LockRotation(rotation);
+            if (releaseY)
+            {
+                cameraScript.ReleaseYPosition();
+            }
+
+            if (lockedRotation)
+            {
+                cameraScript.LockRotation(rotation);
+                cameraScript.deadZoneY = 1;
+            }
+
+            else if (lockedYPosition)
+            {
+                cameraScript.LockY(y);
+               
+            }
         }
+
+       
     }
 
     void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            cameraScript.ReleaseCamera();
+            if (lockedRotation)
+            {
+                cameraScript.ReleaseCamera();
+            }
+
+
+            /*else if (lockedYPosition)
+            {
+                if (releaseY)
+                {
+                    cameraScript.ReleaseYPosition();
+                }
+            }*/
+
         }
     }
 }
