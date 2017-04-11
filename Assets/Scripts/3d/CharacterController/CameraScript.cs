@@ -52,6 +52,7 @@ public class CameraScript : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
+        Debug.Log("lockedRotation" + lockedRotation);
         float currentAngleY = transform.eulerAngles.y;
         float desiredAngleY = target.transform.eulerAngles.y + rotationYOffset;
         //float currentAngleX = transform.eulerAngles.x;

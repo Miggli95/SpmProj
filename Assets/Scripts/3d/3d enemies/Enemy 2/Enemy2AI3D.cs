@@ -45,7 +45,6 @@ public class Enemy2AI3D : MonoBehaviour
     void Start()
     {
         rend = GetComponent<Renderer>();
-
         agent = GetComponent<NavMeshAgent>();
         agent.autoBraking = false;
         enemy = GetComponent<Rigidbody>();
@@ -169,7 +168,7 @@ public class Enemy2AI3D : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other == Player.GetComponent<SphereCollider>())
+        if(other == Player.GetComponentInChildren<SphereCollider>())
         {
             isIncapacitated = true;
         }

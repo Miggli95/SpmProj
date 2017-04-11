@@ -48,10 +48,6 @@ public class CharController : MonoBehaviour
 
     public AudioSource[] clip;
     public AudioClip SlamSound;
-
-
-
-
     public Vector3 spawn1, spawn2;
 
 
@@ -72,7 +68,7 @@ public class CharController : MonoBehaviour
         position = transform.position;
         controller = GetComponent<CharacterController>();
         rotationY = transform.rotation.y;
-        aoeSlam = GetComponent<SphereCollider>();
+        aoeSlam = GetComponentInChildren<SphereCollider>();
 
 
         // Death();
