@@ -96,16 +96,32 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.57145786
-        functionName: PlayFootstep
+      - time: 0.15686275
+        functionName: PlayStaticFootstepSound
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 5aa45032c0bc48349bb8e0e939b6788e,
           type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.58965516
-        functionName: PlayFootstep
+      - time: 0.68524337
+        functionName: PlayStaticFootstepSound2
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 5aa45032c0bc48349bb8e0e939b6788e,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.3
+        functionName: Stop
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 5aa45032c0bc48349bb8e0e939b6788e,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.8363637
+        functionName: Stop
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 5aa45032c0bc48349bb8e0e939b6788e,
           type: 3}
