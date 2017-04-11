@@ -30,6 +30,7 @@ public class Enemy3AI3D : MonoBehaviour
     public AudioClip walking;
     public AudioClip hurtPlayer;
     public AudioClip sonarPing;
+    public AudioClip hurtEnemy;
     private Vector3 lastPosition;
     void Start()
     {
@@ -168,6 +169,10 @@ public class Enemy3AI3D : MonoBehaviour
             health--;
             if (health == 1)
             {
+                if (!sources[2].isPlaying)
+                {
+                    sources[2].PlayOneShot(hurtEnemy);
+                }
                 Destroy(gameObject.transform.GetChild(0).gameObject);
             }
             if (health == 0)
