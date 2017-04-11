@@ -15,6 +15,9 @@ public class CameraScript : MonoBehaviour
     Vector3 offset;
     bool lockedRotation = false;
     Quaternion rotation;
+    float positionY;
+    bool lockedYPosition = false;
+    public float deadZoneY = 5;
     // Use this for initialization
     void Start()
     {
@@ -35,6 +38,17 @@ public class CameraScript : MonoBehaviour
         target.GetComponent<CharController>().ReleaseRotation();
     }
 
+    public void LockY(float y)
+    {
+        lockedYPosition = true;
+        positionY = y;
+    }
+
+    public void ReleaseYPosition()
+    {
+        lockedYPosition = false;
+    }
+
     // Update is called once per frame
     void LateUpdate()
     {
@@ -53,7 +67,25 @@ public class CameraScript : MonoBehaviour
             rotation = Quaternion.Euler(rotationX, angleY, 0);
         }
 
-        transform.position = target.transform.position - (rotation * offset);
+        /*if (!lockedYPosition)
+        {
+            transform.position = target.transform.position - (rotation * offset);
+        }
+
+        else
+        {
+            Vector3 targetPos = target.transform.position;
+            transform.position = new Vector3(targetPos.x, positionY, targetPos.z) - (rotation * offset);
+        }*/
+       
+        Vector3 targetPos = target.transform.position;
+
+        if (Mathf.Abs(transform.position.y - targetPos.y) > deadZoneY)
+        {
+            positionY = targetPos.y;
+        }
+
+        transform.position = new Vector3(targetPos.x, positionY, targetPos.z) - (rotation * offset);
         transform.LookAt(target.transform);
 
         RaycastHit hit;
