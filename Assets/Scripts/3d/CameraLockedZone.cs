@@ -38,7 +38,7 @@ public class CameraLockedZone : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
             if (lockedRotation)
             {
