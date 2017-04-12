@@ -15,12 +15,13 @@ public class ElevatorBehavior2D : MonoBehaviour {
 
 	public enum TransformDirection{
 		upDown,
-		leftRight
+		leftRight,
+        rightLeft
 	}
 
 	// Use this for initialization
 	void Start () {
-		if (direction != TransformDirection.leftRight && direction != TransformDirection.upDown)
+		if (direction != TransformDirection.leftRight && direction != TransformDirection.upDown && direction != TransformDirection.rightLeft)
 			throw new UnityException ("<color=red>Error: Tranform Direction Error in ElevatorBehavior2D.</color>");
 		if (transformSpeed <= 0 || transformLength <= 0)
 			throw new UnityException ("<color=red>Error: Tranform Speed or Length Must be Greater than Zero.</color>");
@@ -51,7 +52,12 @@ public class ElevatorBehavior2D : MonoBehaviour {
 	private void MovePlatform(int i){
 		if (direction == TransformDirection.upDown) {
 			transform.Translate (i * Vector3.up * (Time.deltaTime * transformSpeed), Space.World);
-		} else if (direction == TransformDirection.leftRight) {
+		}
+        if (direction == TransformDirection.rightLeft)
+        {
+            transform.Translate(i * Vector3.left * (Time.deltaTime * transformSpeed), Space.World);
+        }
+        else if (direction == TransformDirection.leftRight) {
 			transform.Translate (i * Vector3.right * (Time.deltaTime * transformSpeed), Space.World);
 		}
 
