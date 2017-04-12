@@ -37,12 +37,7 @@ public class player2d_controller : MonoBehaviour
     void Start()
     {
 
-     //     spawn1 = new Vector3(-3, 2, 0);           // första spawnen, spawn1 = transform.position för att komma åt där karaktären är.
-     //     spawn2 = new Vector3(5, -11, 0);
-     //     spawn3 = new Vector3(5, -11, 0);
-    //      spawn4 = new Vector3(5, -11, 0);
-  //        spawn5 = new Vector3(5, -11, 0);
-
+     
         spawn1 = transform.position;
 
         _rigi = transform.GetComponent<Rigidbody>();
@@ -255,43 +250,7 @@ public class player2d_controller : MonoBehaviour
     
                 break;
 
-          case "spike2": // spawn1 ----> spawn2   tempo ställt till spawn1
-
-                source.PlayOneShot(hurt_sound);
-                Die(spawn2); //det är är otroligt lat
-               // Respwn();
-                countdownTimer.timer -= 2f;
-
-                break;
-
-
-            case "spike3":                                        // temp av för spawn speltest  case 3 --------> 5
-
-                source.PlayOneShot(hurt_sound);
-          //      Die(spawn3);
-                // Respwn();
-                countdownTimer.timer -= 2f;
-
-                break;
-
-            case "spike4":
-
-                source.PlayOneShot(hurt_sound);
-           //     Die(spawn4);
-                // Respwn();
-                countdownTimer.timer -= 2f;
-
-                break;
-
-            case "spike5":
-
-                source.PlayOneShot(hurt_sound);
-            //    Die(spawn5);
-                // Respwn();
-                countdownTimer.timer -= 2f;
-
-                break;
-
+          
 
             case "button":                               /// början på kod till button/door switch
                 Debug.Log("standing on button");
