@@ -31,7 +31,7 @@ public class BreakableGlass : MonoBehaviour
     
     void OnTriggerEnter(Collider other)
     {
-        if (other == player.GetComponent<SphereCollider>()) {
+        if (other == player.GetComponentInChildren<SphereCollider>()) {
 			Debug.Log("<color=blue>Mechanic:</color> Breakable glass.");
             meshCol.enabled = false;
 			smashed = true;

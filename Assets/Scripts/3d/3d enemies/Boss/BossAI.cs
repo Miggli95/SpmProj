@@ -149,8 +149,8 @@ public class BossAI : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
-            Destroy(gameObject);
+        other.gameObject.GetComponent<Spawner>().fillHole();
+       // Destroy(gameObject);
         
     }
     public void deathAni()
