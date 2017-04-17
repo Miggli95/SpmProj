@@ -29,7 +29,9 @@ public class player2d_controller : MonoBehaviour
     
     public bool stopjump;
     float t;
-
+    private float slamTimer = 0.0f;
+    private SphereCollider aoeSlam;
+    private bool slam = false;
     //public ParticleSystem pe ;
     // Use this for initialization
 
@@ -48,6 +50,7 @@ public class player2d_controller : MonoBehaviour
         facingRight= true;
         
         stopjump = false;
+        aoeSlam = GetComponentInChildren<SphereCollider>();
         //pe = gameObject.GetComponent<ParticleSystem>();
 
 
@@ -151,7 +154,33 @@ public class player2d_controller : MonoBehaviour
 
             Destroy(GameObject.FindWithTag("locker"));
         }
+        if (slamTimer > 0.0f)
+        {
+            slamTimer -= Time.deltaTime;
+            if (slamTimer <= 0.0f)
+            {
+                aoeSlam.enabled = false;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.V) && !IsGrounded())
+        {
+            _rigi.AddForce(Vector3.down * (jumpPower * _rigi.mass * 2f));
+            slam = true;
+        }
+            if (IsGrounded())
+        {
+            if (slam)
+            {
+                aoeSlam.enabled = true;
+               // Instantiate(ShockWave, transform.position, Quaternion.Euler(90, 0, 0));
+                slamTimer = 0.1f;
 
+                //clip[0].PlayOneShot(SlamSound);
+            }
+            _rigi.AddForce(Vector3.down * 0);
+            slam = false;
+
+        }
 
 
     }
