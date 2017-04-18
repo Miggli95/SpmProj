@@ -177,6 +177,10 @@ public class Enemy3AI3D : MonoBehaviour
             }
             if (health == 0)
             {
+                if (!sources[2].isPlaying)
+                {
+                    sources[2].PlayOneShot(hurtEnemy);
+                }
                 kill();
             }
         }
@@ -202,6 +206,11 @@ public class Enemy3AI3D : MonoBehaviour
                 getDamage();
             }
         }
+    }
+
+    public IEnumerator delay()
+    {
+        yield return new WaitForSeconds(1.0f);
     }
 
 }
