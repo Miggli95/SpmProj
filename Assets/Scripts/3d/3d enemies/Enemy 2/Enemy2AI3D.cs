@@ -39,7 +39,9 @@ public class Enemy2AI3D : MonoBehaviour
     public AudioClip dashCharge;
     private Vector3 lastPosition;
     public AudioClip incapacitate;
-    public AudioClip hurtenemy;
+    public AudioClip hurtEnemy;
+    public GameObject sound;
+    private AudioSource soundSource;
     public Renderer rend;
 
     void Start()
@@ -53,6 +55,7 @@ public class Enemy2AI3D : MonoBehaviour
         sources = GetComponents<AudioSource>();
         sources[0].clip = walking;
         sources[1].clip = heartBeat;
+        soundSource = sound.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -171,16 +174,20 @@ public class Enemy2AI3D : MonoBehaviour
         if(other == Player.GetComponentInChildren<SphereCollider>())
         {
             isIncapacitated = true;
+            if (!soundSource.isPlaying)
+            {
+                soundSource.PlayOneShot(incapacitate);
+            }
         }
     }
     public void deathAni()
     {
         if (isIncapacitated)
         {
-           // if (!sources[2].isPlaying)
-           // {
-           //     sources[2].PlayOneShot(hurtenemy);
-           // }
+            if (!soundSource.isPlaying)
+            {
+                soundSource.PlayOneShot(hurtEnemy);
+            }
             Destroy(gameObject);
         }
     }
