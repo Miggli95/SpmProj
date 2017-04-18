@@ -5,21 +5,26 @@ using UnityEngine;
 public class Pause : MonoBehaviour {
 
     private bool paused = false;
+    
 
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Escape))
+        PauseHud ph = GetComponent<PauseHud>();
+
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             paused = !paused;
         }
 
         if (paused)
         {
-            Time.timeScale = 0;
+           ph.OnPause();
+            
         }
         else
         {
-            Time.timeScale = 1;
+            ph.OnUnPause();
+           
         }
     }
 }
