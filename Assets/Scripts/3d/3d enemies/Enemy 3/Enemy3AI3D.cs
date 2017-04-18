@@ -32,6 +32,8 @@ public class Enemy3AI3D : MonoBehaviour
     public AudioClip sonarPing;
     public AudioClip hurtEnemy;
     private Vector3 lastPosition;
+    public GameObject sound;
+    private AudioSource soundSource;
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -42,6 +44,7 @@ public class Enemy3AI3D : MonoBehaviour
         sources = GetComponents<AudioSource>();
         sources[0].clip = walking;
         sources[2].clip = sonarPing;
+        soundSource = sound.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -169,17 +172,17 @@ public class Enemy3AI3D : MonoBehaviour
             health--;
             if (health == 1)
             {
-                if (!sources[2].isPlaying)
+                if (!sources[1].isPlaying)
                 {
-                    sources[2].PlayOneShot(hurtEnemy);
+                    sources[1].PlayOneShot(hurtEnemy);
                 }
                 Destroy(gameObject.transform.GetChild(0).gameObject);
             }
             if (health == 0)
             {
-                if (!sources[2].isPlaying)
+                if (!soundSource.isPlaying)
                 {
-                    sources[2].PlayOneShot(hurtEnemy);
+                    soundSource.PlayOneShot(hurtEnemy);
                 }
                 kill();
             }
@@ -206,11 +209,6 @@ public class Enemy3AI3D : MonoBehaviour
                 getDamage();
             }
         }
-    }
-
-    public IEnumerator delay()
-    {
-        yield return new WaitForSeconds(1.0f);
     }
 
 }
