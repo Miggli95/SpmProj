@@ -6,6 +6,9 @@ public class MakeNewCheckPoint : MonoBehaviour {
     public GameObject checkP2;
     public GameObject checkP3;
     public GameObject checkParticle;
+    public GameObject checkP4;
+    public GameObject checkP5;
+    public GameObject checkP6;
     private player2d_controller playerScript;
     public GameObject Text;
     private AudioSource source;
@@ -28,6 +31,9 @@ public class MakeNewCheckPoint : MonoBehaviour {
         Destroy(checkParticle);
         Destroy(checkP2);
         Destroy(checkP3);
+        Destroy(checkP4);
+        Destroy(checkP5);
+        Destroy(checkP6);
         playerScript.currentCheckPoint= gameObject;
         Text.SetActive(true);
         if (!source.isPlaying)
