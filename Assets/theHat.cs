@@ -31,7 +31,7 @@ public class theHat : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other == player.GetComponent<SphereCollider>())
+        if (other == player.GetComponentInChildren<SphereCollider>())
         {
             Debug.Log("<color=blue>Mechanic:</color> Breakable glass.");
             boxCol.enabled = false;
