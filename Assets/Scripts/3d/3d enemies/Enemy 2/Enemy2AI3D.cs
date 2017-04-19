@@ -186,10 +186,10 @@ public class Enemy2AI3D : MonoBehaviour
     {
         if (isIncapacitated)
         {
-            /*if (!soundSource.isPlaying)
+            if (!soundSource.isPlaying)
             {
                 soundSource.PlayOneShot(hurtEnemy);
-            }*/
+            }
             Destroy(gameObject);
         }
     }
