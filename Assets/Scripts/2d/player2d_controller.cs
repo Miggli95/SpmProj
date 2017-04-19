@@ -295,13 +295,14 @@ public class player2d_controller : MonoBehaviour
           
 
             case "spike":
-              
-                source.PlayOneShot(hurt_sound);
-                source.PlayOneShot(hurt_sound2);
-                // Die(spawn1);
-                Respwn();
-                countdownTimer.timer -= 2f;
-    
+                if (SceneManager.GetActiveScene().name != "NyaLevel3")
+                {
+                    source.PlayOneShot(hurt_sound);
+                    source.PlayOneShot(hurt_sound2);
+                    // Die(spawn1);
+                    Respwn();
+                    countdownTimer.timer -= 2f;
+                }
                 break;
 
           
