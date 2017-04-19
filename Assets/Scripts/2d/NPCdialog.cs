@@ -27,11 +27,13 @@ public class NPCdialog : MonoBehaviour {
         FadeText();
     }
 
-    void OnCollisionEnter(Collision col)
+    IEnumerator OnCollisionEnter(Collision col)
     {
         if (col.collider.CompareTag("player"))
         {
             displayInfo = true;
+            yield return new WaitForSeconds(fadeTime);
+            displayInfo = false;
         }
     }
     void OnCollisionExit(Collision col)
