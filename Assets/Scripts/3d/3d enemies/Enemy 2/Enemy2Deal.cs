@@ -26,7 +26,7 @@ public class Enemy2Deal : EnemyState2 {
         RaycastHit rayhit;
         if (Physics.Raycast(ai.transform.position, Vector3.forward, out rayhit))
         {
-            if (rayhit.collider.tag == "Player" && rayhit.distance < 0.8f && rayhit.collider is CapsuleCollider)
+            if (rayhit.collider.tag == "Player" && rayhit.distance < 0.3f && rayhit.collider is CapsuleCollider)
             {
                 ai.getDamage();
             }
