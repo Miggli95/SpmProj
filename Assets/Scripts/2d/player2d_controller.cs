@@ -35,7 +35,7 @@ public class player2d_controller : MonoBehaviour
     //public ParticleSystem pe ;
     // Use this for initialization
     public AudioClip slam_sound;
-    public GameObject Slame;
+    public GameObject slame;
     public GameManager gm;
     void Start()
     {
@@ -60,8 +60,8 @@ public class player2d_controller : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-       
-        
+
+        stopSlam();
 
 
        
@@ -174,10 +174,11 @@ public class player2d_controller : MonoBehaviour
             if (slam)
             {
                 aoeSlam.enabled = true;
-                Instantiate(Slame, transform.position, Quaternion.Euler(90, 0, 0));
+                Instantiate(slame, transform.position, Quaternion.Euler(90, 0, 0));
                 slamTimer = 0.1f;
 
                 source.PlayOneShot(slam_sound);
+                
             }
             _rigi.AddForce(Vector3.down * 0);
             slam = false;
@@ -401,6 +402,11 @@ public class player2d_controller : MonoBehaviour
         blood.GetComponent<ParticleSystem>().enableEmission = false;
 
     }
-   
+    IEnumerator stopSlam()
+    {
+        yield return new WaitForSeconds(1f);
+        slame.GetComponent<ParticleSystem>().enableEmission = false;
+
+    }
 
 }
