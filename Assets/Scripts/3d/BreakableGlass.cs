@@ -36,6 +36,10 @@ public class BreakableGlass : MonoBehaviour
             meshCol.enabled = false;
 			smashed = true;
         }
+        if(other == player.GetComponent<SphereCollider>())
+        {
+            Destroy(this);
+        }
     }
 
 	private void SmashGlass(){

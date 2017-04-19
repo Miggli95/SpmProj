@@ -26,7 +26,7 @@ public class Enemy2Deal : EnemyState2 {
         RaycastHit rayhit;
         if (Physics.Raycast(ai.transform.position, Vector3.forward, out rayhit))
         {
-            if (rayhit.collider.tag == "Player" && rayhit.distance < 0.3f && rayhit.collider is CapsuleCollider)
+            if (rayhit.collider.tag == "Player" && rayhit.distance < 0.8f && rayhit.collider is CapsuleCollider)
             {
                 ai.getDamage();
             }
@@ -37,6 +37,8 @@ public class Enemy2Deal : EnemyState2 {
             {
                 ai.getDamage();
             }
+            else if (rayhit.collider.tag == "player" && rayhit.distance < 0.6f && rayhit.collider is CapsuleCollider)
+                ai.getDamage();
         }
         if (Physics.Raycast(ai.transform.position, Vector3.right, out rayhit))
         {
@@ -44,6 +46,8 @@ public class Enemy2Deal : EnemyState2 {
             {
                 ai.getDamage();
             }
+            else if (rayhit.collider.tag == "player" && rayhit.distance < 0.6f && rayhit.collider is CapsuleCollider)
+                ai.getDamage();
         }
         if (Physics.Raycast(ai.transform.position, Vector3.back, out rayhit))
         {
@@ -84,7 +88,7 @@ public class Enemy2Deal : EnemyState2 {
         if(!notdashing && resettimer > 0.0f)
         {
             resettimer -= deltaTime;
-            Debug.Log(resettimer);
+            //Debug.Log(resettimer);
             if (resettimer <= 0.0f)
             {
                 Debug.Log("stopped dashing");

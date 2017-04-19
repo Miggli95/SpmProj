@@ -181,6 +181,31 @@ public class player2d_controller : MonoBehaviour
             slam = false;
 
         }
+        RaycastHit rayhit;
+        if (Physics.Raycast(transform.position, Vector3.down, out rayhit))
+        {
+
+            if (rayhit.collider.tag == "enemy" && rayhit.distance < 1.4f)
+            {
+                rayhit.collider.GetComponent<EnemyAI3D>().deathAni();
+                //forceJump();
+            }
+            if (rayhit.collider.tag == "enemy2" && rayhit.distance < 1.7f)
+            {
+                rayhit.collider.GetComponent<Enemy2AI3D>().deathAni();
+                _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
+                //forceJump();
+            }
+            if (rayhit.collider.tag == "enemy3" && rayhit.distance < 1.4f)
+            {
+                rayhit.collider.GetComponent<Enemy3AI3D>().deathAni();
+                //forceJump();
+            }
+            if (rayhit.collider.tag == "lava" && rayhit.distance < 1.1f)
+            {
+                //Death();
+            }
+        }
 
 
     }

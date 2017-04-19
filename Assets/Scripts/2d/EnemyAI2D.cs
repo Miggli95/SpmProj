@@ -54,10 +54,10 @@ public class EnemyAI2D : MonoBehaviour {
                 break;
         }
 
-        if (!sources[2].isPlaying)
+       /* if (!sources[2].isPlaying)
         {
             sources[2].PlayDelayed(0.5f);
-        }
+        }*/
     }
 
     private void calcState()

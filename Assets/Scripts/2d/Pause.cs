@@ -9,7 +9,7 @@ public class Pause : MonoBehaviour {
 
     void Update()
     {
-        PauseHud ph = GetComponent<PauseHud>();
+       /* PauseHud ph = GetComponent<PauseHud>();
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -25,6 +25,6 @@ public class Pause : MonoBehaviour {
         {
             ph.OnUnPause();
            
-        }
+        }*/
     }
 }

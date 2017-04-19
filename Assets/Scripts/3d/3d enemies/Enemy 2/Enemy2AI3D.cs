@@ -159,8 +159,10 @@ public class Enemy2AI3D : MonoBehaviour
     public int getDamage()
     {
         Vector3 spawn = new Vector3(6, 14, 2);
-
+        if(Player.tag == "Player")
         Player.GetComponent<CharController>().Death();
+        if(Player.tag == "player")
+        Player.GetComponent<player2d_controller>().Respwn();
 
         return damage;
     }
@@ -184,10 +186,10 @@ public class Enemy2AI3D : MonoBehaviour
     {
         if (isIncapacitated)
         {
-            if (!soundSource.isPlaying)
+            /*if (!soundSource.isPlaying)
             {
                 soundSource.PlayOneShot(hurtEnemy);
-            }
+            }*/
             Destroy(gameObject);
         }
     }
