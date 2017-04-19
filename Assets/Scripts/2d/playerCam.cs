@@ -21,7 +21,7 @@ public class playerCam : MonoBehaviour {
     
     void LateUpdate()
     {
-       velocity = Vector3.zero;//player.GetComponent<Rigidbody>().velocity;
+       velocity = Vector3.zero;
        Vector3 targetPos = player.transform.position;
       
         if (Mathf.Abs(transform.position.x - targetPos.x) > deadZone.x)
