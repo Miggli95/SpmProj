@@ -201,8 +201,10 @@ public class CharController : MonoBehaviour
         {
             if (slam)
             {
+                Vector3 spawnslam = transform.position;
+                spawnslam.y -= 1;
                 aoeSlam.enabled = true;
-                Instantiate(ShockWave, transform.position, Quaternion.Euler(90,0,0));
+                Instantiate(ShockWave, spawnslam, Quaternion.Euler(90,0,0));
                 slamTimer = 0.1f;
 
                 clip[0].PlayOneShot(SlamSound);
@@ -244,7 +246,11 @@ public class CharController : MonoBehaviour
                 rayhit.collider.GetComponent<Enemy3AI3D>().deathAni();
                 forceJump();
             }
-            if (rayhit.collider.tag == "lava" && rayhit.distance < 1.1f)
+            if (rayhit.collider.tag == "lava" && rayhit.distance < 1.4f)
+            {
+                Death();
+            }
+            if (rayhit.collider.tag == "spike" && rayhit.distance < 1.5f)
             {
                 Death();
             }
