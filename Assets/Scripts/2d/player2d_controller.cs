@@ -34,7 +34,8 @@ public class player2d_controller : MonoBehaviour
     private bool slam = false;
     //public ParticleSystem pe ;
     // Use this for initialization
-
+    public AudioClip slam_sound;
+    public GameObject Slame;
     public GameManager gm;
     void Start()
     {
@@ -173,10 +174,10 @@ public class player2d_controller : MonoBehaviour
             if (slam)
             {
                 aoeSlam.enabled = true;
-               // Instantiate(ShockWave, transform.position, Quaternion.Euler(90, 0, 0));
+                Instantiate(Slame, transform.position, Quaternion.Euler(90, 0, 0));
                 slamTimer = 0.1f;
 
-                //clip[0].PlayOneShot(SlamSound);
+                source.PlayOneShot(slam_sound);
             }
             _rigi.AddForce(Vector3.down * 0);
             slam = false;
