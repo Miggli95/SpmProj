@@ -18,6 +18,7 @@ public class CameraScript : MonoBehaviour
     float positionY;
     bool lockedYPosition = false;
     public float deadZoneY = 5;
+    private float VelY;
     // Use this for initialization
     void Start()
     {
@@ -83,7 +84,7 @@ public class CameraScript : MonoBehaviour
 
         if (Mathf.Abs(transform.position.y - targetPos.y) > deadZoneY)
         {
-            positionY = targetPos.y;
+            positionY = Mathf.SmoothDamp(positionY,targetPos.y,ref VelY,1);
         }
 
         transform.position = new Vector3(targetPos.x, positionY, targetPos.z) - (rotation * offset);
