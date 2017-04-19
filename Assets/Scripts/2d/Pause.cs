@@ -2,29 +2,46 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pause : MonoBehaviour {
+public class Pause : MonoBehaviour
+{
 
     private bool paused = false;
-    
+    GameObject canvas;
 
+    private void Start()
+    {
+        canvas = GameObject.FindObjectOfType<PauseHud>().gameObject;
+    }
     void Update()
     {
-       /* PauseHud ph = GetComponent<PauseHud>();
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            paused = !paused;
+            GoPause();
         }
+
+
+    }
+
+
+    void Flip()
+    {
+        paused = !paused;
+    }
+
+    void GoPause()
+    {
+        PauseHud ph = canvas.GetComponent<PauseHud>();
 
         if (paused)
         {
-           ph.OnPause();
-            
+            Flip();
+            ph.OnPause();
         }
         else
         {
+            Flip();
             ph.OnUnPause();
-           
-        }*/
+        }
     }
 }

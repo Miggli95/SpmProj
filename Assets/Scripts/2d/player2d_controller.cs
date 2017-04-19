@@ -164,6 +164,7 @@ public class player2d_controller : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.V) && !IsGrounded())
         {
+            anim.SetBool("Attack", true);
             _rigi.AddForce(Vector3.down * (jumpPower * _rigi.mass * 2f));
             slam = true;
         }
