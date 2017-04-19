@@ -38,7 +38,7 @@ public class CharController : MonoBehaviour
     float rotationY;
     private SphereCollider aoeSlam;
     private float slamTimer = 0.0f;
-    private float flyingTimer = 4.0f;
+    private float flyingTimer = 3.0f;
     private bool flying = false;
     public GameObject slamCollider;
 
@@ -324,6 +324,10 @@ public class CharController : MonoBehaviour
                 SceneManager.LoadScene("Hub Level");
                 break;
         }
+    }
+    public void loadBoss()
+    {
+        SceneManager.LoadScene("BossLevel");
     }
     private void OnTriggerEnter(Collider other)
     {
