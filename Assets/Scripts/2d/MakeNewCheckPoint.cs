@@ -19,6 +19,12 @@ public class MakeNewCheckPoint : MonoBehaviour {
         playerScript = FindObjectOfType<player2d_controller>();
         source = GetComponent<AudioSource>();
         Text.SetActive(false);
+        checkParticle.SetActive(true);
+        checkP2.SetActive(false);
+        checkP3.SetActive(true);
+        checkP4.SetActive(false);
+        checkP5.SetActive(false);
+        checkP6.SetActive(false);
     }
 	
 	// Update is called once per frame
@@ -27,13 +33,18 @@ public class MakeNewCheckPoint : MonoBehaviour {
 	}
     IEnumerator OnTriggerEnter(Collider other)
     {
-        
-        Destroy(checkParticle);
-        Destroy(checkP2);
-        Destroy(checkP3);
-        Destroy(checkP4);
-        Destroy(checkP5);
-        Destroy(checkP6);
+
+        checkP2.SetActive(true);
+       
+        checkP4.SetActive(true);
+        checkP5.SetActive(true);
+        checkP6.SetActive(true);
+        //   Destroy(checkParticle);
+        //   Destroy(checkP2);
+        //   Destroy(checkP3);
+        //   Destroy(checkP4);
+        //   Destroy(checkP5);
+        //  Destroy(checkP6);
         playerScript.currentCheckPoint= gameObject;
         Text.SetActive(true);
         if (!source.isPlaying)
