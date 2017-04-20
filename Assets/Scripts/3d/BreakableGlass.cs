@@ -38,7 +38,7 @@ public class BreakableGlass : MonoBehaviour
         }
         if(other == player.GetComponent<SphereCollider>())
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
 
