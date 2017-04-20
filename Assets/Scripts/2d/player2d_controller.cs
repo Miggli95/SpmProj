@@ -373,7 +373,7 @@ public class player2d_controller : MonoBehaviour
             case "Level3":
                 if (gm.isLevelComplete(2) && Input.GetKeyDown(KeyCode.UpArrow))
                 {
-                   SceneManager.LoadScene("AlternativeLevel3");
+                   SceneManager.LoadScene("Nyalevel3");
                 }
               
                 break;
