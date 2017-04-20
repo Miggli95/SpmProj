@@ -103,7 +103,7 @@ public class player2d_controller : MonoBehaviour
             // pe.Play();
         }
 
-         if (move == 0|| !IsGrounded()) {
+         if (move == 0||!IsGrounded()) {
              // pe.Stop();
         walkingDust.SetActive(false);
             } else walkingDust.SetActive(true);
@@ -304,8 +304,7 @@ public class player2d_controller : MonoBehaviour
             case "spike":
                 if (SceneManager.GetActiveScene().name != "NyaLevel3")
                 {
-                    source.PlayOneShot(hurt_sound);
-                    source.PlayOneShot(hurt_sound2);
+                    
                     // Die(spawn1);
                     Respwn();
                     countdownTimer.timer -= 2f;
@@ -396,6 +395,8 @@ public class player2d_controller : MonoBehaviour
 
     public void Respwn()
     {
+        source.PlayOneShot(hurt_sound);
+        source.PlayOneShot(hurt_sound2);
         Instantiate(blood, transform.position, Quaternion.identity);
         _rigi.transform.position =currentCheckPoint.transform.position;
     }
