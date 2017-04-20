@@ -193,7 +193,7 @@ public class player2d_controller : MonoBehaviour
                 rayhit.collider.GetComponent<EnemyAI3D>().deathAni();
                 //forceJump();
             }
-            if (rayhit.collider.tag == "enemy2" && rayhit.distance < 1.7f)
+            if (rayhit.collider.tag == "enemy2" && rayhit.distance < 1.3f)
             {
                 rayhit.collider.GetComponent<Enemy2AI3D>().deathAni();
                 _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));

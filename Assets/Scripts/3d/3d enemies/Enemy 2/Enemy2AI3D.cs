@@ -27,7 +27,7 @@ public class Enemy2AI3D : MonoBehaviour
     private EnemyState2 enemyState;
     private Rigidbody enemy;
     private float timetoDeath;
-
+    public GameObject stars;
     public Material blue;
     public Material red;
 
@@ -43,6 +43,7 @@ public class Enemy2AI3D : MonoBehaviour
     public GameObject sound;
     private AudioSource soundSource;
     public Renderer rend;
+    private GameObject stun;
 
     void Start()
     {
@@ -191,6 +192,19 @@ public class Enemy2AI3D : MonoBehaviour
                 soundSource.PlayOneShot(hurtEnemy);
             }
             Destroy(gameObject);
+        }
+    }
+    public void Stars(bool flip)
+    {
+        if (flip)
+        {
+            Vector3 pos = transform.position;
+            pos.y += 1;
+            stun = Instantiate(stars, pos, Quaternion.Euler(0, 0, 0));
+        }
+        else
+        {
+            Destroy(stun);
         }
     }
 

@@ -32,6 +32,7 @@ public class Enemy2Incapacitated : EnemyState2
         Debug.Log("Entered Incapacitated");
         ai.Pause();
         original = ai.rend.material;
+        ai.Stars(true);
     }
     public Enemy2StateData Update(Vector3 pos, float deltaTime, NavMeshAgent agent)
     {
@@ -102,6 +103,7 @@ public class Enemy2Incapacitated : EnemyState2
         ai.rend.material = original;
         ai.transform.GetChild(0).gameObject.transform.localEulerAngles = org;
         Debug.Log("Left Incapicated");
+        ai.Stars(false);
     }
 
 
