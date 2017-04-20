@@ -51,10 +51,11 @@ public class MakeNewCheckPoint : MonoBehaviour {
         {
                         source.PlayOneShot(soundClip);
         }
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         Text.SetActive(false);
         Destroy(soundClip);
-           Destroy(checkP4);
+        yield return new WaitForSeconds(2f);
+        Destroy(checkP4);
            Destroy(checkP5);
           Destroy(checkP6);
         // if (other.name == "player")

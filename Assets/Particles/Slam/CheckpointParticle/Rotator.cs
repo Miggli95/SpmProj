@@ -4,6 +4,8 @@ using System.Collections;
 public class Rotator : MonoBehaviour
 {
     public int z;
+    public int x;
+    public int y;
     // Use this for initialization
     void Start()
     {
@@ -13,6 +15,6 @@ public class Rotator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(new Vector3(0, 0, z) * Time.deltaTime);
+        transform.Rotate(new Vector3(x, y, z) * Time.deltaTime);
     }
 }
