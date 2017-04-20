@@ -30,7 +30,7 @@ public class Enemy3AI3D : MonoBehaviour
     public AudioClip walking;
     public AudioClip hurtPlayer;
     public AudioClip sonarPing;
-    public AudioClip hurtEnemy;
+    public AudioClip[] hurtEnemySounds;
     public AudioClip hurtHead;
     private Vector3 lastPosition;
     public GameObject sound;
@@ -183,7 +183,8 @@ public class Enemy3AI3D : MonoBehaviour
             {
                 if (!soundSource.isPlaying)
                 {
-                    soundSource.PlayOneShot(hurtEnemy);
+                    int clipIndex = Random.Range(0, hurtEnemySounds.Length);
+                    soundSource.PlayOneShot(hurtEnemySounds[clipIndex]);
                 }
                 kill();
             }

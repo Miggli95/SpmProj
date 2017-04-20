@@ -39,7 +39,7 @@ public class Enemy2AI3D : MonoBehaviour
     public AudioClip dashCharge;
     private Vector3 lastPosition;
     public AudioClip incapacitate;
-    public AudioClip hurtEnemy;
+    public AudioClip[] hurtEnemySounds;
     public GameObject sound;
     private AudioSource soundSource;
     public Renderer rend;
@@ -189,7 +189,8 @@ public class Enemy2AI3D : MonoBehaviour
         {
             if (!soundSource.isPlaying)
             {
-                soundSource.PlayOneShot(hurtEnemy);
+                int clipIndex = Random.Range(0, hurtEnemySounds.Length);
+                soundSource.PlayOneShot(hurtEnemySounds[clipIndex]);
             }
             Stars(false);
             Destroy(gameObject);
