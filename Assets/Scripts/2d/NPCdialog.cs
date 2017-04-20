@@ -27,7 +27,7 @@ public class NPCdialog : MonoBehaviour {
         FadeText();
     }
 
-    IEnumerator OnCollisionEnter(Collision col)
+    IEnumerator OnTriggerEnter(Collision col)
     {
         if (col.collider.CompareTag("player"))
         {
@@ -36,10 +36,7 @@ public class NPCdialog : MonoBehaviour {
             displayInfo = false;
         }
     }
-    void OnCollisionExit(Collision col)
-    {
-    }
-
+   
     void FadeText() {
         if (displayInfo)
         {
