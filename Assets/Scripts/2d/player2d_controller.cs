@@ -37,6 +37,7 @@ public class player2d_controller : MonoBehaviour
     public AudioClip slam_sound;
     public GameObject slame;
     public GameManager gm;
+    public GameObject walkingDust;
     void Start()
     {
 
@@ -53,7 +54,7 @@ public class player2d_controller : MonoBehaviour
         stopjump = false;
         aoeSlam = GetComponentInChildren<SphereCollider>();
         //pe = gameObject.GetComponent<ParticleSystem>();
-
+        walkingDust.SetActive(false);
 
     }
 
@@ -92,18 +93,20 @@ public class player2d_controller : MonoBehaviour
         if (move > 0 && !facingRight)
         {
             Flip();
-           // pe.Play();
+           // walkingDust.SetActive(true);
+            // pe.Play();
         }
         else if (move < 0 && facingRight)
         {
             Flip();
-           // pe.Play();
+            //walkingDust.SetActive(true);
+            // pe.Play();
         }
 
-       // if (move == 0) {
-      //      pe.Stop();
-//
-    //    }
+         if (move == 0|| !IsGrounded()) {
+             // pe.Stop();
+        walkingDust.SetActive(false);
+            } else walkingDust.SetActive(true);
 
         IsGrounded();
         
@@ -129,13 +132,14 @@ public class player2d_controller : MonoBehaviour
         {
             _rigi.Sleep();
             _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
-           // canDoubleJump = true;
+            
+            // canDoubleJump = true;
             source.PlayOneShot(jump_sound);
             anim.SetBool("Grounded", false);
         }
          if (Input.GetKeyDown(KeyCode.Space) && !IsGrounded() && stopjump ==false )
         {
-
+            
             _rigi.Sleep();
             _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
          //   canDoubleJump = false;

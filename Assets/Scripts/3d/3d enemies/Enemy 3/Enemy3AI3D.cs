@@ -31,6 +31,7 @@ public class Enemy3AI3D : MonoBehaviour
     public AudioClip hurtPlayer;
     public AudioClip sonarPing;
     public AudioClip hurtEnemy;
+    public AudioClip hurtHead;
     private Vector3 lastPosition;
     public GameObject sound;
     private AudioSource soundSource;
@@ -174,7 +175,7 @@ public class Enemy3AI3D : MonoBehaviour
             {
                 if (!sources[1].isPlaying)
                 {
-                    sources[1].PlayOneShot(hurtEnemy);
+                    sources[1].PlayOneShot(hurtHead);
                 }
                 Destroy(gameObject.transform.GetChild(0).gameObject);
             }
