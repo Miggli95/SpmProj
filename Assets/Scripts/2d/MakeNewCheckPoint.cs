@@ -54,10 +54,13 @@ public class MakeNewCheckPoint : MonoBehaviour {
         yield return new WaitForSeconds(2f);
         Text.SetActive(false);
         Destroy(soundClip);
+           Destroy(checkP4);
+           Destroy(checkP5);
+          Destroy(checkP6);
         // if (other.name == "player")
         //{
         //   playerScript.currentCheckPoint = gameObject; 
         //}
     }
-   
+
 }
