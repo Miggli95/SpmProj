@@ -192,6 +192,7 @@ public class Enemy2AI3D : MonoBehaviour
                 soundSource.PlayOneShot(hurtEnemy);
             }
             Destroy(gameObject);
+            Stars(false);
         }
     }
     public void Stars(bool flip)
