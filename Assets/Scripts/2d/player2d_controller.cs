@@ -381,7 +381,7 @@ public class player2d_controller : MonoBehaviour
             case "bossLevel":
                 if (gm.isLevelComplete(3) && Input.GetKeyDown(KeyCode.UpArrow))
                 {
-                    SceneManager.LoadScene("BossLevel");
+                    SceneManager.LoadScene("TempTutorial");
                 }
                 break;  
         }
