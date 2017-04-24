@@ -21,7 +21,7 @@ public class Enemy3AI3D : MonoBehaviour
     public Transform[] points;
     public int destPoint = 0;
     private int health = 2;
-    private float deathtimer = 0.5f;
+    private float deathtimer = 0.3f;
     private bool isDead = false;
     private EnemyState3 enemyState;
     private Rigidbody enemy;
