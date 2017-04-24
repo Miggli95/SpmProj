@@ -7,7 +7,7 @@ public class ElevatorBehavior2D : MonoBehaviour {
 	[SerializeField] private float transformSpeed;
 	[SerializeField] private float transformLength;
 	[SerializeField] private float transformDelay;
-    Transform parent;
+
 	private float fixedStopTime;
 	private float stopTimer;
 	private int binar;
@@ -82,22 +82,21 @@ public class ElevatorBehavior2D : MonoBehaviour {
 		startDelay = false;
 		//Debug.Log("startDelay false");
 	}
-	
-	void OnTriggerEnter(Collider other)
+	/*
+	void OnCollisionEnter(Collision other)
 	{
-		if (other.gameObject.CompareTag("player"))
+		if (other.collider.CompareTag("player"))
 		{
-            parent = other.transform.parent;
-            other.transform.parent = transform;
+			other.transform.parent = transform;
 		}
 	}
-	
-	void OnTriggerExit(Collider other)
-	{
-		if (other.CompareTag("player"))
-		{
-			other.transform.parent = null;
-		}
-	}
+	*/
+	//void OnCollisionExit(Collision other)
+	//{
+	//	if (other.collider.CompareTag("player"))
+	//	{
+	//		other.transform.parent = null;
+	//	}
+	//}
 
 }

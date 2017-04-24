@@ -17,7 +17,7 @@ public class Spike : MonoBehaviour {
     {
         if(other is CapsuleCollider)
         {
-            other.GetComponent<CharController2D>().Respwn();
+            other.GetComponent<player2d_controller>().Respwn();
         }
     } 
 }
