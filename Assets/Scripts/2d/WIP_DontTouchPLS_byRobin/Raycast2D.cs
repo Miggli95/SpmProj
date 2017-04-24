@@ -3,10 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace CharacterController2D{
-	public partial class Controller2D : MonoBehaviour {
+namespace RayCastController2D
+{
+	[RequireComponent (typeof(BoxCollider2D))]
+	public class Raycast2D : MonoBehaviour
+	{
 
-		struct RaycastOrigins{
+		[HideInInspector] BoxCollider2D playerCollider;
+		public LayerMask collisionMask;
+
+		public int horizontalRayCount = 4;
+		public int verticalRayCount = 4;
+
+		[HideInInspector] public float horizontalRaySpacing;
+		[HideInInspector] public float verticalRaySpacing;
+
+		[HideInInspector] public RaycastOrigins raycastOrigins;
+		[HideInInspector] public const float skinWith = 0.02f;
+
+
+
+		public struct RaycastOrigins
+		{
 			public Vector2 topLeft;
 			public Vector2 topRight;
 			public Vector2 bottomLeft;
@@ -15,17 +33,18 @@ namespace CharacterController2D{
 
 
 
-		RaycastOrigins raycastOrigins;
-		const float skinWith = 0.02f;
 
-		[SerializeField] private int horizontalRayCount = 4;
-		[SerializeField] private int verticalRayCount = 4;
-
-		private float horizontalRaySpacing;
-		private float verticalRaySpacing;
+		public virtual void Start ()
+		{
+			playerCollider = GetComponent<BoxCollider2D> ();
+			CalculateRaySpacing ();
+		}
 
 
-		private void UpdateRayCastOrigins(){
+
+
+		public void UpdateRayCastOrigins ()
+		{
 			Bounds bounds = playerCollider.bounds;
 			bounds.Expand (skinWith * (-2));
 
@@ -36,7 +55,8 @@ namespace CharacterController2D{
 		}
 
 
-		private void CalculateRaySpacing(){
+		public void CalculateRaySpacing ()
+		{
 			Bounds bounds = playerCollider.bounds;
 			bounds.Expand (skinWith * (-2));
 
@@ -47,8 +67,6 @@ namespace CharacterController2D{
 			horizontalRaySpacing = bounds.size.y / (horizontalRayCount - 1);
 			verticalRaySpacing = bounds.size.x / (verticalRayCount - 1);
 		}
-
-
 
 
 	}
