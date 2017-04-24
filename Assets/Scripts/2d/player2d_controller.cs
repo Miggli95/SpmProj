@@ -333,7 +333,7 @@ public class player2d_controller : MonoBehaviour
                 int levelToLoad = SceneManager.GetActiveScene().buildIndex + 1;
                 //if(levelToLoad<=SceneManager.sceneCount)
                     
-                SceneManager.LoadScene(4);
+                SceneManager.LoadScene(3);
                 //countdownTimer.timer = 90f;
                 gotKey = false;
                 //Application.LoadLevel(SceneManager.);
@@ -347,44 +347,26 @@ public class player2d_controller : MonoBehaviour
                          gotKey= true;
                 break;
 
-
-        }
-
-        
-    }
-
-    public void OnTriggerStay(Collider col)
-    {
-        switch (col.gameObject.tag)
-        {
             case "Level1":
-                if (Input.GetKey(KeyCode.UpArrow))
-                {
-                    SceneManager.LoadScene("level1");
-                }
+                SceneManager.LoadScene("level1");
                 break;
 
             case "Level2":
-                if (gm.isLevelComplete(1) && Input.GetKeyDown(KeyCode.UpArrow))
-                {
-                    SceneManager.LoadScene("Level2");
-                }
+
+                SceneManager.LoadScene("Level2");
                 break;
             case "Level3":
-                if (gm.isLevelComplete(2) && Input.GetKeyDown(KeyCode.UpArrow))
-                {
-                   SceneManager.LoadScene("Nyalevel3");
-                }
-              
+
+                SceneManager.LoadScene("Nyalevel3");
                 break;
 
             case "bossLevel":
-                if (gm.isLevelComplete(3) && Input.GetKeyDown(KeyCode.UpArrow))
-                {
-                    SceneManager.LoadScene("TempTutorial");
-                }
-                break;  
+
+                SceneManager.LoadScene("BossLevel");
+                break;
+
         }
+        
     }
 
     public void Die(Vector3 spawn)
