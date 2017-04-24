@@ -323,7 +323,7 @@ public class CharController : MonoBehaviour
                 // moveDir.y = jumpSpeed;
                 forceJump();
             }
-            if (rayhit.collider.tag == "enemy2" && rayhit.distance < 1.3f)
+            if (rayhit.collider.tag == "enemy2" && rayhit.distance < 1.7f)
             {
                 rayhit.collider.GetComponent<Enemy2AI3D>().deathAni();
                 //_rigi.AddForce(Vector3.up * (jumpSpeed * _rigi.mass * 2f));
@@ -334,7 +334,11 @@ public class CharController : MonoBehaviour
                 rayhit.collider.GetComponent<Enemy3AI3D>().deathAni();
                 forceJump();
             }
-            if (rayhit.collider.tag == "lava" && rayhit.distance < 1.1f)
+            if (rayhit.collider.tag == "lava" && rayhit.distance < 1.4f)
+            {
+                Death();
+            }
+            if (rayhit.collider.tag == "spike" && rayhit.distance < 1.5f)
             {
                 Death();
             }
