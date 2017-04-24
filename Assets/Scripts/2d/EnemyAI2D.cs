@@ -144,7 +144,7 @@ public class EnemyAI2D : MonoBehaviour {
 
     public int getDamage()
     {
-        Player.GetComponent<player2d_controller>().Respwn();
+        Player.GetComponent<CharController2D>().Respwn();
         return damage;
     }
     public void setSpeed(int newSpeed)

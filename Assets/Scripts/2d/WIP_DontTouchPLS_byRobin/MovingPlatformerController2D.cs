@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 //using CharacterController2D;
-
+/*
 namespace RayCastController2D
 {
 	public class MovingPlatformerController2D : Raycast2D
@@ -232,4 +232,4 @@ namespace RayCastController2D
 		}
 
 	}
-}
+}*/
