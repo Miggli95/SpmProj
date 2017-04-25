@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     private Vector3 BTwo = new Vector3(-40, 53, 2);
     int currentRespawn = 0;
 
+    public bool level1Cleared = false;
+
 	void Start()
     {
         levelComplete = PlayerPrefs.GetInt("Level");
@@ -35,6 +37,12 @@ public class GameManager : MonoBehaviour
             currentRespawn = PlayerPrefs.GetInt("CheckpointLvl3");
             print(currentRespawn + "CheckPoint");
         }
+    }
+
+    void Update()
+    {
+        if (isLevelComplete(1))
+            level1Cleared = true;
     }
 
     public Vector3 getSpawnPoint()
@@ -72,6 +80,8 @@ public class GameManager : MonoBehaviour
 
         print("spawn " + currentRespawn);
         return respawns[currentRespawn].position;
+
+        
     }
     public Vector3 getRotation()
     {
