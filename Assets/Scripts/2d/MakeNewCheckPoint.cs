@@ -45,11 +45,11 @@ public class MakeNewCheckPoint : MonoBehaviour {
         //   Destroy(checkP4);
         //   Destroy(checkP5);
         //  Destroy(checkP6);
-        playerScript.currentCheckPoint= gameObject;
+        playerScript.currentCheckPoint = gameObject;
         Text.SetActive(true);
         if (!source.isPlaying)
         {
-                        source.PlayOneShot(soundClip);
+            source.PlayOneShot(soundClip);
         }
         yield return new WaitForSeconds(1f);
         Text.SetActive(false);

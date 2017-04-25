@@ -27,9 +27,9 @@ public class NPCdialog : MonoBehaviour {
         FadeText();
     }
 
-    IEnumerator OnTriggerEnter(Collision col)
+    IEnumerator OnTriggerEnter(Collider col)
     {
-        if (col.collider.CompareTag("player"))
+        if (col.CompareTag("player"))
         {
             displayInfo = true;
             yield return new WaitForSeconds(fadeTime);
