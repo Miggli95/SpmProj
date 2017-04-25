@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿/************************
+ * 						*
+ * 	Basic Raycast2D		*
+ * 						*
+ ************************/
+
+
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
