@@ -52,7 +52,7 @@ public class CharController2D : MonoBehaviour
     float previousX;
     private Rigidbody _rigi;
 
-
+    RaycastHit topHit;
     // Use this for initialization
     void Start()
     {
@@ -208,7 +208,11 @@ public class CharController2D : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, rotationY, 0);
         }*/
         // transform.Rotate(0, charinput.x * rotationSpeed, 0);
-
+        if (Physics.SphereCast(transform.position, controller.radius, Vector3.up, out topHit,
+          0.05f, Physics.AllLayers, QueryTriggerInteraction.Ignore))
+        {
+            moveDir.y = -1;
+        }
         Vector3 destination = transform.right * charinput.x; //Quaternion.Euler(0, transform.rotation.y, 0) * (transform.forward * charinput.y);
         RaycastHit hit;
         //  Ray ray = new Ray(transform.position, Vector3.down);
