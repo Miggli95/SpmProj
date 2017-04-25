@@ -90,6 +90,8 @@ public class CharController2D : MonoBehaviour
     // Update is called once per frame
     float curMouse = 0;
     float lastMouse = 0;
+    private bool airJump;
+    private bool jumped;
 
     void Update()
     {
@@ -111,15 +113,17 @@ public class CharController2D : MonoBehaviour
 
         // if (manager.HaveAbility((int)Abilities.doubleJump))
         //{
-        if (!doubleJump && jumping)
+        if (!airJump && !controller.isGrounded)
         {
-            doubleJump = Input.GetKeyDown(KeyCode.Space);
+            airJump = Input.GetKeyDown(KeyCode.Space);
         }
 
         if (!previouslyGrounded && controller.isGrounded)
         {
             moveDir.y = 0;
             jumping = false;
+            airJump = false;
+            jumped = false;
             //doubleJump = false;
         }
 
@@ -260,13 +264,17 @@ public class CharController2D : MonoBehaviour
                 }
             }
 
-            if (doubleJump)
+            if (airJump)
             {
-                Debug.Log("doubleJump");
-                moveDir.y = doubleJumpSpeed;
-                jumping = false;
-                jump = false;
-                doubleJump = false;
+                if (!jumped)
+                {
+                    Debug.Log("doubleJump");
+                    moveDir.y = doubleJumpSpeed;
+                    jumping = false;
+                    jump = false;
+                    jumped = true;
+                }
+                //doubleJump = false;
             }
         }
 

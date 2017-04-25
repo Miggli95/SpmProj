@@ -1,14 +1,4 @@
-﻿/************************************************************
- * 															*
- *	This is the Raycast2D Collision Detector				*
- * 															*
- * 	You can jump through objects with the following tags:	*
- * 	elev, CanPassThrough, Elevator, MovingPlatform			*
- * 															*
- ************************************************************/
-
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,8 +6,9 @@ using UnityEngine;
 namespace RayCastController2D
 {
 	
-	public class CollisionController2D : Raycast2D
+	public partial class Controller2D : Raycast2D
 	{
+		#region collisions
 
 		public struct CollisionInfo
 		{
@@ -74,13 +65,6 @@ namespace RayCastController2D
 				Debug.DrawRay (rayOrigin, Vector2.up * directionY, Color.green);
 
 				if (hit) {
-
-					if (hit.collider.tag == "CanPassThrough" || hit.collider.tag == "elev" || hit.collider.tag == "Elevator" || hit.collider.tag == "MovingPlatform") {
-						if (directionY == 1) {
-							continue;
-						}
-					}
-
 					velocity.y = (hit.distance - skinWith) * directionY;
 					rayLength = hit.distance;
 
@@ -123,6 +107,10 @@ namespace RayCastController2D
 
 		}
 
+
+
+
+		#endregion
 
 	}
 
