@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MakeNewCheckPoint : MonoBehaviour {
+public class MakeNewCheckPoint : MonoBehaviour
+{
     public GameObject checkP2;
     public GameObject checkP3;
     public GameObject checkParticle;
@@ -13,9 +14,13 @@ public class MakeNewCheckPoint : MonoBehaviour {
     public GameObject Text;
     private AudioSource source;
     public AudioClip soundClip;
+    private bool alreadyPlay;
+
+
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         playerScript = FindObjectOfType<CharController2D>();
         source = GetComponent<AudioSource>();
         Text.SetActive(false);
@@ -25,17 +30,19 @@ public class MakeNewCheckPoint : MonoBehaviour {
         checkP4.SetActive(false);
         checkP5.SetActive(false);
         checkP6.SetActive(false);
+        alreadyPlay = false;
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
     IEnumerator OnTriggerEnter(Collider other)
     {
 
         checkP2.SetActive(true);
-       
+
         checkP4.SetActive(true);
         checkP5.SetActive(true);
         checkP6.SetActive(true);
@@ -47,17 +54,19 @@ public class MakeNewCheckPoint : MonoBehaviour {
         //  Destroy(checkP6);
         playerScript.currentCheckPoint = gameObject;
         Text.SetActive(true);
-        if (!source.isPlaying)
+
+        if (!alreadyPlay)
         {
             source.PlayOneShot(soundClip);
+            alreadyPlay = true;
         }
         yield return new WaitForSeconds(1f);
         Text.SetActive(false);
         Destroy(soundClip);
         yield return new WaitForSeconds(2f);
         Destroy(checkP4);
-           Destroy(checkP5);
-          Destroy(checkP6);
+        Destroy(checkP5);
+        Destroy(checkP6);
         // if (other.name == "player")
         //{
         //   playerScript.currentCheckPoint = gameObject; 
