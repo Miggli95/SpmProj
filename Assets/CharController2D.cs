@@ -51,7 +51,7 @@ public class CharController2D : MonoBehaviour
     public GameObject currentCheckPoint;
     float previousX;
     private Rigidbody _rigi;
-
+    float startZ;
     RaycastHit topHit;
     public float BoundeDownOnRoof;
 
@@ -64,6 +64,7 @@ public class CharController2D : MonoBehaviour
         {
             Death();
         }*/
+        startZ = transform.position.z;
         _rigi = transform.GetComponent<Rigidbody>();
         position = transform.position;
         controller = GetComponent<CharacterController>();
@@ -179,7 +180,7 @@ public class CharController2D : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (transform.position.z == 0)
+        if (transform.position.z == startZ)
         {
             previousX = transform.position.x;
         }
@@ -289,7 +290,7 @@ public class CharController2D : MonoBehaviour
   
         colFlags = controller.Move(moveDir * Time.fixedDeltaTime);
 
-        if (transform.position.z != 0)
+        if (transform.position.z != startZ)
         {
             Vector3 newPosition = transform.position;
             newPosition.x = previousX;
