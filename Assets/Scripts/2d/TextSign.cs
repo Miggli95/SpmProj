@@ -2,39 +2,58 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TextSign : MonoBehaviour {
-    public GameObject CollText1;
+public class TextSign : MonoBehaviour
+{
+    public GameObject Obj;
+    private AudioSource source;
+    public AudioClip soundClip;
+    private bool alreadyPlay;
 
-	// Use this for initialization
-	void Start () {
-        CollText1.SetActive(false);
-       
-        
+    // Use this for initialization
+    void Start()
+    {
+        Obj.SetActive(false);
+        source = GetComponent<AudioSource>();
+        alreadyPlay = false;
+
+
     }
-	
-	// Update is called once per frame
-	void Update () {
-       
+
+    // Update is called once per frame
+    void Update()
+    {
+
 
 
 
     }
-    IEnumerator OnTriggerEnter(Collider other) {
-        if (other.CompareTag("player")) {
-            TextOn();
+    IEnumerator OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("player"))
+        {
+
+            ObjOn();
+
+            if (!alreadyPlay)
+            {
+                source.PlayOneShot(soundClip);
+                alreadyPlay = true;
+            }
             yield return new WaitForSeconds(3f);
-            TextOff();
+            ObjOff();
         }
-        
+
     }
 
-    
 
-    public void TextOn() {
-        CollText1.SetActive(true);
+
+    public void ObjOn()
+    {
+        Obj.SetActive(true);
     }
 
-    public void TextOff() {
-        CollText1.SetActive(false);
+    public void ObjOff()
+    {
+        Obj.SetActive(false);
     }
 }
