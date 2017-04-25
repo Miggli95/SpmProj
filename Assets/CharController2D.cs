@@ -54,6 +54,7 @@ public class CharController2D : MonoBehaviour
     float startZ;
     RaycastHit topHit;
     public float BoundeDownOnRoof;
+    public float pushPower = 2;
 
     // Use this for initialization
     void Start()
@@ -327,22 +328,17 @@ public class CharController2D : MonoBehaviour
         lockedRotation = false;
     }*/
 
-    private void OnControllerColliderHit(ControllerColliderHit hit)
+    void OnControllerColliderHit(ControllerColliderHit hit)
     {
         Rigidbody body = hit.collider.attachedRigidbody;
-
-        //dont move the rigidbody if the character is on top of it
-
-        if (colFlags == CollisionFlags.Below)
-        {
-            return;
-        }
-
         if (body == null || body.isKinematic)
-        {
             return;
-        }
-        body.AddForceAtPosition(controller.velocity * 0.1f, hit.point, ForceMode.Impulse);
+
+        if (hit.moveDirection.y < -0.3F)
+            return;
+
+        Vector3 pushDir = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
+        body.velocity = pushDir * pushPower;
     }
 
     public void forceJump()
