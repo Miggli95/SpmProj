@@ -294,7 +294,7 @@ public class CharController2D : MonoBehaviour
         {
             Vector3 newPosition = transform.position;
             newPosition.x = previousX;
-            newPosition.z = 0;
+            newPosition.z = startZ;
             transform.position = newPosition;
         }
 
