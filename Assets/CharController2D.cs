@@ -53,6 +53,8 @@ public class CharController2D : MonoBehaviour
     private Rigidbody _rigi;
 
     RaycastHit topHit;
+    public float BoundeDownOnRoof;
+
     // Use this for initialization
     void Start()
     {
@@ -209,7 +211,7 @@ public class CharController2D : MonoBehaviour
         }*/
         // transform.Rotate(0, charinput.x * rotationSpeed, 0);
         if (Physics.SphereCast(transform.position, controller.radius, Vector3.up, out topHit,
-          0.05f, Physics.AllLayers, QueryTriggerInteraction.Ignore))
+          BoundeDownOnRoof, Physics.AllLayers, QueryTriggerInteraction.Ignore))
         {
             moveDir.y = -1;
         }
