@@ -9,14 +9,14 @@ public class MakeNewCheckPoint : MonoBehaviour {
     public GameObject checkP4;
     public GameObject checkP5;
     public GameObject checkP6;
-    private player2d_controller playerScript;
+    private CharController2D playerScript;
     public GameObject Text;
     private AudioSource source;
     public AudioClip soundClip;
 
     // Use this for initialization
     void Start () {
-        playerScript = FindObjectOfType<player2d_controller>();
+        playerScript = FindObjectOfType<CharController2D>();
         source = GetComponent<AudioSource>();
         Text.SetActive(false);
         checkParticle.SetActive(true);
