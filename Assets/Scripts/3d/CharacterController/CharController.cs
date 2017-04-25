@@ -17,6 +17,7 @@ public class CharController : MonoBehaviour
     private Vector3 position;
     bool input = false;
     float t;
+    bool airJump = false;
     CharacterController controller;
     [SerializeField]
     private float stickToGroundForce;
@@ -91,180 +92,182 @@ public class CharController : MonoBehaviour
     // Update is called once per frame
     float curMouse = 0;
     float lastMouse = 0;
+    private bool jumped;
+
     /*void Update()
-    {
-        t += Time.deltaTime;
-        //slamCollider.SetActive(slam);
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-        charinput = new Vector2(horizontal, vertical);
+{
+t += Time.deltaTime;
+//slamCollider.SetActive(slam);
+float horizontal = Input.GetAxis("Horizontal");
+float vertical = Input.GetAxis("Vertical");
+charinput = new Vector2(horizontal, vertical);
 
-        if (slamTimer > 0.0f)
-        {
-            slamTimer -= Time.deltaTime;
-            if (slamTimer <= 0.0f)
-            {
-                aoeSlam.enabled = false;
-            }
-        }
-        if (charinput.sqrMagnitude > 1)
-        {
-            charinput.Normalize();
-        }
+if (slamTimer > 0.0f)
+{
+slamTimer -= Time.deltaTime;
+if (slamTimer <= 0.0f)
+{
+aoeSlam.enabled = false;
+}
+}
+if (charinput.sqrMagnitude > 1)
+{
+charinput.Normalize();
+}
 
-        if (!lockedRotation)
-        {
-            rotationY = rotationSpeed * Input.GetAxis("Mouse X");
-            transform.Rotate(Vector3.up, rotationY);
-        }
+if (!lockedRotation)
+{
+rotationY = rotationSpeed * Input.GetAxis("Mouse X");
+transform.Rotate(Vector3.up, rotationY);
+}
 
-        else
-        {
-            transform.rotation = Quaternion.Euler(0,rotationY,0);
-        }
-        // transform.Rotate(0, charinput.x * rotationSpeed, 0);
+else
+{
+transform.rotation = Quaternion.Euler(0,rotationY,0);
+}
+// transform.Rotate(0, charinput.x * rotationSpeed, 0);
 
-        Vector3 destination = transform.forward * charinput.y + transform.right * charinput.x; //Quaternion.Euler(0, transform.rotation.y, 0) * (transform.forward * charinput.y);
-        RaycastHit hit;
-        //  Ray ray = new Ray(transform.position, Vector3.down);
-        Physics.SphereCast(transform.position, controller.radius, Vector3.down, out hit,
-            controller.height / 2, Physics.AllLayers, QueryTriggerInteraction.Ignore);
+Vector3 destination = transform.forward * charinput.y + transform.right * charinput.x; //Quaternion.Euler(0, transform.rotation.y, 0) * (transform.forward * charinput.y);
+RaycastHit hit;
+//  Ray ray = new Ray(transform.position, Vector3.down);
+Physics.SphereCast(transform.position, controller.radius, Vector3.down, out hit,
+controller.height / 2, Physics.AllLayers, QueryTriggerInteraction.Ignore);
 
-        destination = Vector3.ProjectOnPlane(destination, hit.normal).normalized;
+destination = Vector3.ProjectOnPlane(destination, hit.normal).normalized;
 
-        moveDir.x = destination.x * speed;
-        moveDir.z = destination.z * speed;
-
-
-        if (!jump)
-        {
-            if (controller.isGrounded)
-            {
-                jump = Input.GetKeyDown(KeyCode.Space);
-            }
-        }
-
-        if (manager.HaveAbility((int)Abilities.doubleJump))
-        {
-            if (!doubleJump && jumping)
-            {
-                doubleJump = Input.GetKeyDown(KeyCode.Space);
-            }
-        }
-
-        if (!previouslyGrounded && controller.isGrounded)
-        {
-            jumping = false;
-            doubleJump = false;
-        }
-
-        previouslyGrounded = controller.isGrounded;
-        if (controller.isGrounded)
-        {
-            moveDir.y -= stickToGroundForce;
-            //controller.GetComponent<Rigidbody>().AddForceAtPosition(Vector3.up * 1000, transform.position, ForceMode.Impulse);
-            if (jump)
-            {
-                moveDir.y = jumpSpeed;
-                jump = false;
-                jumping = true;
-            }
-
-        }
-        else
-        {
-            moveDir += Physics.gravity * gravityMultiplier * Time.deltaTime;
-        }
-
-        if (doubleJump)
-        {
-            moveDir.y = doubleJumpSpeed;
-            jumping = false;
-            jump = false;
-            doubleJump = false;
-        }
+moveDir.x = destination.x * speed;
+moveDir.z = destination.z * speed;
 
 
+if (!jump)
+{
+if (controller.isGrounded)
+{
+jump = Input.GetKeyDown(KeyCode.Space);
+}
+}
 
-        colFlags = controller.Move(moveDir * Time.deltaTime);
+if (manager.HaveAbility((int)Abilities.doubleJump))
+{
+if (!doubleJump && jumping)
+{
+doubleJump = Input.GetKeyDown(KeyCode.Space);
+}
+}
 
-        //print("isSlaming" + slam);
-        //test code reset progression of gameManager
+if (!previouslyGrounded && controller.isGrounded)
+{
+jumping = false;
+doubleJump = false;
+}
 
-        if (Input.GetKeyDown(KeyCode.R) && SceneManager.GetActiveScene().buildIndex == 4)
-        {
+previouslyGrounded = controller.isGrounded;
+if (controller.isGrounded)
+{
+moveDir.y -= stickToGroundForce;
+//controller.GetComponent<Rigidbody>().AddForceAtPosition(Vector3.up * 1000, transform.position, ForceMode.Impulse);
+if (jump)
+{
+moveDir.y = jumpSpeed;
+jump = false;
+jumping = true;
+}
 
-            manager.ResetProgression();
-        }
+}
+else
+{
+moveDir += Physics.gravity * gravityMultiplier * Time.deltaTime;
+}
 
-        if (controller.isGrounded)
-        {
-            if (slam)
-            {
-                Vector3 spawnslam = transform.position;
-                spawnslam.y -= 1;
-                aoeSlam.enabled = true;
-                Instantiate(ShockWave, spawnslam, Quaternion.Euler(90,0,0));
-                slamTimer = 0.1f;
+if (doubleJump)
+{
+moveDir.y = doubleJumpSpeed;
+jumping = false;
+jump = false;
+doubleJump = false;
+}
 
-                clip[0].PlayOneShot(SlamSound);
-            }
-            moveDir.y = 0;
-            slam = false;
 
-        }
 
-        else
-        {
-            if (manager.HaveAbility((int)Abilities.slam))
-            {
-                if (Input.GetKeyDown(KeyCode.V))
-                {
-                    moveDir.y = -jumpSpeed;
-                    slam = true;
-                   
-                }
-            }
-        }
+colFlags = controller.Move(moveDir * Time.deltaTime);
 
-        RaycastHit rayhit;
-        if (Physics.Raycast(transform.position, Vector3.down, out rayhit))
-        {
+//print("isSlaming" + slam);
+//test code reset progression of gameManager
 
-            if (rayhit.collider.tag == "enemy" && rayhit.distance < 1.4f)
-            {
-                rayhit.collider.GetComponent<EnemyAI3D>().deathAni();
-                forceJump();
-            }
-            if (rayhit.collider.tag == "enemy2" && rayhit.distance < 1.7f)
-            {
-                rayhit.collider.GetComponent<Enemy2AI3D>().deathAni();
-                forceJump();
-            }
-            if (rayhit.collider.tag == "enemy3" && rayhit.distance < 1.4f)
-            {
-                rayhit.collider.GetComponent<Enemy3AI3D>().deathAni();
-                forceJump();
-            }
-            if (rayhit.collider.tag == "lava" && rayhit.distance < 1.4f)
-            {
-                Death();
-            }
-            if (rayhit.collider.tag == "spike" && rayhit.distance < 1.5f)
-            {
-                Death();
-            }
-        }
-        if (flying)
-        {
-            flyingTimer -= Time.deltaTime;
-            if(flyingTimer <= 0.0f)
-            {
-                loadNextBoss();
-            }
-        }
+if (Input.GetKeyDown(KeyCode.R) && SceneManager.GetActiveScene().buildIndex == 4)
+{
 
-    }*/
+manager.ResetProgression();
+}
+
+if (controller.isGrounded)
+{
+if (slam)
+{
+Vector3 spawnslam = transform.position;
+spawnslam.y -= 1;
+aoeSlam.enabled = true;
+Instantiate(ShockWave, spawnslam, Quaternion.Euler(90,0,0));
+slamTimer = 0.1f;
+
+clip[0].PlayOneShot(SlamSound);
+}
+moveDir.y = 0;
+slam = false;
+
+}
+
+else
+{
+if (manager.HaveAbility((int)Abilities.slam))
+{
+if (Input.GetKeyDown(KeyCode.V))
+{
+moveDir.y = -jumpSpeed;
+slam = true;
+
+}
+}
+}
+
+RaycastHit rayhit;
+if (Physics.Raycast(transform.position, Vector3.down, out rayhit))
+{
+
+if (rayhit.collider.tag == "enemy" && rayhit.distance < 1.4f)
+{
+rayhit.collider.GetComponent<EnemyAI3D>().deathAni();
+forceJump();
+}
+if (rayhit.collider.tag == "enemy2" && rayhit.distance < 1.7f)
+{
+rayhit.collider.GetComponent<Enemy2AI3D>().deathAni();
+forceJump();
+}
+if (rayhit.collider.tag == "enemy3" && rayhit.distance < 1.4f)
+{
+rayhit.collider.GetComponent<Enemy3AI3D>().deathAni();
+forceJump();
+}
+if (rayhit.collider.tag == "lava" && rayhit.distance < 1.4f)
+{
+Death();
+}
+if (rayhit.collider.tag == "spike" && rayhit.distance < 1.5f)
+{
+Death();
+}
+}
+if (flying)
+{
+flyingTimer -= Time.deltaTime;
+if(flyingTimer <= 0.0f)
+{
+loadNextBoss();
+}
+}
+
+}*/
 
 
     void Update()
@@ -289,15 +292,17 @@ public class CharController : MonoBehaviour
 
         // if (manager.HaveAbility((int)Abilities.doubleJump))
         //{
-        if (!doubleJump && jumping)
+        if (!airJump && !controller.isGrounded)
         {
-            doubleJump = Input.GetKeyDown(KeyCode.Space);
+            airJump = Input.GetKeyDown(KeyCode.Space);
         }
 
         if (!previouslyGrounded && controller.isGrounded)
         {
             moveDir.y = 0;
             jumping = false;
+            airJump = false;
+            jumped = false;
             //doubleJump = false;
         }
 
@@ -319,7 +324,7 @@ public class CharController : MonoBehaviour
 
             if (rayhit.collider.tag == "enemy" && rayhit.distance < 1.4f)
             {
-                rayhit.collider.GetComponent<EnemyAI2D>().deathAni();
+                rayhit.collider.GetComponent<EnemyAI3D>().deathAni();
                 // moveDir.y = jumpSpeed;
                 forceJump();
             }
@@ -424,13 +429,17 @@ public class CharController : MonoBehaviour
                 }
             }
 
-            if (doubleJump)
+            if (airJump)
             {
-                Debug.Log("doubleJump");
-                moveDir.y = doubleJumpSpeed;
-                jumping = false;
-                jump = false;
-                doubleJump = false;
+                if (!jumped)
+                {
+                    Debug.Log("doubleJump");
+                    moveDir.y = doubleJumpSpeed;
+                    jumping = false;
+                    jump = false;
+                    jumped = true;
+                }
+                //doubleJump = false;
             }
         }
 

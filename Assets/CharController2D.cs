@@ -51,7 +51,9 @@ public class CharController2D : MonoBehaviour
     public GameObject currentCheckPoint;
     float previousX;
     private Rigidbody _rigi;
-
+    float startZ;
+    RaycastHit topHit;
+    public float BoundeDownOnRoof;
 
     // Use this for initialization
     void Start()
@@ -62,6 +64,7 @@ public class CharController2D : MonoBehaviour
         {
             Death();
         }*/
+        startZ = transform.position.z;
         _rigi = transform.GetComponent<Rigidbody>();
         position = transform.position;
         controller = GetComponent<CharacterController>();
@@ -90,6 +93,8 @@ public class CharController2D : MonoBehaviour
     // Update is called once per frame
     float curMouse = 0;
     float lastMouse = 0;
+    private bool airJump;
+    private bool jumped;
 
     void Update()
     {
@@ -111,15 +116,17 @@ public class CharController2D : MonoBehaviour
 
         // if (manager.HaveAbility((int)Abilities.doubleJump))
         //{
-        if (!doubleJump && jumping)
+        if (!airJump && !controller.isGrounded)
         {
-            doubleJump = Input.GetKeyDown(KeyCode.Space);
+            airJump = Input.GetKeyDown(KeyCode.Space);
         }
 
         if (!previouslyGrounded && controller.isGrounded)
         {
             moveDir.y = 0;
             jumping = false;
+            airJump = false;
+            jumped = false;
             //doubleJump = false;
         }
 
@@ -173,7 +180,7 @@ public class CharController2D : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (transform.position.z == 0)
+        if (transform.position.z == startZ)
         {
             previousX = transform.position.x;
         }
@@ -204,7 +211,11 @@ public class CharController2D : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, rotationY, 0);
         }*/
         // transform.Rotate(0, charinput.x * rotationSpeed, 0);
-
+        if (Physics.SphereCast(transform.position, controller.radius, Vector3.up, out topHit,
+          BoundeDownOnRoof, Physics.AllLayers, QueryTriggerInteraction.Ignore))
+        {
+            moveDir.y = -1;
+        }
         Vector3 destination = transform.right * charinput.x; //Quaternion.Euler(0, transform.rotation.y, 0) * (transform.forward * charinput.y);
         RaycastHit hit;
         //  Ray ray = new Ray(transform.position, Vector3.down);
@@ -260,13 +271,17 @@ public class CharController2D : MonoBehaviour
                 }
             }
 
-            if (doubleJump)
+            if (airJump)
             {
-                Debug.Log("doubleJump");
-                moveDir.y = doubleJumpSpeed;
-                jumping = false;
-                jump = false;
-                doubleJump = false;
+                if (!jumped)
+                {
+                    Debug.Log("doubleJump");
+                    moveDir.y = doubleJumpSpeed;
+                    jumping = false;
+                    jump = false;
+                    jumped = true;
+                }
+                //doubleJump = false;
             }
         }
 
@@ -275,11 +290,11 @@ public class CharController2D : MonoBehaviour
   
         colFlags = controller.Move(moveDir * Time.fixedDeltaTime);
 
-        if (transform.position.z != 0)
+        if (transform.position.z != startZ)
         {
             Vector3 newPosition = transform.position;
             newPosition.x = previousX;
-            newPosition.z = 0;
+            newPosition.z = startZ;
             transform.position = newPosition;
         }
 
