@@ -520,7 +520,7 @@ public class CharController2D : MonoBehaviour
         clip[1].PlayOneShot(hurt_sound2);
         Instantiate(blood, transform.position, Quaternion.identity);
         Vector3 spawnPoint = currentCheckPoint.transform.position; ;
-        spawnPoint.z = 0;
+        spawnPoint.z = startZ;
         transform.position = spawnPoint;
         moveDir = Vector3.zero;
     }
