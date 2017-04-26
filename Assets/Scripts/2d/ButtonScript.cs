@@ -30,6 +30,11 @@ public class ButtonScript : MonoBehaviour {
                 SceneManager.LoadScene(0);
                 player.GetComponent<CharController2D>().retry1 = false;
             }
+            else if(player.GetComponent<CharController2D>().retry2 == true)
+            {
+                SceneManager.LoadScene(1);
+                player.GetComponent<CharController2D>().retry2 = false;
+            }
         }
     }
 }
