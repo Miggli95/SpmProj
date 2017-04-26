@@ -139,7 +139,7 @@ public class CharController2D : MonoBehaviour
         }
 
         previouslyGrounded = controller.isGrounded;
-        if (Input.GetKeyDown(KeyCode.R) && SceneManager.GetActiveScene().buildIndex == 4)
+        if (Input.GetKeyDown(KeyCode.R) && SceneManager.GetActiveScene().buildIndex == 3)
         {
 
             manager.ResetProgression();
