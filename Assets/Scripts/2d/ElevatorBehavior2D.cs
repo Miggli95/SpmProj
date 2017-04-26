@@ -100,18 +100,34 @@ public class ElevatorBehavior2D : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("player"))
+        if (!transform.gameObject.CompareTag("spike"))
         {
-            parent = other.transform.parent;
-            other.transform.parent = transform;
+            if (other.gameObject.CompareTag("player"))
+            {
+                parent = other.transform.parent;
+                other.transform.parent = transform;
+            }
+        }
+
+        else
+        {
+            Debug.Log("spike");
         }
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("player"))
+        if (!transform.gameObject.CompareTag("spike"))
         {
-            other.transform.parent = null;
+
+            if (other.CompareTag("player"))
+            {
+                other.transform.parent = null;
+            }
+        }
+        else
+        {
+            Debug.Log("spike");
         }
     }
 
