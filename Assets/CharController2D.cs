@@ -453,7 +453,7 @@ public class CharController2D : MonoBehaviour
                 int levelToLoad = SceneManager.GetActiveScene().buildIndex + 1;
                 //if(levelToLoad<=SceneManager.sceneCount)
 
-                SceneManager.LoadScene(0);
+                SceneManager.LoadScene("Hub Level");
                 //countdownTimer.timer = 90f;
                 gotKey = false;
                 //Application.LoadLevel(SceneManager.);
@@ -490,12 +490,12 @@ public class CharController2D : MonoBehaviour
                     SceneManager.LoadScene("Level2");
                 }
                 break;
+
             case "Level3":
                 if (manager.isLevelComplete(2) && Input.GetKeyDown(KeyCode.UpArrow))
                 {
                     SceneManager.LoadScene("Nyalevel3");
                 }
-
                 break;
 
             case "bossLevel":
