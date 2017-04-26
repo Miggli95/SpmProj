@@ -286,18 +286,17 @@ public class CharController2D : MonoBehaviour
                     jumped = true;
                 }
                 //doubleJump = false;
-            }
-
-            if (bounce)
-            {
-                moveDir.y = jumpSpeed;
-                bounce = false;
-            }
+            }            
+        }
+        if (bounce)
+        {
+            moveDir.y = jumpSpeed;
+            bounce = false;
         }
 
 
 
-  
+
         colFlags = controller.Move(moveDir * Time.fixedDeltaTime);
 
         if (transform.position.z != startZ)
