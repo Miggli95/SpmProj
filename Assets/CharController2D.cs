@@ -151,7 +151,7 @@ public class CharController2D : MonoBehaviour
         if (Physics.Raycast(transform.position, Vector3.down, out rayhit))
         {
 
-            if (rayhit.collider.tag == "enemy" && rayhit.distance < 1.4f)
+            if (rayhit.collider.tag == "enemy" && rayhit.distance < 0.5f)
             {
                 rayhit.collider.GetComponent<EnemyAI2D>().deathAni();
                 //moveDir.y = jumpSpeed;
@@ -250,7 +250,7 @@ public class CharController2D : MonoBehaviour
             if (slam)
             {
                 Vector3 spawnslam = transform.position;
-                spawnslam.y -= 1;
+                //spawnslam.y -= 1;
                 aoeSlam.enabled = true;
                 Instantiate(ShockWave, spawnslam, Quaternion.Euler(90, 0, 0));
                 slamTimer = 0.1f;
