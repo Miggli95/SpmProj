@@ -163,7 +163,7 @@ public class Enemy2AI3D : MonoBehaviour
         if(Player.tag == "Player")
         Player.GetComponent<CharController>().Death();
         if(Player.tag == "player")
-        Player.GetComponent<player2d_controller>().Respwn();
+        Player.GetComponent<CharController2D>().Respwn();
 
         return damage;
     }
