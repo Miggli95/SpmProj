@@ -93,6 +93,7 @@ public class CharController : MonoBehaviour
     float curMouse = 0;
     float lastMouse = 0;
     private bool jumped;
+    private bool bounce;
 
     /*void Update()
 {
@@ -299,17 +300,17 @@ loadNextBoss();
 
         if (!previouslyGrounded && controller.isGrounded)
         {
-            moveDir.y = 0;
+            //moveDir.y = 0;
             jumping = false;
             airJump = false;
             jumped = false;
             //doubleJump = false;
         }
 
-        if (!controller.isGrounded && !jumping && previouslyGrounded)
+        /*if (!controller.isGrounded && !jumping && previouslyGrounded)
         {
             moveDir.y = 0;
-        }
+        }*/
 
         previouslyGrounded = controller.isGrounded;
         if (Input.GetKeyDown(KeyCode.R) && SceneManager.GetActiveScene().buildIndex == 4)
@@ -348,6 +349,7 @@ loadNextBoss();
                 Death();
             }
         }
+
         //}
 
     }
@@ -445,6 +447,13 @@ loadNextBoss();
                 }
                 //doubleJump = false;
             }
+
+        }
+
+        if (bounce)
+        {
+            moveDir.y = jumpSpeed;
+            bounce = false;
         }
 
         colFlags = controller.Move(moveDir * Time.fixedDeltaTime);
@@ -493,7 +502,8 @@ loadNextBoss();
 
     public void forceJump()
     {
-        moveDir.y = jumpSpeed;
+        bounce = true;
+        //moveDir.y = jumpSpeed;
     }
     public void doSuperJump()
     {
