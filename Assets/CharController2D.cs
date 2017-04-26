@@ -98,6 +98,7 @@ public class CharController2D : MonoBehaviour
     float lastMouse = 0;
     private bool airJump;
     private bool jumped;
+    private bool bounce;
 
     void Update()
     {
@@ -126,7 +127,7 @@ public class CharController2D : MonoBehaviour
 
         if (!previouslyGrounded && controller.isGrounded)
         {
-            moveDir.y = 0;
+            //moveDir.y = 0;
             jumping = false;
             airJump = false;
             jumped = false;
@@ -135,7 +136,7 @@ public class CharController2D : MonoBehaviour
 
         if (!controller.isGrounded && !jumping && previouslyGrounded)
         {
-            moveDir.y = 0;
+           // moveDir.y = 0;
         }
 
         previouslyGrounded = controller.isGrounded;
@@ -152,19 +153,19 @@ public class CharController2D : MonoBehaviour
             if (rayhit.collider.tag == "enemy" && rayhit.distance < 1.4f)
             {
                 rayhit.collider.GetComponent<EnemyAI2D>().deathAni();
-                moveDir.y = jumpSpeed;
-                //forceJump();
+                //moveDir.y = jumpSpeed;
+                forceJump();
             }
             if (rayhit.collider.tag == "enemy2" && rayhit.distance < 1.3f)
             {
                 rayhit.collider.GetComponent<Enemy2AI3D>().deathAni();
                 _rigi.AddForce(Vector3.up * (jumpSpeed * _rigi.mass * 2f));
-                //forceJump();
+                forceJump();
             }
             if (rayhit.collider.tag == "enemy3" && rayhit.distance < 1.4f)
             {
                 rayhit.collider.GetComponent<Enemy3AI3D>().deathAni();
-                //forceJump();
+                forceJump();
             }
             if (rayhit.collider.tag == "lava" && rayhit.distance < 1.1f)
             {
@@ -286,9 +287,14 @@ public class CharController2D : MonoBehaviour
                 }
                 //doubleJump = false;
             }
+            if (bounce)
+            {
+                moveDir.y = jumpSpeed;
+                bounce = false;
+            }
         }
 
-
+        Debug.Log("moveDiry" + moveDir.y);
 
   
         colFlags = controller.Move(moveDir * Time.fixedDeltaTime);
@@ -345,7 +351,8 @@ public class CharController2D : MonoBehaviour
 
     public void forceJump()
     {
-        moveDir.y = jumpSpeed;
+        bounce = true;
+        //moveDir.y = jumpSpeed;
     }
 
     public void doSuperJump()
