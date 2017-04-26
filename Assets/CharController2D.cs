@@ -58,6 +58,7 @@ public class CharController2D : MonoBehaviour
 
     public GameObject retryMenu;
     public bool retry1 = false;
+    public bool retry2 = true;
     // Use this for initialization
     void Start()
     {
@@ -491,7 +492,13 @@ public class CharController2D : MonoBehaviour
                 break;
 
             case "Level2":
-                if (manager.isLevelComplete(1))// && Input.GetKeyDown(KeyCode.UpArrow))
+                if (manager.isLevelComplete(1) && manager.level2Cleared)
+                {
+                    retry2 = true;
+                    retryMenu.SetActive(true);
+
+                }
+                else if (manager.isLevelComplete(1))// && Input.GetKeyDown(KeyCode.UpArrow))
                 {
                     SceneManager.LoadScene("Level2");
                 }

@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     int currentRespawn = 0;
 
     public bool level1Cleared = false;
-
+    public bool level2Cleared = false;
 	void Start()
     {
         levelComplete = PlayerPrefs.GetInt("Level");
@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour
     {
         if (isLevelComplete(1))
             level1Cleared = true;
+        if (isLevelComplete(2))
+            level2Cleared = true;
     }
 
     public Vector3 getSpawnPoint()
@@ -135,6 +137,8 @@ public class GameManager : MonoBehaviour
         levelComplete = 0;
         numberOfAbilities = 0;
         unlockedAbilities.Clear();
+        level1Cleared = false;
+        level2Cleared = false;
 }
 
     public bool isLevelComplete(int level)
