@@ -352,7 +352,7 @@ public class player2d_controller : MonoBehaviour
                 break;
 
             case "Level1":
-
+               // SceneManager.GetSceneByName("level1").buildIndex;
                 if(gm.isLevelComplete(0) && gm.level1Cleared)
                 {
                     retry1 = true;

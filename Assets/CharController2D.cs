@@ -467,44 +467,39 @@ public class CharController2D : MonoBehaviour
                 gotKey = true;
                 break;
 
-
-        }
-
-
-    }
-
-    public void OnTriggerStay(Collider col)
-    {
-        switch (col.gameObject.tag)
-        {
             case "Level1":
-                if (Input.GetKey(KeyCode.UpArrow))
+               // if (Input.GetKey(KeyCode.UpArrow))
                 {
                     SceneManager.LoadScene("level1");
                 }
                 break;
 
             case "Level2":
-                if (manager.isLevelComplete(1) && Input.GetKeyDown(KeyCode.UpArrow))
+                if (manager.isLevelComplete(1))// && Input.GetKeyDown(KeyCode.UpArrow))
                 {
                     SceneManager.LoadScene("Level2");
                 }
                 break;
 
             case "Level3":
-                if (manager.isLevelComplete(2) && Input.GetKeyDown(KeyCode.UpArrow))
+                if (manager.isLevelComplete(2)) //&& Input.GetKeyDown(KeyCode.UpArrow))
                 {
-                    SceneManager.LoadScene("Nyalevel3");
+                    SceneManager.LoadScene("NyaLevel3");
                 }
                 break;
 
             case "bossLevel":
-                if (manager.isLevelComplete(3) && Input.GetKeyDown(KeyCode.UpArrow))
+                if (manager.isLevelComplete(3))// && Input.GetKeyDown(KeyCode.UpArrow))
                 {
-                    SceneManager.LoadScene("TempTutorial");
+                    SceneManager.LoadScene("BossLevel");
                 }
                 break;
+
+
+
         }
+
+
     }
 
     public void Die(Vector3 spawn)

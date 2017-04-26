@@ -29,14 +29,14 @@ public class ObjectRotater3D : MonoBehaviour {
 	}
 
 	private void RotateObject(){
-		if (direction == RotationDirection.clockwise)
-			transform.Rotate (Vector3.up * (Time.deltaTime * rotationSpeed), Space.World);
-		else if (direction == RotationDirection.counterClockwise)
-			transform.Rotate (Vector3.up * (Time.deltaTime * rotationSpeed) * (-1), Space.World);
-		else {
-			Debug.LogError ("<color=red>Error:</color> Rotation direction error");
-			return;
-		}
+        if (direction == RotationDirection.clockwise)
+            transform.Rotate(Vector3.up * (Time.deltaTime * rotationSpeed), Space.Self);
+        else if (direction == RotationDirection.counterClockwise)
+            transform.Rotate(Vector3.up * (Time.deltaTime * rotationSpeed) * (-1), Space.Self);
+        else {
+            Debug.LogError("<color=red>Error:</color> Rotation direction error");
+            return;
+        }
 	}
 
 
