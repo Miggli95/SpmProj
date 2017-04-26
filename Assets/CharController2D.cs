@@ -56,6 +56,8 @@ public class CharController2D : MonoBehaviour
     public float BoundeDownOnRoof;
     public float pushPower = 2;
 
+    public GameObject retryMenu;
+    public bool retry1 = false;
     // Use this for initialization
     void Start()
     {
@@ -468,7 +470,14 @@ public class CharController2D : MonoBehaviour
                 break;
 
             case "Level1":
-               // if (Input.GetKey(KeyCode.UpArrow))
+                // if (Input.GetKey(KeyCode.UpArrow))
+                if (manager.isLevelComplete(0) && manager.level1Cleared)
+                {
+                    retry1 = true;
+                    retryMenu.SetActive(true);
+
+                }
+                else if(manager.isLevelComplete(0))
                 {
                     SceneManager.LoadScene("level1");
                 }

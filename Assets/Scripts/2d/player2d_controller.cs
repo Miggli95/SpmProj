@@ -361,7 +361,7 @@ public class player2d_controller : MonoBehaviour
                 }
                 else if (gm.isLevelComplete(0))
                 {
-                    SceneManager.LoadScene("level1");
+                    SceneManager.LoadScene("Level1");
                 }
                 break;
 

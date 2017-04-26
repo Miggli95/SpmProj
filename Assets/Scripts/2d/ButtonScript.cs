@@ -9,7 +9,7 @@ public class ButtonScript : MonoBehaviour {
     public GameObject player;
 	// Use this for initialization
 	void Start () {
-        player2d_controller player2 = player.GetComponent<player2d_controller>();
+        CharController2D player2 = player.GetComponent<CharController2D>();
 	}
 	
 	// Update is called once per frame
@@ -25,10 +25,10 @@ public class ButtonScript : MonoBehaviour {
         }
         else if (EventSystem.current.currentSelectedGameObject.name == "Repeat button")
         {
-            if (player.GetComponent<player2d_controller>().retry1 == true)
+            if (player.GetComponent<CharController2D>().retry1 == true)
             {
                 SceneManager.LoadScene(0);
-                player.GetComponent<player2d_controller>().retry1 = false;
+                player.GetComponent<CharController2D>().retry1 = false;
             }
         }
     }
