@@ -26,6 +26,6 @@ public class PauseHud : MonoBehaviour {
     }
     public void LoadHub() {
         Time.timeScale = 1;
-        Application.LoadLevel(4);
+        Application.LoadLevel(3);
     }
 }
