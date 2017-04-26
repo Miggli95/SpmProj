@@ -13,8 +13,12 @@ public class Enemy2Deal : EnemyState2 {
     private AudioSource[] sources;
     private AudioClip dashSound;
     private AudioClip dashChargeSound;
+    private bool flipped = false;
+    private float fliptimer = 0.1f;
+    private float originalrotation;
     public Enemy2Deal(Enemy2AI3D ai)
     {
+        originalrotation = ai.transform.GetChild(0).eulerAngles.x;
         if (ai == null)
         {
             throw new ArgumentNullException("no AI");
@@ -79,8 +83,22 @@ public class Enemy2Deal : EnemyState2 {
             dashtimer -= deltaTime;
             sources = ai.GetComponents<AudioSource>();
             dashChargeSound = ai.dashCharge;
+            fliptimer -= Time.deltaTime;
+            if (flipped && fliptimer <= 0)
+            {
+                ai.transform.GetChild(0).eulerAngles = new Vector3(originalrotation+20, ai.transform.GetChild(0).eulerAngles.y, ai.transform.GetChild(0).eulerAngles.z);
+                flipped = !flipped;
+                fliptimer = 0.1f;
 
-           if (!sources[0].isPlaying)
+            }
+            if (!flipped && fliptimer <= 0)
+            {
+                ai.transform.GetChild(0).eulerAngles = new Vector3(originalrotation- 20, ai.transform.GetChild(0).eulerAngles.y, ai.transform.GetChild(0).eulerAngles.z);
+                flipped = !flipped;
+                fliptimer = 0.1f;
+            }
+
+            if (!sources[0].isPlaying)
             {
                 sources[0].PlayOneShot(dashChargeSound);
             }
@@ -132,6 +150,7 @@ public class Enemy2Deal : EnemyState2 {
     }
     private void Dash(NavMeshAgent agent)
     {
+        ai.transform.GetChild(0).eulerAngles = new Vector3(originalrotation, ai.transform.GetChild(0).eulerAngles.y, ai.transform.GetChild(0).eulerAngles.z);
         sources[0] = ai.GetComponent<AudioSource>();
         dashSound = ai.dash;
         Debug.Log("started dashing");
