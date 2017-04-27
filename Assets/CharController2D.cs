@@ -196,30 +196,62 @@ public class CharController2D : MonoBehaviour
             manager.ResetProgression();
         }
 
-        RaycastHit rayhit;
-        if (Physics.Raycast(transform.position, Vector3.down, out rayhit))
+        if (SceneManager.GetActiveScene().name == "NewLevel3")
         {
+            RaycastHit rayhit;
+            if (Physics.Raycast(transform.position, Vector3.down, out rayhit))
+            {
 
-            if (rayhit.collider.tag == "enemy" && rayhit.distance < 0.5f)
-            {
-                rayhit.collider.GetComponent<EnemyAI2D>().deathAni();
-                //moveDir.y = jumpSpeed;
-                forceJump();
+                if (rayhit.collider.tag == "enemy" && rayhit.distance < 0.5f)
+                {
+                    rayhit.collider.GetComponent<EnemyAI2D>().deathAni();
+                    //moveDir.y = jumpSpeed;
+                    forceJump();
+                }
+                if (rayhit.collider.tag == "enemy2" && rayhit.distance < 0.5f)
+                {
+                    rayhit.collider.GetComponent<Enemy2AI3D>().deathAni();
+                    //_rigi.AddForce(Vector3.up * (jumpSpeed * _rigi.mass * 2f));
+                    forceJump();
+                }
+                if (rayhit.collider.tag == "enemy3" && rayhit.distance < 1.4f)
+                {
+                    rayhit.collider.GetComponent<Enemy3AI3D>().deathAni();
+                    forceJump();
+                }
+                if (rayhit.collider.tag == "lava" && rayhit.distance < 1.1f)
+                {
+                    //Death();
+                }
             }
-            if (rayhit.collider.tag == "enemy2" && rayhit.distance < 0.5f)
+        }
+        else
+        {
+            RaycastHit rayhit;
+            if (Physics.Raycast(transform.position, Vector3.down, out rayhit))
             {
-                rayhit.collider.GetComponent<Enemy2AI3D>().deathAni();
-                //_rigi.AddForce(Vector3.up * (jumpSpeed * _rigi.mass * 2f));
-                forceJump();
-            }
-            if (rayhit.collider.tag == "enemy3" && rayhit.distance < 1.4f)
-            {
-                rayhit.collider.GetComponent<Enemy3AI3D>().deathAni();
-                forceJump();
-            }
-            if (rayhit.collider.tag == "lava" && rayhit.distance < 1.1f)
-            {
-                //Death();
+
+                if (rayhit.collider.tag == "enemy" && rayhit.distance < 0.4f)
+                {
+                    rayhit.collider.GetComponent<EnemyAI2D>().deathAni();
+                    //moveDir.y = jumpSpeed;
+                    forceJump();
+                }
+                if (rayhit.collider.tag == "enemy2" && rayhit.distance < 0.5f)
+                {
+                    rayhit.collider.GetComponent<Enemy2AI3D>().deathAni();
+                    //_rigi.AddForce(Vector3.up * (jumpSpeed * _rigi.mass * 2f));
+                    forceJump();
+                }
+                if (rayhit.collider.tag == "enemy3" && rayhit.distance < 1.4f)
+                {
+                    rayhit.collider.GetComponent<Enemy3AI3D>().deathAni();
+                    forceJump();
+                }
+                if (rayhit.collider.tag == "lava" && rayhit.distance < 1.1f)
+                {
+                    //Death();
+                }
             }
         }
 
@@ -598,7 +630,7 @@ public class CharController2D : MonoBehaviour
                 }
                 else if (manager.isLevelComplete(3))// && Input.GetKeyDown(KeyCode.UpArrow))
                 {
-                    SceneManager.LoadScene("BossLevel");
+                    SceneManager.LoadScene("TempTutorial");
                 }
                 break;
 
