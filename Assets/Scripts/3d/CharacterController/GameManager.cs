@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     public bool level4Cleared = false;
 	void Start()
     {
-        levelComplete = PlayerPrefs.GetInt("Level");
+       // levelComplete = PlayerPrefs.GetInt("Level");
         numberOfAbilities = PlayerPrefs.GetInt("numberOfAbilities");
         unlockedAbilities = new List<int>();
         print("numberOfAbilities" + numberOfAbilities);
