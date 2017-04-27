@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class ButtonScript : MonoBehaviour {
 
     public GameObject player;
+    public GameObject retryMenu;
 	// Use this for initialization
 	void Start () {
         CharController2D player2 = player.GetComponent<CharController2D>();
@@ -21,7 +22,7 @@ public class ButtonScript : MonoBehaviour {
     {
         if (EventSystem.current.currentSelectedGameObject.name == "Return button")
         {
-            SceneManager.LoadScene(3);
+            retryMenu.SetActive(false);
         }
         else if (EventSystem.current.currentSelectedGameObject.name == "Repeat button")
         {
@@ -34,6 +35,16 @@ public class ButtonScript : MonoBehaviour {
             {
                 SceneManager.LoadScene(1);
                 player.GetComponent<CharController2D>().retry2 = false;
+            }
+            else if (player.GetComponent<CharController2D>().retry3 == true)
+            {
+                SceneManager.LoadScene(2);
+                player.GetComponent<CharController2D>().retry3 = false;
+            }
+            else if (player.GetComponent<CharController2D>().retry4 == true)
+            {
+                SceneManager.LoadScene(4);
+                player.GetComponent<CharController2D>().retry4 = false;
             }
         }
     }

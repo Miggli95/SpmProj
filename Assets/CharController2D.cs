@@ -58,7 +58,9 @@ public class CharController2D : MonoBehaviour
 
     public GameObject retryMenu;
     public bool retry1 = false;
-    public bool retry2 = true;
+    public bool retry2 = false;
+    public bool retry3 = false;
+    public bool retry4 = false;
     // Use this for initialization
     float curMouse = 0;
     float lastMouse = 0;
@@ -539,7 +541,6 @@ public class CharController2D : MonoBehaviour
                 break;
 
             case "Level1":
-                SceneManager.LoadScene("level1");
                 // if (Input.GetKey(KeyCode.UpArrow))
                 if (manager.isLevelComplete(0) && manager.level1Cleared)
                 {
@@ -554,7 +555,6 @@ public class CharController2D : MonoBehaviour
                 break;
 
             case "Level2":
-                SceneManager.LoadScene("Level2");
                 if (manager.isLevelComplete(1) && manager.level2Cleared)
                 {
                     retry2 = true;
@@ -568,16 +568,26 @@ public class CharController2D : MonoBehaviour
                 break;
 
             case "Level3":
-                SceneManager.LoadScene("NyaLevel3");
-                if (manager.isLevelComplete(2)) //&& Input.GetKeyDown(KeyCode.UpArrow))
+                if (manager.isLevelComplete(2) && manager.level3Cleared)
+                {
+                    retry3 = true;
+                    retryMenu.SetActive(true);
+
+                }
+                else if (manager.isLevelComplete(2)) //&& Input.GetKeyDown(KeyCode.UpArrow))
                 {
                     SceneManager.LoadScene("NyaLevel3");
                 }
                 break;
 
             case "bossLevel":
-                SceneManager.LoadScene("BossLevel");
-                if (manager.isLevelComplete(3))// && Input.GetKeyDown(KeyCode.UpArrow))
+                if (manager.isLevelComplete(3) && manager.level4Cleared)
+                {
+                    retry4 = true;
+                    retryMenu.SetActive(true);
+
+                }
+                else if (manager.isLevelComplete(3))// && Input.GetKeyDown(KeyCode.UpArrow))
                 {
                     SceneManager.LoadScene("BossLevel");
                 }
