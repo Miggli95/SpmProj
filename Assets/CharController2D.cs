@@ -38,7 +38,7 @@ public class CharController2D : MonoBehaviour
     public GameObject blood;
     public GameObject ShockWave;
     bool lockedRotation;
-    public bool buttonIsPressed = false; 
+    public bool buttonIsPressed = false;
     public Animator anim;
     public AudioSource[] clip;
     public AudioClip SlamSound;
@@ -60,6 +60,16 @@ public class CharController2D : MonoBehaviour
     public bool retry1 = false;
     public bool retry2 = true;
     // Use this for initialization
+    float curMouse = 0;
+    float lastMouse = 0;
+    private bool airJump;
+    private bool jumped;
+    private bool bounce;
+    bool facingRight = true;
+    public Transform CharRefTransform;
+    public GameObject walkingDust;
+    public float slamEffectTimer;
+    public ParticleSystem slamParticle;
     void Start()
     {
         clip = GetComponents<AudioSource>();
@@ -75,7 +85,9 @@ public class CharController2D : MonoBehaviour
         //rotationY = transform.rotation.y;
         aoeSlam = GetComponentInChildren<SphereCollider>();
         anim = gameObject.GetComponent<Animator>();
-
+        walkingDust.SetActive(false);
+        ShockWave.SetActive(false);
+        slamEffectTimer = slamParticle.main.duration - 0.1f;
         // Death();
     }
 
@@ -94,18 +106,25 @@ public class CharController2D : MonoBehaviour
         return slam;
     }
 
+    void Flip()
+    {
+
+        //source.PlayOneShot(flip_sound);
+        facingRight = !facingRight;
+        Vector3 theScale = CharRefTransform.localScale;
+        theScale.z *= -1;
+        CharRefTransform.localScale = theScale;
+    }
+
     // Update is called once per frame
-    float curMouse = 0;
-    float lastMouse = 0;
-    private bool airJump;
-    private bool jumped;
-    private bool bounce;
+
 
     void Update()
     {
+
         float horizontal = Input.GetAxis("Horizontal");
         charinput = new Vector2(horizontal, 0);
-        
+        anim.SetFloat("Speed", Mathf.Abs(horizontal));
         if (charinput.sqrMagnitude > 1)
         {
             charinput.Normalize();
@@ -117,6 +136,28 @@ public class CharController2D : MonoBehaviour
             {
                 jump = Input.GetKeyDown(KeyCode.Space);
             }
+        }
+        if (horizontal > 0 && !facingRight)
+        {
+            Flip();
+            // walkingDust.SetActive(true);
+            // pe.Play();
+        }
+        else if (horizontal < 0 && facingRight)
+        {
+            Flip();
+            //walkingDust.SetActive(true);
+            // pe.Play();
+        }
+
+        if (horizontal == 0 || !controller.isGrounded)
+        {
+            // pe.Stop();
+            walkingDust.SetActive(false);
+        }
+        else
+        {
+            walkingDust.SetActive(true);
         }
 
         // if (manager.HaveAbility((int)Abilities.doubleJump))
@@ -135,10 +176,11 @@ public class CharController2D : MonoBehaviour
             //doubleJump = false;
         }
 
-     /*   if (!controller.isGrounded && !jumping && previouslyGrounded)
-        {
-            moveDir.y = 0;
-        }*/
+
+        /*   if (!controller.isGrounded && !jumping && previouslyGrounded)
+           {
+               moveDir.y = 0;
+           }*/
 
         previouslyGrounded = controller.isGrounded;
         if (Input.GetKeyDown(KeyCode.R) && SceneManager.GetActiveScene().buildIndex == 3)
@@ -181,6 +223,11 @@ public class CharController2D : MonoBehaviour
         }
         //}
 
+        anim.SetBool("Grounded", controller.isGrounded);
+        anim.SetBool("Jump", jump);
+        anim.SetBool("SecJump", airJump);
+        anim.SetBool("Attack", slam);
+
     }
 
     void FixedUpdate()
@@ -192,9 +239,9 @@ public class CharController2D : MonoBehaviour
 
         t += Time.fixedDeltaTime;
         //slamCollider.SetActive(slam);
-      
-       //float vertical = Input.GetAxis("Vertical");
-       
+
+        //float vertical = Input.GetAxis("Vertical");
+
 
         if (slamTimer > 0.0f)
         {
@@ -202,7 +249,17 @@ public class CharController2D : MonoBehaviour
             if (slamTimer <= 0.0f)
             {
                 aoeSlam.enabled = false;
+
             }
+        }
+        if (slamEffectTimer > 0.0)
+        {
+            slamEffectTimer -= Time.fixedDeltaTime;
+
+        }
+        else
+        {
+            ShockWave.SetActive(false);
         }
 
         /*if (!lockedRotation)
@@ -233,8 +290,8 @@ public class CharController2D : MonoBehaviour
         //moveDir.z = destination.z * speed;
 
 
-       
-       
+
+
         if (controller.isGrounded)
         {
             moveDir.y = -stickToGroundForce;
@@ -252,9 +309,13 @@ public class CharController2D : MonoBehaviour
                 Vector3 spawnslam = transform.position;
                 //spawnslam.y -= 1;
                 aoeSlam.enabled = true;
-                Instantiate(ShockWave, spawnslam, Quaternion.Euler(90, 0, 0));
+                ShockWave.transform.position = spawnslam;
+                ShockWave.SetActive(true);
+                slamParticle.Clear();
+                slamParticle.Play();
+                //     Instantiate(ShockWave, spawnslam, Quaternion.Euler(90, 0, 0));
                 slamTimer = 0.1f;
-
+                slamEffectTimer = slamParticle.main.duration - 0.1f;
                 clip[0].PlayOneShot(SlamSound);
             }
 
@@ -287,7 +348,7 @@ public class CharController2D : MonoBehaviour
                     jumped = true;
                 }
                 //doubleJump = false;
-            }            
+            }
         }
         if (bounce)
         {
@@ -312,7 +373,7 @@ public class CharController2D : MonoBehaviour
 
         //print("isSlaming" + slam);
         //test code reset progression of gameManager
-       
+
 
 
 
@@ -404,7 +465,7 @@ public class CharController2D : MonoBehaviour
                 {
 
                     col.gameObject.GetComponent<EnemyAI2D>().deathAni();
-                   // _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
+                    // _rigi.AddForce(Vector3.up * (jumpPower * _rigi.mass * 2f));
                 }
                 else
                     col.gameObject.GetComponent<EnemyAI2D>().getDamage();
@@ -418,7 +479,7 @@ public class CharController2D : MonoBehaviour
 
     }
 
-  
+
     void OnTriggerEnter(Collider col)
     {
         print(col.gameObject);
@@ -431,15 +492,15 @@ public class CharController2D : MonoBehaviour
 
         switch (col.gameObject.tag)
         {
-          /*  case "spike":
-                if (SceneManager.GetActiveScene().name != "NyaLevel3")
-                {
+            /*  case "spike":
+                  if (SceneManager.GetActiveScene().name != "NyaLevel3")
+                  {
 
-                    // Die(spawn1);
-                    Respwn();
-                    countdownTimer.timer -= 2f;
-                }
-                break;*/
+                      // Die(spawn1);
+                      Respwn();
+                      countdownTimer.timer -= 2f;
+                  }
+                  break;*/
 
 
 
@@ -463,7 +524,7 @@ public class CharController2D : MonoBehaviour
                 int levelToLoad = SceneManager.GetActiveScene().buildIndex + 1;
                 //if(levelToLoad<=SceneManager.sceneCount)
 
-                SceneManager.LoadScene("Hub Level");
+                SceneManager.LoadScene(3);
                 //countdownTimer.timer = 90f;
                 gotKey = false;
                 //Application.LoadLevel(SceneManager.);
@@ -478,6 +539,7 @@ public class CharController2D : MonoBehaviour
                 break;
 
             case "Level1":
+                SceneManager.LoadScene("level1");
                 // if (Input.GetKey(KeyCode.UpArrow))
                 if (manager.isLevelComplete(0) && manager.level1Cleared)
                 {
@@ -485,13 +547,14 @@ public class CharController2D : MonoBehaviour
                     retryMenu.SetActive(true);
 
                 }
-                else if(manager.isLevelComplete(0))
+                else if (manager.isLevelComplete(0))
                 {
                     SceneManager.LoadScene("level1");
                 }
                 break;
 
             case "Level2":
+                SceneManager.LoadScene("Level2");
                 if (manager.isLevelComplete(1) && manager.level2Cleared)
                 {
                     retry2 = true;
@@ -505,6 +568,7 @@ public class CharController2D : MonoBehaviour
                 break;
 
             case "Level3":
+                SceneManager.LoadScene("NyaLevel3");
                 if (manager.isLevelComplete(2)) //&& Input.GetKeyDown(KeyCode.UpArrow))
                 {
                     SceneManager.LoadScene("NyaLevel3");
@@ -512,6 +576,7 @@ public class CharController2D : MonoBehaviour
                 break;
 
             case "bossLevel":
+                SceneManager.LoadScene("BossLevel");
                 if (manager.isLevelComplete(3))// && Input.GetKeyDown(KeyCode.UpArrow))
                 {
                     SceneManager.LoadScene("BossLevel");
