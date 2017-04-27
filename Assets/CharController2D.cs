@@ -231,7 +231,7 @@ public class CharController2D : MonoBehaviour
         //}
 
         anim.SetBool("Grounded", controller.isGrounded);
-        anim.SetBool("Jump", jump);
+       // anim.SetBool("Jump", jump);
         anim.SetBool("SecJump", airJump);
         anim.SetBool("Attack", slam);
 
