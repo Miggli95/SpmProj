@@ -48,6 +48,7 @@ public class CharController2D : MonoBehaviour
     public AudioClip hurt_sound;
     public AudioClip hurt_sound2;
     public AudioClip flip_sound;
+    public AudioClip getKey_sound;
     public GameObject currentCheckPoint;
     float previousX;
     private Rigidbody _rigi;
@@ -72,6 +73,8 @@ public class CharController2D : MonoBehaviour
     public GameObject walkingDust;
     public float slamEffectTimer;
     public ParticleSystem slamParticle;
+    public GameObject gotKeyParicle;
+    
     void Start()
     {
         clip = GetComponents<AudioSource>();
@@ -89,7 +92,9 @@ public class CharController2D : MonoBehaviour
         anim = gameObject.GetComponent<Animator>();
         walkingDust.SetActive(false);
         ShockWave.SetActive(false);
+        gotKeyParicle.SetActive(false);
         slamEffectTimer = slamParticle.main.duration - 0.1f;
+        
         // Death();
     }
 
@@ -536,6 +541,10 @@ public class CharController2D : MonoBehaviour
 
             case "key":
                 Debug.Log("standing on button");
+                Vector3 spawnGetKey = transform.position;
+                gotKeyParicle.transform.position = spawnGetKey;
+                gotKeyParicle.SetActive(true);
+                clip[1].PlayOneShot(getKey_sound);
                 col.gameObject.SetActive(false);
                 gotKey = true;
                 break;
