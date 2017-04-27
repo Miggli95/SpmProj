@@ -1,0 +1,165 @@
+fileFormatVersion: 2
+guid: a95c864ecdc98b548b753f5a237b167f
+timeCreated: 1493059203
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: body
+    100002: Glas
+    100004: //RootNode
+    100006: HatBottom
+    100008: hatTop
+    100010: LeftEye
+    100012: LeftFoot
+    100014: MonokelRing
+    100016: Mustasch
+    100018: pCube2
+    100020: pCylinder2
+    100022: Pipa
+    100024: "PipH\xE5llare"
+    100026: PipKula
+    100028: pSphere4
+    100030: pSphere5
+    100032: RightEye
+    100034: RightFoot
+    100036: "Sn\xF6re"
+    100038: transform1
+    100040: transform2
+    100042: transform3
+    400000: body
+    400002: Glas
+    400004: //RootNode
+    400006: HatBottom
+    400008: hatTop
+    400010: LeftEye
+    400012: LeftFoot
+    400014: MonokelRing
+    400016: Mustasch
+    400018: pCube2
+    400020: pCylinder2
+    400022: Pipa
+    400024: "PipH\xE5llare"
+    400026: PipKula
+    400028: pSphere4
+    400030: pSphere5
+    400032: RightEye
+    400034: RightFoot
+    400036: "Sn\xF6re"
+    400038: transform1
+    400040: transform2
+    400042: transform3
+    2300000: body
+    2300002: Glas
+    2300004: HatBottom
+    2300006: hatTop
+    2300008: LeftEye
+    2300010: LeftFoot
+    2300012: MonokelRing
+    2300014: Mustasch
+    2300016: pCube2
+    2300018: "PipH\xE5llare"
+    2300020: PipKula
+    2300022: pSphere4
+    2300024: RightEye
+    2300026: RightFoot
+    2300028: "Sn\xF6re"
+    3300000: body
+    3300002: Glas
+    3300004: HatBottom
+    3300006: hatTop
+    3300008: LeftEye
+    3300010: LeftFoot
+    3300012: MonokelRing
+    3300014: Mustasch
+    3300016: pCube2
+    3300018: "PipH\xE5llare"
+    3300020: PipKula
+    3300022: pSphere4
+    3300024: RightEye
+    3300026: RightFoot
+    3300028: "Sn\xF6re"
+    4300000: RightEye
+    4300002: LeftEye
+    4300004: body
+    4300006: RightFoot
+    4300008: LeftFoot
+    4300010: HatBottom
+    4300012: hatTop
+    4300014: pSphere4
+    4300016: "PipH\xE5llare"
+    4300018: PipKula
+    4300020: Mustasch
+    4300022: MonokelRing
+    4300024: Glas
+    4300026: "Sn\xF6re"
+    4300028: pCube2
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
