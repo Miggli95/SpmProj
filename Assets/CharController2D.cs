@@ -622,9 +622,13 @@ public class CharController2D : MonoBehaviour
         clip[1].PlayOneShot(hurt_sound2);
         Instantiate(blood, transform.position, Quaternion.identity);
         Vector3 spawnPoint = currentCheckPoint.transform.position; ;
+        gameObject.GetComponent<CapsuleCollider>().enabled = false;
+        gameObject.GetComponent<CharacterController>().enabled = false;
         spawnPoint.z = startZ;
         transform.position = spawnPoint;
         moveDir = Vector3.zero;
+        gameObject.GetComponent<CharacterController>().enabled = true;
+        gameObject.GetComponent<CapsuleCollider>().enabled = true;
     }
 
     IEnumerator stopBlood()
