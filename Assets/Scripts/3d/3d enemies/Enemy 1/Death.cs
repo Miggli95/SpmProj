@@ -22,7 +22,7 @@ public class Death : EnemyState
     }
     public void Enter()
     {
-        Debug.Log("Entered Death");
+        //Debug.Log("Entered Death");
     }
     public EnemyStateData Update(Vector3 pos, float deltaTime, NavMeshAgent agent)
     {
@@ -42,7 +42,7 @@ public class Death : EnemyState
 
     public void Exit()
     {
-        Debug.Log("Left Death?");
+       // Debug.Log("Left Death?");
     }
 
 

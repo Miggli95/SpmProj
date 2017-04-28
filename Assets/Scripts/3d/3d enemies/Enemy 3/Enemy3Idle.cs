@@ -17,7 +17,7 @@ public class Enemy3Idle : EnemyState3
     }
     public void Enter()
     {
-        Debug.Log("Entered Idle");
+        //Debug.Log("Entered Idle");
         ai.Pause();
     }
     public Enemy3StateData Update(Vector3 pos, float deltaTime, NavMeshAgent agent)
@@ -42,7 +42,7 @@ public class Enemy3Idle : EnemyState3
 
     public void Exit()
     {
-        Debug.Log("Left Idle");
+        //Debug.Log("Left Idle");
     }
 
 

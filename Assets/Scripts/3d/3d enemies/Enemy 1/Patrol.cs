@@ -18,7 +18,7 @@ public class Patrol : EnemyState
     }
     public void Enter()
     {
-        Debug.Log("Entered Patrol");
+        //Debug.Log("Entered Patrol");
     }
     public EnemyStateData Update(Vector3 pos, float deltaTime, NavMeshAgent agent)
     {
@@ -59,7 +59,7 @@ public class Patrol : EnemyState
     }
     public void Exit()
     {
-        Debug.Log("Left Patrol");
+        //Debug.Log("Left Patrol");
     }
 
 

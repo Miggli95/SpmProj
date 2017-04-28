@@ -17,7 +17,7 @@ public class Enemy3Deal : EnemyState3
     }
     public void Enter()
     {
-        Debug.Log("Entered Deal");
+        //Debug.Log("Entered Deal");
     }
     public Enemy3StateData Update(Vector3 pos, float deltaTime, NavMeshAgent agent)
     {
@@ -70,7 +70,7 @@ public class Enemy3Deal : EnemyState3
 
     public void Exit()
     {
-        Debug.Log("Left Deal");
+       // Debug.Log("Left Deal");
     }
 
 

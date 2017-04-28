@@ -109,7 +109,7 @@ public class Enemy2Deal : EnemyState2 {
             //Debug.Log(resettimer);
             if (resettimer <= 0.0f)
             {
-                Debug.Log("stopped dashing");
+                //Debug.Log("stopped dashing");
                 agent.velocity = Vector3.zero;
                 notdashing = true;
                 ai.Resume();
@@ -122,7 +122,7 @@ public class Enemy2Deal : EnemyState2 {
     }
     public void Enter()
     {
-        Debug.Log("Entered Deal");
+       // Debug.Log("Entered Deal");
     }
     private Enemy2StateData GetEnemyStateData(Vector3 pos, NavMeshAgent agent)
     {
@@ -153,7 +153,7 @@ public class Enemy2Deal : EnemyState2 {
         ai.transform.GetChild(0).eulerAngles = new Vector3(originalrotation, ai.transform.GetChild(0).eulerAngles.y, ai.transform.GetChild(0).eulerAngles.z);
         sources[0] = ai.GetComponent<AudioSource>();
         dashSound = ai.dash;
-        Debug.Log("started dashing");
+        //Debug.Log("started dashing");
         if (resettimer == 0.0f)
         {
             sources[0].PlayOneShot(dashSound);
@@ -163,6 +163,6 @@ public class Enemy2Deal : EnemyState2 {
     }
     public void Exit()
     {
-        Debug.Log("Left Deal");
+       // Debug.Log("Left Deal");
     }
 }

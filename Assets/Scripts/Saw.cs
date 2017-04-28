@@ -16,7 +16,7 @@ public class Saw : MonoBehaviour
         }
         if (other.gameObject.CompareTag("player") && other is CapsuleCollider)
         {
-            other.gameObject.GetComponent<player2d_controller>().Respwn();
+            other.gameObject.GetComponent<CharController2D>().Respwn();
         }
     }
     void Start()

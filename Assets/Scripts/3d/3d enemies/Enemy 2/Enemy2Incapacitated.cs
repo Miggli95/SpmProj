@@ -29,7 +29,7 @@ public class Enemy2Incapacitated : EnemyState2
         sources = ai.GetComponents<AudioSource>();
         incapacitate = ai.incapacitate;
         sources[2].PlayOneShot(incapacitate);
-        Debug.Log("Entered Incapacitated");
+        //Debug.Log("Entered Incapacitated");
         ai.Pause();
         original = ai.rend.material;
         ai.Stars(true);
@@ -102,7 +102,7 @@ public class Enemy2Incapacitated : EnemyState2
     {
         ai.rend.material = original;
         ai.transform.GetChild(0).gameObject.transform.localEulerAngles = org;
-        Debug.Log("Left Incapicated");
+       // Debug.Log("Left Incapicated");
         ai.Stars(false);
     }
 
