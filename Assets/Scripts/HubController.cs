@@ -15,7 +15,17 @@ public class HubController : MonoBehaviour {
 	void Start () {
 		if (block == null || portal == null)
 			Debug.Log ("<color=red> Hub Controller Error: </color>Block or portal missing.");
-	}
+        if (gameManger.isLevelComplete(levelToLoad))
+        {
+            block.SetActive(false);
+            portal.SetActive(true);
+        }
+        else
+        {
+            block.SetActive(true);
+            portal.SetActive(false);
+        }
+    }
 
 	void Awake(){
 		if (gameManger.isLevelComplete (levelToLoad)) {

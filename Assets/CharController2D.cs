@@ -192,8 +192,9 @@ public class CharController2D : MonoBehaviour
         previouslyGrounded = controller.isGrounded;
         if (Input.GetKeyDown(KeyCode.R) && SceneManager.GetActiveScene().buildIndex == 3)
         {
-
+            
             manager.ResetProgression();
+            Debug.Log("kkk");
         }
 
         if (SceneManager.GetActiveScene().name == "NewLevel3")

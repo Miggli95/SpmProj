@@ -39,7 +39,7 @@ public class TitleEventManger : MonoBehaviour {
 		menus.Add (loadingScreen);
 		menus.Add (hub);
 
-		LoadCorrectMenu ("StartMenu");
+	//	LoadCorrectMenu ("StartMenu");
 	}
 
 

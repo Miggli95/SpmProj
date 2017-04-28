@@ -15,14 +15,19 @@ public class ButtonScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+
+    }
 
     public void clicked()
     {
         if (EventSystem.current.currentSelectedGameObject.name == "Return button")
         {
             retryMenu.SetActive(false);
+            player.GetComponent<CharController2D>().retry1 = false;
+            player.GetComponent<CharController2D>().retry2 = false;
+            player.GetComponent<CharController2D>().retry3 = false;
+            player.GetComponent<CharController2D>().retry4 = false;
+
         }
         else if (EventSystem.current.currentSelectedGameObject.name == "Repeat button")
         {
