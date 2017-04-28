@@ -318,38 +318,43 @@ loadNextBoss();
 
             manager.ResetProgression();
         }
-
+        Vector3 capsuleTarget = transform.position;
+        capsuleTarget.y -= 1f;
         RaycastHit rayhit;
-        if (Physics.Raycast(transform.position, Vector3.down, out rayhit))
+        if (Physics.CapsuleCast(transform.position, capsuleTarget, 0.5f, Vector3.down, out rayhit))
         {
 
-            if (rayhit.collider.tag == "enemy" && rayhit.distance < 1.4f)
+            if (rayhit.collider.tag == "enemy" && rayhit.distance < 0.5f)
             {
+                print(rayhit.distance);
                 rayhit.collider.GetComponent<EnemyAI3D>().deathAni();
                 // moveDir.y = jumpSpeed;
                 forceJump();
             }
-            if (rayhit.collider.tag == "enemy2" && rayhit.distance < 1.7f)
+            if (rayhit.collider.tag == "enemy2" && rayhit.distance < 0.6f)
             {
                 rayhit.collider.GetComponent<Enemy2AI3D>().deathAni();
                 //_rigi.AddForce(Vector3.up * (jumpSpeed * _rigi.mass * 2f));
                 forceJump();
             }
-            if (rayhit.collider.tag == "enemy3" && rayhit.distance < 1.4f)
+            if (rayhit.collider.tag == "enemy3" && rayhit.distance < 0.7f)
             {
                 rayhit.collider.GetComponent<Enemy3AI3D>().deathAni();
                 forceJump();
             }
-            if (rayhit.collider.tag == "lava" && rayhit.distance < 1.4f)
+
+        }
+        if (Physics.Raycast(transform.position, Vector3.down, out rayhit))
+        {
+            if (rayhit.collider.tag == "lava" && rayhit.distance < 1.2f)
             {
                 Death();
             }
-            if (rayhit.collider.tag == "spike" && rayhit.distance < 1.5f)
+            if (rayhit.collider.tag == "spike" && rayhit.distance < 1.3f)
             {
                 Death();
             }
         }
-
         //}
 
     }
@@ -450,6 +455,19 @@ loadNextBoss();
 
         }
 
+        if (flying)
+        {
+            if (bounce)
+            {
+                moveDir.y = jumpSpeed*12;
+                bounce = false;
+            }
+            flyingTimer -= Time.fixedDeltaTime;
+            if (flyingTimer <= 0.0f)
+            {
+                loadNextBoss();
+            }
+        }
         if (bounce)
         {
             moveDir.y = jumpSpeed;
@@ -461,14 +479,7 @@ loadNextBoss();
 
         //print("isSlaming" + slam);
         //test code reset progression of gameManager
-        if (flying)
-        {
-            flyingTimer -= Time.fixedDeltaTime;
-            if (flyingTimer <= 0.0f)
-            {
-                loadNextBoss();
-            }
-        }
+
     }
 
     public void LockRotation(float rotationY)
@@ -508,7 +519,7 @@ loadNextBoss();
     public void doSuperJump()
     {
         flying = true;
-        moveDir.y = jumpSpeed * 12;
+        bounce = true;
 
     }
     public void doSortaSuperJump()
