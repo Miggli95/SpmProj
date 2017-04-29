@@ -326,7 +326,16 @@ public class CharController2D : MonoBehaviour
         {
             moveDir.y = -1;
         }
-        Vector3 destination = transform.right * charinput.x; //Quaternion.Euler(0, transform.rotation.y, 0) * (transform.forward * charinput.y);
+        Vector3 destination = transform.right * charinput.x;
+
+        if (charinput.x == 0 && charinput.y == 0)
+        {
+            destination = Vector3.zero;
+         //   moveDir.x = 0;
+          //  moveDir.z = 0;
+        }
+      
+        //Quaternion.Euler(0, transform.rotation.y, 0) * (transform.forward * charinput.y);
         RaycastHit hit;
         //  Ray ray = new Ray(transform.position, Vector3.down);
         Physics.SphereCast(transform.position, controller.radius, Vector3.down, out hit,
@@ -348,6 +357,7 @@ public class CharController2D : MonoBehaviour
             {
                 Debug.Log("jump");
                 moveDir.y = jumpSpeed;
+                clip[0].PlayOneShot(jump_sound);
                 jump = false;
                 jumping = true;
             }
@@ -389,6 +399,7 @@ public class CharController2D : MonoBehaviour
                 {
                     Debug.Log("doubleJump");
                     moveDir.y = doubleJumpSpeed;
+                    clip[0].PlayOneShot(jump_sound);
                     jumping = false;
                     jump = false;
                     jumped = true;
@@ -402,7 +413,7 @@ public class CharController2D : MonoBehaviour
             bounce = false;
         }
 
-
+        
 
 
         colFlags = controller.Move(moveDir * Time.fixedDeltaTime);

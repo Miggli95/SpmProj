@@ -431,6 +431,13 @@ loadNextBoss();
         }*/
         // transform.Rotate(0, charinput.x * rotationSpeed, 0);
         Vector3 destination = transform.forward * charinput.y + transform.right * charinput.x;
+        if (charinput.x == 0 && charinput.y == 0)
+        {
+            destination = Vector3.zero;
+            //   moveDir.x = 0;
+            //  moveDir.z = 0;
+        }
+
         // Vector3 destination = transform.right * charinput.x + Quaternion.Euler(0, transform.rotation.y, 0) * (transform.forward * charinput.y);
         RaycastHit hit;
         //  Ray ray = new Ray(transform.position, Vector3.down);
