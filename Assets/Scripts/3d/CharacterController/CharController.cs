@@ -352,7 +352,7 @@ loadNextBoss();
         Vector3 capsuleTarget = transform.position;
         capsuleTarget.y -= 1f;
         RaycastHit rayhit;
-        if (Physics.CapsuleCast(transform.position, capsuleTarget, 0.5f, Vector3.down, out rayhit))
+        if (Physics.CapsuleCast(transform.position, capsuleTarget, controller.radius, Vector3.down, out rayhit))
         {
 
             if (rayhit.collider.tag == "enemy" && rayhit.distance < 0.5f)
