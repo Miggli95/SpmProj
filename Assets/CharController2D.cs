@@ -74,7 +74,7 @@ public class CharController2D : MonoBehaviour
     public float slamEffectTimer;
     public ParticleSystem slamParticle;
     public GameObject gotKeyParicle;
-    
+    private bool startSlam = false;
     void Start()
     {
         clip = GetComponents<AudioSource>();
@@ -172,6 +172,14 @@ public class CharController2D : MonoBehaviour
         if (!airJump && !controller.isGrounded)
         {
             airJump = Input.GetKeyDown(KeyCode.Space);
+        }
+
+        if (manager.HaveAbility((int)Abilities.slam))
+        {
+            if (Input.GetKeyDown(KeyCode.V))
+            {
+                startSlam = true;
+            }
         }
 
         if (!previouslyGrounded && controller.isGrounded)
@@ -347,7 +355,7 @@ public class CharController2D : MonoBehaviour
             if (slam)
             {
                 Vector3 spawnslam = transform.position;
-                //spawnslam.y -= 1;
+                spawnslam.y -= 0.3f;
                 aoeSlam.enabled = true;
                 ShockWave.transform.position = spawnslam;
                 ShockWave.SetActive(true);
@@ -367,14 +375,12 @@ public class CharController2D : MonoBehaviour
         {
             moveDir += Physics.gravity * gravityMultiplier * Time.deltaTime;
 
-            if (manager.HaveAbility((int)Abilities.slam))
+            if (startSlam)
             {
-                if (Input.GetKeyDown(KeyCode.V))
-                {
-                    moveDir.y = -jumpSpeed;
-                    slam = true;
+                moveDir.y = -jumpSpeed;
+                slam = true;
+                startSlam = false;
 
-                }
             }
 
             if (airJump)
@@ -577,7 +583,7 @@ public class CharController2D : MonoBehaviour
                 Vector3 spawnGetKey = transform.position;
                 gotKeyParicle.transform.position = spawnGetKey;
                 gotKeyParicle.SetActive(true);
-                clip[1].PlayOneShot(getKey_sound);
+                clip[0].PlayOneShot(getKey_sound);
                 col.gameObject.SetActive(false);
                 gotKey = true;
                 break;
@@ -651,8 +657,8 @@ public class CharController2D : MonoBehaviour
     public void Respwn()
     {
         Debug.Log("respawn");
-        clip[1].PlayOneShot(hurt_sound);
-        clip[1].PlayOneShot(hurt_sound2);
+        clip[0].PlayOneShot(hurt_sound);
+        clip[0].PlayOneShot(hurt_sound2);
         Instantiate(blood, transform.position, Quaternion.identity);
         Vector3 spawnPoint = currentCheckPoint.transform.position; ;
         gameObject.GetComponent<CapsuleCollider>().enabled = false;

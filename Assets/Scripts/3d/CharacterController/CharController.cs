@@ -42,18 +42,19 @@ public class CharController : MonoBehaviour
     private float flyingTimer = 3.0f;
     private bool flying = false;
     public GameObject slamCollider;
-
+    private Animator anim;
     public GameObject ShockWave;
     bool lockedRotation;
-
+    public Transform CharRefTransform;
 
     public AudioSource[] clip;
     public AudioClip SlamSound;
     public Vector3 spawn1, spawn2;
+    public float slamEffectTimer;
+    public ParticleSystem slamParticle;
+    bool startSlam = false;
 
-
-
-
+    bool facingForward = true;
 
     // Use this for initialization
     void Start()
@@ -70,12 +71,22 @@ public class CharController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         rotationY = transform.rotation.y;
         aoeSlam = GetComponentInChildren<SphereCollider>();
-
+        anim = GetComponent<Animator>();
+        ShockWave.SetActive(false);
+        slamEffectTimer = slamParticle.main.duration - 0.1f;
 
         // Death();
     }
 
+    void Flip()
+    {
 
+        //source.PlayOneShot(flip_sound);
+        facingForward = !facingForward;
+        Vector3 theScale = CharRefTransform.localScale;
+        theScale.z *= -1;
+        CharRefTransform.localScale = theScale;
+    }
 
     public void Death()
     {
@@ -275,7 +286,7 @@ loadNextBoss();
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-
+        anim.SetFloat("Speed", Mathf.Abs(vertical));
         charinput = new Vector2(horizontal, vertical);
 
         if (charinput.sqrMagnitude > 1)
@@ -290,12 +301,32 @@ loadNextBoss();
                 jump = Input.GetKeyDown(KeyCode.Space);
             }
         }
+        if (vertical > 0 && !facingForward)
+        {
+            Flip();
+            // walkingDust.SetActive(true);
+            // pe.Play();
+        }
+        else if (vertical < 0 && facingForward)
+        {
+            Flip();
+            //walkingDust.SetActive(true);
+            // pe.Play();
+        }
 
         // if (manager.HaveAbility((int)Abilities.doubleJump))
         //{
         if (!airJump && !controller.isGrounded)
         {
             airJump = Input.GetKeyDown(KeyCode.Space);
+        }
+
+        if (manager.HaveAbility((int)Abilities.slam))
+        {
+            if (Input.GetKeyDown(KeyCode.V))
+            {
+                startSlam = true;
+            }
         }
 
         if (!previouslyGrounded && controller.isGrounded)
@@ -357,6 +388,11 @@ loadNextBoss();
         }
         //}
 
+        anim.SetBool("Grounded", controller.isGrounded);
+        // anim.SetBool("Jump", jump);
+        anim.SetBool("SecJump", airJump);
+        anim.SetBool("Attack", slam);
+
     }
 
     void FixedUpdate()
@@ -371,6 +407,16 @@ loadNextBoss();
             {
                 aoeSlam.enabled = false;
             }
+        }
+
+        if (slamEffectTimer > 0.0)
+        {
+            slamEffectTimer -= Time.fixedDeltaTime;
+
+        }
+        else
+        {
+            ShockWave.SetActive(false);
         }
 
         if (!lockedRotation)
@@ -416,8 +462,13 @@ loadNextBoss();
                 Vector3 spawnslam = transform.position;
                 spawnslam.y -= 1;
                 aoeSlam.enabled = true;
-                Instantiate(ShockWave, spawnslam, Quaternion.Euler(90, 0, 0));
+                ShockWave.transform.position = spawnslam;
+                ShockWave.SetActive(true);
+                slamParticle.Clear();
+                slamParticle.Play();
+                //     Instantiate(ShockWave, spawnslam, Quaternion.Euler(90, 0, 0));
                 slamTimer = 0.1f;
+                slamEffectTimer = slamParticle.main.duration - 0.1f;
 
                 clip[0].PlayOneShot(SlamSound);
             }
@@ -430,15 +481,14 @@ loadNextBoss();
         {
             moveDir += Physics.gravity * gravityMultiplier * Time.deltaTime;
 
-            if (manager.HaveAbility((int)Abilities.slam))
+            if (startSlam)
             {
-                if (Input.GetKeyDown(KeyCode.V))
-                {
-                    moveDir.y = -jumpSpeed;
-                    slam = true;
+                moveDir.y = -jumpSpeed;
+                slam = true;
+                startSlam = false;
 
-                }
             }
+            
 
             if (airJump)
             {
