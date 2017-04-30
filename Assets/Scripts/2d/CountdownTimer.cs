@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class CountdownTimer : MonoBehaviour {
-    public string levelToLoad;
+    
     public float timer = 90f;
     private float time;
     public Text timerSecond;
@@ -25,7 +25,7 @@ public class CountdownTimer : MonoBehaviour {
 
         if (timer <= 0)
         {
-            Application.LoadLevel(levelToLoad);
+            Application.LoadLevel(3);
         }
 	}
 }

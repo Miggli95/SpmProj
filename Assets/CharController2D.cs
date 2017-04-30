@@ -129,7 +129,7 @@ public class CharController2D : MonoBehaviour
     void Update()
     {
 
-        float horizontal = Input.GetAxis("Horizontal");
+        float horizontal = Input.GetAxisRaw("Horizontal");
         charinput = new Vector2(horizontal, 0);
         anim.SetFloat("Speed", Mathf.Abs(horizontal));
         if (charinput.sqrMagnitude > 1)
@@ -593,9 +593,9 @@ public class CharController2D : MonoBehaviour
                 Debug.Log("standing on button");
                 Vector3 spawnGetKey = transform.position;
                 gotKeyParicle.transform.position = spawnGetKey;
-                gotKeyParicle.SetActive(true);
+               gotKeyParicle.SetActive(true);
                 clip[0].PlayOneShot(getKey_sound);
-                col.gameObject.SetActive(false);
+               // col.gameObject.SetActive(false);
                 gotKey = true;
                 break;
 
