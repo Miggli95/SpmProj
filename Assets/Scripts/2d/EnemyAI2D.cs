@@ -132,6 +132,17 @@ public class EnemyAI2D : MonoBehaviour {
                 sources[0].PlayOneShot(patrolSound);
             }
         }
+        RaycastHit rayhit;
+        if (Physics.Raycast(transform.position, Vector3.left, out rayhit))
+        {
+            if (rayhit.collider.tag == "player" && rayhit.distance < 0.6f && rayhit.collider is CapsuleCollider)
+                getDamage();
+        }
+        if (Physics.Raycast(transform.position, Vector3.right, out rayhit))
+        {
+            if(rayhit.collider.tag == "player" && rayhit.distance < 0.6f && rayhit.collider is CapsuleCollider)
+                getDamage();
+        }
     }
     private void dead()
     {
