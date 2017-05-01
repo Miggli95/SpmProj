@@ -77,7 +77,7 @@ public class CharController2D : MonoBehaviour
     private bool startSlam = false;
     RaycastHit hit;
     float previouslyGroundedTimer = 0;
-    float jumpTimer = 0.3f;
+    public float jumpTimer = 0.3f;
     void Start()
     {
         clip = GetComponents<AudioSource>();
@@ -131,14 +131,14 @@ public class CharController2D : MonoBehaviour
 
     void Update()
     {
-        if (previouslyGroundedTimer > 0)
+        if (controller.isGrounded)
+        {
+            previouslyGroundedTimer = jumpTimer;
+        }
+        if (previouslyGroundedTimer >= 0 && !controller.isGrounded)
         {
             previouslyGroundedTimer -= Time.deltaTime;
-        }
-
-        else
-        {
-            previouslyGroundedTimer = 0;
+            Debug.Log(previouslyGroundedTimer);
         }
         float horizontal = Input.GetAxisRaw("Horizontal");
         charinput = new Vector2(horizontal, 0);
@@ -155,6 +155,9 @@ public class CharController2D : MonoBehaviour
                 jump = Input.GetKeyDown(KeyCode.Space);
             }
         }
+
+       
+
         if (horizontal > 0 && !facingRight)
         {
             Flip();
@@ -180,7 +183,7 @@ public class CharController2D : MonoBehaviour
 
         // if (manager.HaveAbility((int)Abilities.doubleJump))
         //{
-        if (!airJump && !controller.isGrounded)
+        if (!airJump && previouslyGroundedTimer<=0)
         {
             airJump = Input.GetKeyDown(KeyCode.Space);
         }
@@ -209,10 +212,6 @@ public class CharController2D : MonoBehaviour
            }*/
 
         previouslyGrounded = controller.isGrounded;
-        if (controller.isGrounded)
-        {
-            previouslyGroundedTimer = jumpTimer;
-        }
         if (Input.GetKeyDown(KeyCode.R) && SceneManager.GetActiveScene().buildIndex == 3)
         {
             
@@ -290,9 +289,6 @@ public class CharController2D : MonoBehaviour
        // anim.SetBool("Jump", jump);
         anim.SetBool("SecJump", airJump);
         anim.SetBool("Attack", slam);
-        Physics.SphereCast(transform.position, controller.radius, Vector3.down, out hit,
-             controller.height / 2, Physics.AllLayers, QueryTriggerInteraction.Ignore);
-
     }
 
     void FixedUpdate()
@@ -345,19 +341,23 @@ public class CharController2D : MonoBehaviour
         }
         Vector3 destination = transform.right * charinput.x;
 
-        if (charinput.x == 0 && charinput.y == 0)
-        {
-            destination = Vector3.zero;
-         //   moveDir.x = 0;
-          //  moveDir.z = 0;
-        }
-      
+    
         //Quaternion.Euler(0, transform.rotation.y, 0) * (transform.forward * charinput.y);
         //RaycastHit hit;
         //  Ray ray = new Ray(transform.position, Vector3.down);
         /*Physics.BoxCast(transform.position, new Vector3(controller.radius, controller.height / 2, controller.radius) ,
             Vector3.down, out hit, Quaternion.identity, controller.height / 2, Physics.AllLayers, QueryTriggerInteraction.Ignore);*/
+        Physics.SphereCast(transform.position, controller.radius, Vector3.down, out hit,
+            controller.height / 2, Physics.AllLayers, QueryTriggerInteraction.Ignore);
+
         destination = Vector3.ProjectOnPlane(destination, hit.normal).normalized;
+
+        if (charinput.x == 0 && charinput.y == 0)
+        {
+            destination = Vector3.zero;
+            //   moveDir.x = 0;
+            //  moveDir.z = 0;
+        }
 
         moveDir.x = destination.x * speed;
         //moveDir.z = destination.z * speed;
