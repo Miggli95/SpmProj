@@ -75,6 +75,9 @@ public class CharController2D : MonoBehaviour
     public ParticleSystem slamParticle;
     public GameObject gotKeyParicle;
     private bool startSlam = false;
+    RaycastHit hit;
+    float previouslyGroundedTimer = 0;
+    float jumpTimer = 0.3f;
     void Start()
     {
         clip = GetComponents<AudioSource>();
@@ -128,7 +131,15 @@ public class CharController2D : MonoBehaviour
 
     void Update()
     {
+        if (previouslyGroundedTimer > 0)
+        {
+            previouslyGroundedTimer -= Time.deltaTime;
+        }
 
+        else
+        {
+            previouslyGroundedTimer = 0;
+        }
         float horizontal = Input.GetAxisRaw("Horizontal");
         charinput = new Vector2(horizontal, 0);
         anim.SetFloat("Speed", Mathf.Abs(horizontal));
@@ -139,7 +150,7 @@ public class CharController2D : MonoBehaviour
 
         if (!jump)
         {
-            if (controller.isGrounded)
+            if (controller.isGrounded || previouslyGroundedTimer>0)
             {
                 jump = Input.GetKeyDown(KeyCode.Space);
             }
@@ -198,6 +209,10 @@ public class CharController2D : MonoBehaviour
            }*/
 
         previouslyGrounded = controller.isGrounded;
+        if (controller.isGrounded)
+        {
+            previouslyGroundedTimer = jumpTimer;
+        }
         if (Input.GetKeyDown(KeyCode.R) && SceneManager.GetActiveScene().buildIndex == 3)
         {
             
@@ -275,6 +290,8 @@ public class CharController2D : MonoBehaviour
        // anim.SetBool("Jump", jump);
         anim.SetBool("SecJump", airJump);
         anim.SetBool("Attack", slam);
+        Physics.SphereCast(transform.position, controller.radius, Vector3.down, out hit,
+             controller.height / 2, Physics.AllLayers, QueryTriggerInteraction.Ignore);
 
     }
 
@@ -336,11 +353,10 @@ public class CharController2D : MonoBehaviour
         }
       
         //Quaternion.Euler(0, transform.rotation.y, 0) * (transform.forward * charinput.y);
-        RaycastHit hit;
+        //RaycastHit hit;
         //  Ray ray = new Ray(transform.position, Vector3.down);
-        Physics.SphereCast(transform.position, controller.radius, Vector3.down, out hit,
-            controller.height / 2, Physics.AllLayers, QueryTriggerInteraction.Ignore);
-
+        /*Physics.BoxCast(transform.position, new Vector3(controller.radius, controller.height / 2, controller.radius) ,
+            Vector3.down, out hit, Quaternion.identity, controller.height / 2, Physics.AllLayers, QueryTriggerInteraction.Ignore);*/
         destination = Vector3.ProjectOnPlane(destination, hit.normal).normalized;
 
         moveDir.x = destination.x * speed;
