@@ -78,6 +78,8 @@ public class CharController2D : MonoBehaviour
     RaycastHit hit;
     float previouslyGroundedTimer = 0;
     public float jumpTimer = 0.3f;
+
+    public ScoreCount DeathCount;
     void Start()
     {
         clip = GetComponents<AudioSource>();
@@ -706,7 +708,7 @@ public class CharController2D : MonoBehaviour
         gameObject.GetComponent<CharacterController>().enabled = true;
         gameObject.GetComponent<CapsuleCollider>().enabled = true;
 
-        gameObject.GetComponent<ScoreCount>().AddScore();
+        DeathCount.AddScore();
     }
 
     IEnumerator stopBlood()

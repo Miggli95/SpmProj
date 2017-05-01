@@ -28,7 +28,7 @@ public class ScoreCount : MonoBehaviour {
     }
     public void AddScore() {
         Debug.Log("Dead");
-        score += score +1;
+        score ++;
 
     }
 }
