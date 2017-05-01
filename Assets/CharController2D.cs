@@ -131,7 +131,7 @@ public class CharController2D : MonoBehaviour
     Vector3 vel;
     void Update()
     {
-        Debug.Log("previouslyGroundedTimer" + previouslyGroundedTimer);
+       // Debug.Log("previouslyGroundedTimer" + previouslyGroundedTimer);
         if (controller.isGrounded)
         {
             previouslyGroundedTimer = jumpTimer;
@@ -685,13 +685,15 @@ public class CharController2D : MonoBehaviour
 
     public void Die(Vector3 spawn)
     {
-        Instantiate(blood, transform.position, Quaternion.identity); // spelar upp blood på den "spike" du träffar
+        Instantiate(blood, transform.position, Quaternion.identity);
+        GetComponent<ScoreCount>().AddScore();// spelar upp blood på den "spike" du träffar
         transform.position = spawn;   // spawn
     }
 
     public void Respwn()
     {
         Debug.Log("respawn");
+        
         clip[0].PlayOneShot(hurt_sound);
         clip[0].PlayOneShot(hurt_sound2);
         Instantiate(blood, transform.position, Quaternion.identity);
@@ -703,6 +705,8 @@ public class CharController2D : MonoBehaviour
         moveDir = Vector3.zero;
         gameObject.GetComponent<CharacterController>().enabled = true;
         gameObject.GetComponent<CapsuleCollider>().enabled = true;
+
+        gameObject.GetComponent<ScoreCount>().AddScore();
     }
 
     IEnumerator stopBlood()

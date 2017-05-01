@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ScoreCount : MonoBehaviour {
 
-    public static int score;        // The player's score.
+    public int score = 0 ;        // The player's score.
 
 
     Text text;                      // Reference to the Text component.
@@ -17,7 +17,7 @@ public class ScoreCount : MonoBehaviour {
         text = GetComponent<Text>();
 
         // Reset the score.
-        score = 0;
+       // score = 0;
     }
 
 
@@ -25,5 +25,10 @@ public class ScoreCount : MonoBehaviour {
     {
         // Set the displayed text 
         text.text = " x " + score;
+    }
+    public void AddScore() {
+        Debug.Log("Dead");
+        score += score +1;
+
     }
 }
