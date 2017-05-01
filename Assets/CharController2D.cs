@@ -128,17 +128,25 @@ public class CharController2D : MonoBehaviour
 
     // Update is called once per frame
 
-
+    Vector3 vel;
     void Update()
     {
+        Debug.Log("previouslyGroundedTimer" + previouslyGroundedTimer);
         if (controller.isGrounded)
         {
             previouslyGroundedTimer = jumpTimer;
+            vel = GetComponent<Rigidbody>().velocity;
         }
+
+        else
+        {
+            GetComponent<Rigidbody>().velocity = vel;
+        }
+
         if (previouslyGroundedTimer >= 0 && !controller.isGrounded)
         {
             previouslyGroundedTimer -= Time.deltaTime;
-            Debug.Log(previouslyGroundedTimer);
+  
         }
         float horizontal = Input.GetAxisRaw("Horizontal");
         charinput = new Vector2(horizontal, 0);
