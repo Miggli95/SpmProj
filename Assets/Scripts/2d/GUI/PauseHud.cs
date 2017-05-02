@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class PauseHud : MonoBehaviour {
     public GameObject pauseButton,hubButton, pausePanel;
+
+	private TitleEventManger titleCard;
+
+
 	// Use this for initialization
 	void Start () {
         pausePanel.SetActive(false);
-
     }
 	
 	// Update is called once per frame
@@ -24,8 +27,10 @@ public class PauseHud : MonoBehaviour {
         
         Time.timeScale = 1;
     }
+
     public void LoadHub() {
         Time.timeScale = 1;
+
         Application.LoadLevel(3);
     }
 }

@@ -16,9 +16,15 @@ public class TitleEventManger : MonoBehaviour {
 	[SerializeField] private GameObject loadingScreen;
 	[SerializeField] private GameObject hub;
 
+
+
 	private GameObject bgImage;
 	private List<GameObject> menus = new List<GameObject>();
+	private static bool loadHub = false;
 
+
+
+	//------------------------------------------
 	void Start () {
 		if (startMenu == null)
 			findObject ("StartMenu", ref startMenu);
@@ -40,9 +46,17 @@ public class TitleEventManger : MonoBehaviour {
 		menus.Add (hub);
 
 	//	LoadCorrectMenu ("StartMenu");
+		if (loadHub)
+			LoadCorrectMenu ("Hub");
+		else {
+			LoadCorrectMenu ("StartMenu");
+			loadHub = true;
+		}
 	}
 
-
+	void Awake(){
+		
+	}
 
 
 	public void findObject(string missingObject, ref GameObject varObject){
@@ -100,5 +114,11 @@ public class TitleEventManger : MonoBehaviour {
 		else
 			Application.Quit ();
 	}
+
+
+
+	//-------------------------------------------
+
+
 
 }
