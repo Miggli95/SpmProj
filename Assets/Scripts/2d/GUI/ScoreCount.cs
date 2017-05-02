@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ScoreCount : MonoBehaviour {
 
-    public int score = 0 ;        // The player's score.
+    private int score = 0 ;        // The player's score.
 
     public GameManager manager;
     Text text;                      // Reference to the Text component.
