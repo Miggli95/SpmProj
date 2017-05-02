@@ -622,6 +622,8 @@ public class CharController2D : MonoBehaviour
                 {
                     retry1 = true;
                     retryMenu.SetActive(true);
+                    Time.timeScale = 1;
+
 
                 }
                 else if (manager.isLevelComplete(0))
@@ -635,6 +637,8 @@ public class CharController2D : MonoBehaviour
                 {
                     retry2 = true;
                     retryMenu.SetActive(true);
+                    Time.timeScale = 1;
+
 
                 }
                 else if (manager.isLevelComplete(1))// && Input.GetKeyDown(KeyCode.UpArrow))
@@ -648,6 +652,7 @@ public class CharController2D : MonoBehaviour
                 {
                     retry3 = true;
                     retryMenu.SetActive(true);
+                    Time.timeScale = 1;
 
                 }
                 else if (manager.isLevelComplete(2)) //&& Input.GetKeyDown(KeyCode.UpArrow))
@@ -661,6 +666,7 @@ public class CharController2D : MonoBehaviour
                 {
                     retry4 = true;
                     retryMenu.SetActive(true);
+                    Time.timeScale = 1;
 
                 }
                 else if (manager.isLevelComplete(3))// && Input.GetKeyDown(KeyCode.UpArrow))
