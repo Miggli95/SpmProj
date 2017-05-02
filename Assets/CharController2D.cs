@@ -80,6 +80,9 @@ public class CharController2D : MonoBehaviour
     public float jumpTimer = 0.3f;
 
     public ScoreCount DeathCount;
+    private bool startedSlam;
+    public float jumpTimerDelay;
+
     void Start()
     {
         clip = GetComponents<AudioSource>();
@@ -98,8 +101,8 @@ public class CharController2D : MonoBehaviour
         walkingDust.SetActive(false);
         ShockWave.SetActive(false);
         gotKeyParicle.SetActive(false);
+
         slamEffectTimer = slamParticle.main.duration - 0.1f;
-        
         // Death();
     }
 
@@ -118,6 +121,7 @@ public class CharController2D : MonoBehaviour
         return slam;
     }
 
+    // Update is called once per frame
     void Flip()
     {
 
@@ -128,45 +132,11 @@ public class CharController2D : MonoBehaviour
         CharRefTransform.localScale = theScale;
     }
 
-    // Update is called once per frame
-
-    Vector3 vel;
     void Update()
     {
-       // Debug.Log("previouslyGroundedTimer" + previouslyGroundedTimer);
-        if (controller.isGrounded)
-        {
-            previouslyGroundedTimer = jumpTimer;
-            vel = GetComponent<Rigidbody>().velocity;
-        }
-
-        else
-        {
-            GetComponent<Rigidbody>().velocity = vel;
-        }
-
-        if (previouslyGroundedTimer >= 0 && !controller.isGrounded)
-        {
-            previouslyGroundedTimer -= Time.deltaTime;
-  
-        }
-        float horizontal = Input.GetAxisRaw("Horizontal");
+        float horizontal = Input.GetAxis("Horizontal");
         charinput = new Vector2(horizontal, 0);
         anim.SetFloat("Speed", Mathf.Abs(horizontal));
-        if (charinput.sqrMagnitude > 1)
-        {
-            charinput.Normalize();
-        }
-
-        if (!jump)
-        {
-            if (controller.isGrounded || previouslyGroundedTimer>0)
-            {
-                jump = Input.GetKeyDown(KeyCode.Space);
-            }
-        }
-
-       
 
         if (horizontal > 0 && !facingRight)
         {
@@ -191,19 +161,49 @@ public class CharController2D : MonoBehaviour
             walkingDust.SetActive(true);
         }
 
+        if (charinput.sqrMagnitude > 1)
+        {
+            charinput.Normalize();
+        }
+
+        if (controller.isGrounded)
+        {
+            jumpTimerDelay = jumpTimer;
+        }
+
+        if (jumpTimerDelay > 0)
+        {
+            jumpTimerDelay -= Time.deltaTime;
+        }
+
+
+
+
+        if (charinput.sqrMagnitude > 1)
+        {
+            charinput.Normalize();
+        }
+
+        if (!jump)
+        {
+            if (controller.isGrounded || jumpTimerDelay > 0)
+            {
+                jump = Input.GetKeyDown(KeyCode.Space);
+            }
+        }
+
         // if (manager.HaveAbility((int)Abilities.doubleJump))
         //{
-        if (!airJump && previouslyGroundedTimer<=0)
+        if (!airJump && jumpTimerDelay <= 0)
         {
             airJump = Input.GetKeyDown(KeyCode.Space);
         }
-
-        if (manager.HaveAbility((int)Abilities.slam))
+      
+        // if (manager.HaveAbility((int)Abilities.doubleJump))
+        //{
+        if (!airJump && !controller.isGrounded)
         {
-            if (Input.GetKeyDown(KeyCode.V))
-            {
-                startSlam = true;
-            }
+            airJump = Input.GetKeyDown(KeyCode.Space);
         }
 
         if (!previouslyGrounded && controller.isGrounded)
@@ -215,23 +215,22 @@ public class CharController2D : MonoBehaviour
             //doubleJump = false;
         }
 
-
-        /*   if (!controller.isGrounded && !jumping && previouslyGrounded)
-           {
-               moveDir.y = 0;
-           }*/
+     /*   if (!controller.isGrounded && !jumping && previouslyGrounded)
+        {
+            moveDir.y = 0;
+        }*/
 
         previouslyGrounded = controller.isGrounded;
         if (Input.GetKeyDown(KeyCode.R) && SceneManager.GetActiveScene().buildIndex == 3)
         {
-            
+
             manager.ResetProgression();
-            Debug.Log("kkk");
         }
 
+        RaycastHit rayhit;
         if (SceneManager.GetActiveScene().name == "NewLevel3")
         {
-            RaycastHit rayhit;
+            //RaycastHit rayhit;
             if (Physics.Raycast(transform.position, Vector3.down, out rayhit))
             {
 
@@ -260,7 +259,7 @@ public class CharController2D : MonoBehaviour
         }
         else
         {
-            RaycastHit rayhit;
+            //RaycastHit rayhit;
             if (Physics.Raycast(transform.position, Vector3.down, out rayhit))
             {
 
@@ -294,11 +293,11 @@ public class CharController2D : MonoBehaviour
             Destroy(GameObject.FindWithTag("locker"));
         }
         //}
-
         anim.SetBool("Grounded", controller.isGrounded);
-       // anim.SetBool("Jump", jump);
+        // anim.SetBool("Jump", jump);
         anim.SetBool("SecJump", airJump);
         anim.SetBool("Attack", slam);
+
     }
 
     void FixedUpdate()
@@ -310,9 +309,9 @@ public class CharController2D : MonoBehaviour
 
         t += Time.fixedDeltaTime;
         //slamCollider.SetActive(slam);
-
-        //float vertical = Input.GetAxis("Vertical");
-
+      
+       //float vertical = Input.GetAxis("Vertical");
+       
 
         if (slamTimer > 0.0f)
         {
@@ -320,9 +319,9 @@ public class CharController2D : MonoBehaviour
             if (slamTimer <= 0.0f)
             {
                 aoeSlam.enabled = false;
-
             }
         }
+
         if (slamEffectTimer > 0.0)
         {
             slamEffectTimer -= Time.fixedDeltaTime;
@@ -332,7 +331,6 @@ public class CharController2D : MonoBehaviour
         {
             ShockWave.SetActive(false);
         }
-
         /*if (!lockedRotation)
         {
             rotationY = rotationSpeed * Input.GetAxis("Mouse X");
@@ -349,32 +347,25 @@ public class CharController2D : MonoBehaviour
         {
             moveDir.y = -1;
         }
-        Vector3 destination = transform.right * charinput.x;
-
-    
-        //Quaternion.Euler(0, transform.rotation.y, 0) * (transform.forward * charinput.y);
-        //RaycastHit hit;
+        Vector3 destination = transform.right * charinput.x; //Quaternion.Euler(0, transform.rotation.y, 0) * (transform.forward * charinput.y);
+        RaycastHit hit;
         //  Ray ray = new Ray(transform.position, Vector3.down);
-        /*Physics.BoxCast(transform.position, new Vector3(controller.radius, controller.height / 2, controller.radius) ,
-            Vector3.down, out hit, Quaternion.identity, controller.height / 2, Physics.AllLayers, QueryTriggerInteraction.Ignore);*/
         Physics.SphereCast(transform.position, controller.radius, Vector3.down, out hit,
             controller.height / 2, Physics.AllLayers, QueryTriggerInteraction.Ignore);
 
         destination = Vector3.ProjectOnPlane(destination, hit.normal).normalized;
-
         if (charinput.x == 0 && charinput.y == 0)
         {
             destination = Vector3.zero;
             //   moveDir.x = 0;
             //  moveDir.z = 0;
         }
-
         moveDir.x = destination.x * speed;
         //moveDir.z = destination.z * speed;
 
 
-
-
+       
+       
         if (controller.isGrounded)
         {
             moveDir.y = -stickToGroundForce;
@@ -383,7 +374,6 @@ public class CharController2D : MonoBehaviour
             {
                 Debug.Log("jump");
                 moveDir.y = jumpSpeed;
-                clip[0].PlayOneShot(jump_sound);
                 jump = false;
                 jumping = true;
             }
@@ -411,13 +401,15 @@ public class CharController2D : MonoBehaviour
         {
             moveDir += Physics.gravity * gravityMultiplier * Time.deltaTime;
 
-            if (startSlam)
+
+            if (startedSlam)
             {
                 moveDir.y = -jumpSpeed;
                 slam = true;
-                startSlam = false;
+                startedSlam = false;
 
             }
+            
 
             if (airJump)
             {
@@ -425,13 +417,12 @@ public class CharController2D : MonoBehaviour
                 {
                     Debug.Log("doubleJump");
                     moveDir.y = doubleJumpSpeed;
-                    clip[0].PlayOneShot(jump_sound);
                     jumping = false;
                     jump = false;
                     jumped = true;
                 }
                 //doubleJump = false;
-            }
+            }            
         }
         if (bounce)
         {
@@ -439,9 +430,9 @@ public class CharController2D : MonoBehaviour
             bounce = false;
         }
 
-        
 
 
+     
         colFlags = controller.Move(moveDir * Time.fixedDeltaTime);
 
         if (transform.position.z != startZ)
@@ -456,7 +447,7 @@ public class CharController2D : MonoBehaviour
 
         //print("isSlaming" + slam);
         //test code reset progression of gameManager
-
+       
 
 
 
