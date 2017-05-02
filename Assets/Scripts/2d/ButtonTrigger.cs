@@ -7,7 +7,7 @@ public class ButtonTrigger : MonoBehaviour {
     public Animator anim;
     
 
-    void OnTriggerEnter(Collider col)
+    void OnTriggerStay(Collider col)
     {
         Debug.Log("tag" + col.gameObject.tag);
         if (col.CompareTag("player") || col.CompareTag("movableBox"))  // Movablebox --> implement
