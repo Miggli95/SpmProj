@@ -22,14 +22,12 @@ public class ButtonScript : MonoBehaviour {
     {
         if (EventSystem.current.currentSelectedGameObject.name == "Return button")
         {
-            Time.timeScale = 1;
             retryMenu.SetActive(false);
            
             player.GetComponent<CharController2D>().retry1 = false;
             player.GetComponent<CharController2D>().retry2 = false;
             player.GetComponent<CharController2D>().retry3 = false;
             player.GetComponent<CharController2D>().retry4 = false;
-            retryMenu.SetActive(false);
 
 
         }
