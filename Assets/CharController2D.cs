@@ -126,6 +126,7 @@ public class CharController2D : MonoBehaviour
     {
 
         //source.PlayOneShot(flip_sound);
+        clip[0].PlayOneShot(flip_sound);
         facingRight = !facingRight;
         Vector3 theScale = CharRefTransform.localScale;
         theScale.z *= -1;
@@ -189,6 +190,7 @@ public class CharController2D : MonoBehaviour
             if (controller.isGrounded || jumpTimerDelay > 0)
             {
                 jump = Input.GetKeyDown(KeyCode.Space);
+
             }
         }
 
@@ -376,6 +378,7 @@ public class CharController2D : MonoBehaviour
                 moveDir.y = jumpSpeed;
                 jump = false;
                 jumping = true;
+                clip[0].PlayOneShot(jump_sound);
             }
 
             if (slam)
@@ -415,6 +418,7 @@ public class CharController2D : MonoBehaviour
             {
                 if (!jumped)
                 {
+                    clip[0].PlayOneShot(jump_sound);
                     Debug.Log("doubleJump");
                     moveDir.y = doubleJumpSpeed;
                     jumping = false;

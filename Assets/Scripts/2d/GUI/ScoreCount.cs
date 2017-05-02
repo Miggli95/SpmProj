@@ -27,6 +27,10 @@ public class ScoreCount : MonoBehaviour {
     void Update()
     {
         // Set the displayed text 
+        if (score == 0)
+        {
+            score = manager.getDeathCount();
+        }
         text.text = " x " + score;
     }
     public void AddScore() {
