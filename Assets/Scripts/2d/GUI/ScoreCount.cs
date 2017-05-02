@@ -7,10 +7,13 @@ public class ScoreCount : MonoBehaviour {
 
     public int score = 0 ;        // The player's score.
 
-
+    public GameManager manager;
     Text text;                      // Reference to the Text component.
 
-
+    void Start()
+    {
+        score = manager.getDeathCount();
+    }
     void Awake()
     {
         // Set up the reference.
@@ -29,6 +32,7 @@ public class ScoreCount : MonoBehaviour {
     public void AddScore() {
         Debug.Log("Dead");
         score ++;
+        manager.SetDeathCount(score);
 
     }
 }

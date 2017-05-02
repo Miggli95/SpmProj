@@ -680,6 +680,7 @@ public class CharController2D : MonoBehaviour
     {
         Instantiate(blood, transform.position, Quaternion.identity);
         GetComponent<ScoreCount>().AddScore();// spelar upp blood på den "spike" du träffar
+        
         transform.position = spawn;   // spawn
     }
 

@@ -18,13 +18,14 @@ public class GameManager : MonoBehaviour
     public bool level2Cleared = false;
     public bool level3Cleared = false;
     public bool level4Cleared = false;
+    public int deathCount = 0;
 	void Start()
     {
         levelComplete = PlayerPrefs.GetInt("Level");
         numberOfAbilities = PlayerPrefs.GetInt("numberOfAbilities");
         unlockedAbilities = new List<int>();
         print("numberOfAbilities" + numberOfAbilities);
-
+        deathCount = PlayerPrefs.GetInt("deathCount");
         for (int i = 0; i < numberOfAbilities; i++)
         {
             print("add ability" + PlayerPrefs.GetInt("Ability" + i));
@@ -51,6 +52,17 @@ public class GameManager : MonoBehaviour
             level3Cleared = true;
         if (isLevelComplete(4))
             level4Cleared = true;
+    }
+
+    public int getDeathCount()
+    {
+        return deathCount;
+    }
+
+    public void SetDeathCount(int death)
+    {
+        deathCount = death;
+        PlayerPrefs.SetInt("deathCount",deathCount);
     }
 
     public Vector3 getSpawnPoint()
