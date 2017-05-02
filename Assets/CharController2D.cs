@@ -171,7 +171,7 @@ public class CharController2D : MonoBehaviour
             jumpTimerDelay = jumpTimer;
         }
 
-        if (jumpTimerDelay > 0)
+        if (jumpTimerDelay > 0 && !controller.isGrounded)
         {
             jumpTimerDelay -= Time.deltaTime;
         }
