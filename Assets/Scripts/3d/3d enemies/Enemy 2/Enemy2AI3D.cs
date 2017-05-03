@@ -6,7 +6,7 @@ using UnityEngine;
 public class Enemy2AI3D : MonoBehaviour
 {
     public GameObject Player;
-
+    public GameObject deathP;
     public bool isIncapacitated = false;
     public float MoveSpeed = 2.5f;
     public float DashSpeed = 5.0f;
@@ -193,6 +193,7 @@ public class Enemy2AI3D : MonoBehaviour
                 soundSource.PlayOneShot(hurtEnemySounds[clipIndex]);
             }
             Stars(false);
+            Instantiate(deathP, transform.position, Quaternion.identity);
             Destroy(gameObject);
 
         }

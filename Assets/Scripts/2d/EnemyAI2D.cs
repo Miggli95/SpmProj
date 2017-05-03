@@ -6,6 +6,7 @@ using UnityEngine;
 public class EnemyAI2D : MonoBehaviour {
     public GameObject Player;
 
+    public GameObject deathP;
     public float MoveSpeed = 3.0f;
     public float PatrolRangeX = 10;
     public float PatrolRangeY = 10;
@@ -164,7 +165,7 @@ public class EnemyAI2D : MonoBehaviour {
     }
     public void deathAni()
     {
-            
+        Instantiate(deathP, transform.position, Quaternion.identity);
         enemy.constraints = RigidbodyConstraints.FreezePositionX;
         
         BoxCollider boxy = GetComponent<BoxCollider>();
