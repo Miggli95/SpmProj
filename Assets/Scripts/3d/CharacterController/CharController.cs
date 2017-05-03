@@ -595,7 +595,7 @@ loadNextBoss();
                 SceneManager.LoadScene("BossLevel 3");
                 break;
             case "BossLevel 3":
-                SceneManager.LoadScene("Hub Level");
+                SceneManager.LoadScene("TitleCard");
                 break;
         }
     }
