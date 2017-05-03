@@ -679,10 +679,38 @@ public class CharController2D : MonoBehaviour
                 break;
 
 
-
         }
 
+}
 
+    public void OnTriggerExit(Collider col)
+    {
+        switch (col.gameObject.tag)
+        {
+            case "Level1":
+                // if (Input.GetKey(KeyCode.UpArrow))
+                retry1 = false;
+                retryMenu.SetActive(false);
+                break;
+
+            case "Level2":
+
+                retry2 = false;
+                retryMenu.SetActive(false);
+                break;
+
+            case "Level3":
+
+                retry3 = false;
+                retryMenu.SetActive(false);
+                break;
+
+            case "bossLevel":
+              
+                retry4 = false;
+                retryMenu.SetActive(false);
+                break;
+        }
     }
 
     public void Die(Vector3 spawn)
