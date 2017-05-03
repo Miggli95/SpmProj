@@ -13,12 +13,9 @@ public class MyUnitySingleton : MonoBehaviour {
     {
 
     }
-    void Start()
+    void Load()
     {
-        if (SceneManager.GetActiveScene().name != "BossLevel" || SceneManager.GetActiveScene().name != "BossLevel 2" || SceneManager.GetActiveScene().name != "BossLevel 3")
-        {
-            Destroy(this);
-        }
+        
         if (instance != null && instance != this)
         {
             Destroy(this.gameObject);
@@ -32,5 +29,9 @@ public class MyUnitySingleton : MonoBehaviour {
     }
    void Update()
     {
+        if (SceneManager.GetActiveScene().name != "BossLevel" || SceneManager.GetActiveScene().name != "BossLevel 2" || SceneManager.GetActiveScene().name != "BossLevel 3")
+        {
+            Destroy(this);
+        }
     }
 }
