@@ -9,10 +9,10 @@ public class ButtonTrigger : MonoBehaviour {
 
     void OnTriggerStay(Collider col)
     {
-        Debug.Log("tag" + col.gameObject.tag);
+        //Debug.Log("tag" + col.gameObject.tag);			//<= dude it loads once every frame...
         if (col.CompareTag("player") || col.CompareTag("movableBox"))  // Movablebox --> implement
         {
-            Debug.Log("Is pressed");
+			//Debug.Log("Is pressed");			//<= dude it loads once every frame as well...
             anim.SetBool("IsPressed", true);
             // ((DoorSlide)GameObject.FindGameObjectWithTag("Door") ).openDoor();
             var d = GameObject.Find("Door").gameObject.GetComponent<DoorSlide>();
@@ -26,7 +26,7 @@ public class ButtonTrigger : MonoBehaviour {
     void OnTriggerExit(Collider col)
     {
         GameObject.Find("Door").gameObject.GetComponent<DoorSlide>().closeDoor();
-        Debug.Log("is not Pressed");
+        //Debug.Log("is not Pressed");
         if (col.CompareTag("player") || col.CompareTag("movableBox")) // Movablebox-- > implement
             anim.SetBool("IsPressed", false);
         
