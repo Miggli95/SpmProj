@@ -13,7 +13,7 @@ enum Abilities
 
 public class CharController : MonoBehaviour
 {
-
+    
     private Vector3 position;
     bool input = false;
     float t;
@@ -53,7 +53,7 @@ public class CharController : MonoBehaviour
     public float slamEffectTimer;
     public ParticleSystem slamParticle;
     bool startSlam = false;
-
+    public GameObject finalBossScream;
     bool facingForward = true;
 
     // Use this for initialization
@@ -575,6 +575,10 @@ loadNextBoss();
     }
     public void doSuperJump()
     {
+        if(SceneManager.GetActiveScene().name == "BossLevel 3")
+        {
+            finalBossScream.GetComponent<MyOtherSingleton>().playVoice();
+        }
         flying = true;
         bounce = true;
 
