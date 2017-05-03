@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemyAI3D : MonoBehaviour
 {
     public GameObject Player;
-
+    public GameObject deathP;
     public float MoveSpeed = 3.0f;
     public float PatrolRangeX = 10;
     public float PatrolRangeY = 10;
@@ -160,6 +160,7 @@ public class EnemyAI3D : MonoBehaviour
     }
     public void kill()
     {
+        Instantiate(deathP, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
     private void OnCollisionEnter(Collision collision)
