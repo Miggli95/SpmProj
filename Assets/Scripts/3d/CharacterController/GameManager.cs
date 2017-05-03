@@ -69,6 +69,9 @@ public class GameManager : MonoBehaviour
     {
         switch (SceneManager.GetActiveScene().name)
         {
+            case "TempTutorial":
+                return new Vector3(-10, 1, 0);
+                break;
             case "BossLevel":
                 return BOne;
                 break;

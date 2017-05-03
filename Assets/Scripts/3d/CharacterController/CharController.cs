@@ -355,20 +355,20 @@ loadNextBoss();
         if (Physics.CapsuleCast(transform.position, capsuleTarget, controller.radius, Vector3.down, out rayhit))
         {
 
-            if (rayhit.collider.tag == "enemy" && rayhit.distance < 0.5f)
+            if (rayhit.collider.tag == "enemy" && rayhit.distance < 0.3f)
             {
                 print(rayhit.distance);
                 rayhit.collider.GetComponent<EnemyAI3D>().deathAni();
                 // moveDir.y = jumpSpeed;
                 forceJump();
             }
-            if (rayhit.collider.tag == "enemy2" && rayhit.distance < 0.6f)
+            if (rayhit.collider.tag == "enemy2" && rayhit.distance < 0.4f)
             {
                 rayhit.collider.GetComponent<Enemy2AI3D>().deathAni();
                 //_rigi.AddForce(Vector3.up * (jumpSpeed * _rigi.mass * 2f));
                 forceJump();
             }
-            if (rayhit.collider.tag == "enemy3" && rayhit.distance < 0.7f)
+            if (rayhit.collider.tag == "enemy3" && rayhit.distance < 0.5f)
             {
                 rayhit.collider.GetComponent<Enemy3AI3D>().deathAni();
                 forceJump();
