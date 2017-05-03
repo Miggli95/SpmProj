@@ -1,32 +1,37 @@
-﻿using System.Collections;
+﻿/****************************************
+ * NullReferenceException: Object reference not set to an instance of an object
+ * 
+ * -resolved-
+ * **************************************/
+
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TextSign : MonoBehaviour
 {
-    public GameObject Obj;
-    private AudioSource source;
-    public AudioClip soundClip;
-    private bool alreadyPlay;
+	[SerializeField] private GameObject textObject;
+	[SerializeField] private AudioClip soundClip;
+
+	private AudioSource source;
+	private bool alreadyPlay;
 
     // Use this for initialization
     void Start()
     {
-        Obj.SetActive(false);
+		textObject.SetActive(false);
+		try{
         source = GetComponent<AudioSource>();
-        alreadyPlay = false;
-
-
+		}catch(UnityException e){
+			Debug.Log ("<color=red>TextSign Error: </color>No audio attatched to text sign.");
+		}
+		alreadyPlay = false;
     }
 
     // Update is called once per frame
-    void Update()
-    {
+	void Update(){}
 
-
-
-
-    }
     IEnumerator OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("player"))
@@ -47,13 +52,13 @@ public class TextSign : MonoBehaviour
 
 
 
-    public void ObjOn()
+    void ObjOn()
     {
-        Obj.SetActive(true);
+		textObject.SetActive(true);
     }
 
-    public void ObjOff()
+    void ObjOff()
     {
-        Obj.SetActive(false);
+		textObject.SetActive(false);
     }
 }
