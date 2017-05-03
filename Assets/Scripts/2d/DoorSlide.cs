@@ -8,7 +8,7 @@ public class DoorSlide : MonoBehaviour {
 
     public void openDoor()
     {
-        Debug.Log("Open door");
+        //Debug.Log("Open door");		//console overload...
         anim.SetBool("Open", true);
 
     }
