@@ -207,7 +207,13 @@ public class CharController2D : MonoBehaviour
         {
             airJump = Input.GetKeyDown(KeyCode.Space);
         }
-
+        if (!controller.isGrounded && manager.HaveAbility((int)Abilities.slam))
+        {
+            if (Input.GetKeyDown(KeyCode.V))
+            {
+                startedSlam = true;
+            }
+        }
         if (!previouslyGrounded && controller.isGrounded)
         {
             //moveDir.y = 0;
@@ -228,6 +234,7 @@ public class CharController2D : MonoBehaviour
 
             manager.ResetProgression();
         }
+
 
         RaycastHit rayhit;
         if (SceneManager.GetActiveScene().name == "NewLevel3")
