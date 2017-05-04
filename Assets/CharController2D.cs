@@ -613,7 +613,7 @@ public class CharController2D : MonoBehaviour
                 //if(levelToLoad<=SceneManager.sceneCount)
                 manager.AddYourScore(countTime.timer);
                 manager.AddBestScore(countTime.timer);
-                SceneManager.LoadScene("TitleCard");
+                SceneManager.LoadScene(0);
                 //countdownTimer.timer = 90f;
                 gotKey = false;
                 //Application.LoadLevel(SceneManager.);
