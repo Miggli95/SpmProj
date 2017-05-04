@@ -13,7 +13,7 @@ enum Abilities
 
 public class CharController : MonoBehaviour
 {
-    
+
     private Vector3 position;
     bool input = false;
     float t;
@@ -355,7 +355,7 @@ loadNextBoss();
         if (Physics.CapsuleCast(transform.position, capsuleTarget, controller.radius, Vector3.down, out rayhit))
         {
 
-            if (rayhit.collider.tag == "enemy" && rayhit.distance < 0.2f)
+            if (rayhit.collider.tag == "enemy" && rayhit.distance < 0.3f)
             {
                 print(rayhit.distance);
                 rayhit.collider.GetComponent<EnemyAI3D>().deathAni();
@@ -495,7 +495,7 @@ loadNextBoss();
                 startSlam = false;
 
             }
-            
+
 
             if (airJump)
             {
@@ -516,7 +516,7 @@ loadNextBoss();
         {
             if (bounce)
             {
-                moveDir.y = jumpSpeed*12;
+                moveDir.y = jumpSpeed * 12;
                 bounce = false;
             }
             flyingTimer -= Time.fixedDeltaTime;
@@ -575,7 +575,7 @@ loadNextBoss();
     }
     public void doSuperJump()
     {
-        if(SceneManager.GetActiveScene().name == "BossLevel 3")
+        if (SceneManager.GetActiveScene().name == "BossLevel 3")
         {
             finalBossScream.GetComponent<MyOtherSingleton>().playVoice();
         }

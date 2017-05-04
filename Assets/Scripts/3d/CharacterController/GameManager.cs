@@ -13,27 +13,42 @@ public class GameManager : MonoBehaviour
     private Vector3 BAlt = new Vector3(0, 5, 0);
     private Vector3 BTwo = new Vector3(-40, 53, 2);
     int currentRespawn = 0;
-
+    public int currentLevel;
     public bool level1Cleared = false;
     public bool level2Cleared = false;
     public bool level3Cleared = false;
     public bool level4Cleared = false;
     public int deathCount = 0;
-	void Start()
+    //List<float> bestTime;
+    //List<float> yourTime;
+    int numberOfLevels;
+    void Start()
     {
+        currentLevel = PlayerPrefs.GetInt("CurrentLevel");
         levelComplete = PlayerPrefs.GetInt("Level");
         numberOfAbilities = PlayerPrefs.GetInt("numberOfAbilities");
         unlockedAbilities = new List<int>();
         print("numberOfAbilities" + numberOfAbilities);
         deathCount = PlayerPrefs.GetInt("deathCount");
-        for (int i = 0; i < numberOfAbilities; i++)
-        {
-            print("add ability" + PlayerPrefs.GetInt("Ability" + i));
-            unlockedAbilities.Add(PlayerPrefs.GetInt("Ability" + i));
+        // currentLevel = PlayerPrefs.GetInt("CurrentLevel");
+        // numberOfLevels = SceneManager.sceneCountInBuildSettings - 1;//PlayerPrefs.GetInt("numberOfLevels");
+
+        /*   for (int i = 0; i < numberOfLevels; i++)
+           {
+
+               //print("LevelBest" + PlayerPrefs.GetInt("LevelBest" + i));
+               bestTime.Add(PlayerPrefs.GetFloat("LevelBest" + i));
+               yourTime.Add(PlayerPrefs.GetFloat("LevelScore" + i));
+           }
+           */
+           for (int i = 0; i < numberOfAbilities; i++)
+           {
+               print("add ability" + PlayerPrefs.GetInt("Ability" + i));
+               unlockedAbilities.Add(PlayerPrefs.GetInt("Ability" + i));
 
 
-        }
-
+           }
+           
         if (HaveAbility((int)Abilities.slam) && SceneManager.GetActiveScene().buildIndex == 7)
         {
 
@@ -44,14 +59,54 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (isLevelComplete(2))
+        if (isLevelComplete(1))
             level1Cleared = true;
-        if (isLevelComplete(3))
+        if (isLevelComplete(2))
             level2Cleared = true;
-        if (isLevelComplete(4))
+        if (isLevelComplete(3))
             level3Cleared = true;
-        if (isLevelComplete(5))
+        if (isLevelComplete(4))
             level4Cleared = true;
+        if (currentLevel != PlayerPrefs.GetInt("CurrentLevel"))
+        {
+            PlayerPrefs.SetInt("CurrentLevel", currentLevel);
+        }
+    }
+
+    public float getYourScore(int level)
+    {
+        //int i = level - 1;
+        Debug.Log("LevelScore" + level + " " + PlayerPrefs.GetFloat("LevelScore" + level));
+        return PlayerPrefs.GetFloat("LevelScore" + level);
+    }
+
+    public float getBestScore(int level)
+    {
+        //int i = level - 1;
+        return PlayerPrefs.GetFloat("LevelBest" + level);
+    }
+
+    public void AddBestScore(float score)
+    {
+        int level = currentLevel;
+        float bestScore = PlayerPrefs.GetFloat("LevelBest" + level);
+
+        if (bestScore == 0)
+        {
+            PlayerPrefs.SetFloat("LevelBest" + level, score);
+        }
+        if (score < bestScore)
+        {
+            Debug.Log("New Best Score yippies");
+            //bestTime[level] = score;
+            PlayerPrefs.SetFloat("LevelBest" + level, score);
+        }
+    }
+
+    public void AddYourScore(float score)
+    {
+        int level = currentLevel;
+        PlayerPrefs.SetFloat("LevelScore" + level, score);
     }
 
     public int getDeathCount()
@@ -62,7 +117,7 @@ public class GameManager : MonoBehaviour
     public void SetDeathCount(int death)
     {
         deathCount = death;
-        PlayerPrefs.SetInt("deathCount",deathCount);
+        PlayerPrefs.SetInt("deathCount", deathCount);
     }
 
     public Vector3 getSpawnPoint()
@@ -104,11 +159,11 @@ public class GameManager : MonoBehaviour
         print("spawn " + currentRespawn);
         return respawns[currentRespawn].position;
 
-        
+
     }
     public Vector3 getRotation()
     {
-        return  new Vector3(0, 90, 0);
+        return new Vector3(0, 90, 0);
     }
 
     public void UnlockAbility(int ability)
@@ -123,13 +178,13 @@ public class GameManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("Ability" + i, unlockedAbilities[i]);
         }
-       /* if (ability > unlockedAbilities)
-        {
-            unlockedAbilities = ability;
-            PlayerPrefs.SetInt("Abilities", unlockedAbilities);
-        }*/
+        /* if (ability > unlockedAbilities)
+         {
+             unlockedAbilities = ability;
+             PlayerPrefs.SetInt("Abilities", unlockedAbilities);
+         }*/
     }
-    
+
     public void setRespawn(int i)
     {
         if (i > currentRespawn)
@@ -156,14 +211,15 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.DeleteAll();
         currentRespawn = 0;
         levelComplete = 0;
-        LevelComplete(1);
         numberOfAbilities = 0;
         unlockedAbilities.Clear();
         level1Cleared = false;
         level2Cleared = false;
         level3Cleared = false;
         level4Cleared = false;
-}
+    }
+
+
 
     public bool isLevelComplete(int level)
     {

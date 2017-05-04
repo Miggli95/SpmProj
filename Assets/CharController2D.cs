@@ -82,6 +82,7 @@ public class CharController2D : MonoBehaviour
     public ScoreCount DeathCount;
     private bool startedSlam;
     public float jumpTimerDelay;
+    public CountTime countTime;
 
     void Start()
     {
@@ -200,13 +201,14 @@ public class CharController2D : MonoBehaviour
         {
             airJump = Input.GetKeyDown(KeyCode.Space);
         }
-      
+
         // if (manager.HaveAbility((int)Abilities.doubleJump))
         //{
         if (!airJump && !controller.isGrounded)
         {
             airJump = Input.GetKeyDown(KeyCode.Space);
         }
+
         if (!controller.isGrounded && manager.HaveAbility((int)Abilities.slam))
         {
             if (Input.GetKeyDown(KeyCode.V))
@@ -214,6 +216,7 @@ public class CharController2D : MonoBehaviour
                 startedSlam = true;
             }
         }
+
         if (!previouslyGrounded && controller.isGrounded)
         {
             //moveDir.y = 0;
@@ -223,13 +226,13 @@ public class CharController2D : MonoBehaviour
             //doubleJump = false;
         }
 
-     /*   if (!controller.isGrounded && !jumping && previouslyGrounded)
-        {
-            moveDir.y = 0;
-        }*/
+        /*   if (!controller.isGrounded && !jumping && previouslyGrounded)
+           {
+               moveDir.y = 0;
+           }*/
 
         previouslyGrounded = controller.isGrounded;
-        if (Input.GetKeyDown(KeyCode.R) && SceneManager.GetActiveScene().buildIndex == 0)
+        if (Input.GetKeyDown(KeyCode.R) && SceneManager.GetActiveScene().buildIndex == 3)
         {
 
             manager.ResetProgression();
@@ -318,9 +321,9 @@ public class CharController2D : MonoBehaviour
 
         t += Time.fixedDeltaTime;
         //slamCollider.SetActive(slam);
-      
-       //float vertical = Input.GetAxis("Vertical");
-       
+
+        //float vertical = Input.GetAxis("Vertical");
+
 
         if (slamTimer > 0.0f)
         {
@@ -373,8 +376,8 @@ public class CharController2D : MonoBehaviour
         //moveDir.z = destination.z * speed;
 
 
-       
-       
+
+
         if (controller.isGrounded)
         {
             moveDir.y = -stickToGroundForce;
@@ -419,7 +422,7 @@ public class CharController2D : MonoBehaviour
                 startedSlam = false;
 
             }
-            
+
 
             if (airJump)
             {
@@ -433,7 +436,7 @@ public class CharController2D : MonoBehaviour
                     jumped = true;
                 }
                 //doubleJump = false;
-            }            
+            }
         }
         if (bounce)
         {
@@ -443,7 +446,7 @@ public class CharController2D : MonoBehaviour
 
 
 
-     
+
         colFlags = controller.Move(moveDir * Time.fixedDeltaTime);
 
         if (transform.position.z != startZ)
@@ -458,7 +461,7 @@ public class CharController2D : MonoBehaviour
 
         //print("isSlaming" + slam);
         //test code reset progression of gameManager
-       
+
 
 
 
@@ -572,7 +575,7 @@ public class CharController2D : MonoBehaviour
         if (col.gameObject.CompareTag("leveladvancer"))
         {
             manager.LevelComplete(3);
-            SceneManager.LoadScene("Hub Level");
+            SceneManager.LoadScene("TitleCard");
         }
 
         switch (col.gameObject.tag)
@@ -608,8 +611,9 @@ public class CharController2D : MonoBehaviour
             case "levelExit":
                 int levelToLoad = SceneManager.GetActiveScene().buildIndex + 1;
                 //if(levelToLoad<=SceneManager.sceneCount)
-
-                SceneManager.LoadScene(0);
+                manager.AddYourScore(countTime.timer);
+                manager.AddBestScore(countTime.timer);
+                SceneManager.LoadScene("TitleCard");
                 //countdownTimer.timer = 90f;
                 gotKey = false;
                 //Application.LoadLevel(SceneManager.);
@@ -621,58 +625,63 @@ public class CharController2D : MonoBehaviour
                 Debug.Log("standing on button");
                 Vector3 spawnGetKey = transform.position;
                 gotKeyParicle.transform.position = spawnGetKey;
-               gotKeyParicle.SetActive(true);
+                gotKeyParicle.SetActive(true);
                 clip[0].PlayOneShot(getKey_sound);
-               // col.gameObject.SetActive(false);
+                // col.gameObject.SetActive(false);
                 gotKey = true;
                 break;
 
             case "Level1":
+
                 // if (Input.GetKey(KeyCode.UpArrow))
-                if (manager.isLevelComplete(1) && manager.level1Cleared)
+                manager.currentLevel = 1;
+                if (manager.isLevelComplete(0) && manager.level1Cleared)
                 {
                     retry1 = true;
                     retryMenu.SetActive(true);
 
                 }
-                else if (manager.isLevelComplete(1))
+                else if (manager.isLevelComplete(0))
                 {
                     SceneManager.LoadScene("level1");
                 }
                 break;
 
             case "Level2":
-                if (manager.isLevelComplete(2) && manager.level2Cleared)
+                manager.currentLevel = 2;
+                if (manager.isLevelComplete(1) && manager.level2Cleared)
                 {
                     retry2 = true;
                     retryMenu.SetActive(true);
 
                 }
-                else if (manager.isLevelComplete(2))// && Input.GetKeyDown(KeyCode.UpArrow))
+                else if (manager.isLevelComplete(1))// && Input.GetKeyDown(KeyCode.UpArrow))
                 {
                     SceneManager.LoadScene("Level2");
                 }
                 break;
 
             case "Level3":
-                if (manager.isLevelComplete(3) && manager.level3Cleared)
+                manager.currentLevel = 3;
+                if (manager.isLevelComplete(2) && manager.level3Cleared)
                 {
                     retry3 = true;
                     retryMenu.SetActive(true);
                 }
-                else if (manager.isLevelComplete(3)) //&& Input.GetKeyDown(KeyCode.UpArrow))
+                else if (manager.isLevelComplete(2)) //&& Input.GetKeyDown(KeyCode.UpArrow))
                 {
                     SceneManager.LoadScene("NyaLevel3");
                 }
                 break;
 
             case "bossLevel":
-                if (manager.isLevelComplete(4) && manager.level4Cleared)
+                manager.currentLevel = 4;
+                if (manager.isLevelComplete(3) && manager.level4Cleared)
                 {
                     retry4 = true;
                     retryMenu.SetActive(true);
                 }
-                else if (manager.isLevelComplete(4))// && Input.GetKeyDown(KeyCode.UpArrow))
+                else if (manager.isLevelComplete(3))// && Input.GetKeyDown(KeyCode.UpArrow))
                 {
                     SceneManager.LoadScene("TempTutorial");
                 }
@@ -681,7 +690,7 @@ public class CharController2D : MonoBehaviour
 
         }
 
-}
+    }
 
     public void OnTriggerExit(Collider col)
     {
@@ -706,7 +715,7 @@ public class CharController2D : MonoBehaviour
                 break;
 
             case "bossLevel":
-              
+
                 retry4 = false;
                 retryMenu.SetActive(false);
                 break;
@@ -717,14 +726,14 @@ public class CharController2D : MonoBehaviour
     {
         Instantiate(blood, transform.position, Quaternion.identity);
         GetComponent<ScoreCount>().AddScore();// spelar upp blood på den "spike" du träffar
-        
+
         transform.position = spawn;   // spawn
     }
 
     public void Respwn()
     {
         Debug.Log("respawn");
-        
+
         clip[0].PlayOneShot(hurt_sound);
         clip[0].PlayOneShot(hurt_sound2);
         Instantiate(blood, transform.position, Quaternion.identity);
