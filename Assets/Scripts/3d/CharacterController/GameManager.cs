@@ -76,13 +76,13 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (isLevelComplete(1))
-            level1Cleared = true;
         if (isLevelComplete(2))
-            level2Cleared = true;
+            level1Cleared = true;
         if (isLevelComplete(3))
-            level3Cleared = true;
+            level2Cleared = true;
         if (isLevelComplete(4))
+            level3Cleared = true;
+        if (isLevelComplete(5))
             level4Cleared = true;
         if (currentLevel != PlayerPrefs.GetInt("CurrentLevel"))
         {
