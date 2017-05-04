@@ -35,7 +35,7 @@ public class HubController : MonoBehaviour {
 
 
 	void OnTriggerEnter(Collider col){
-		if (col.CompareTag ("Player")) {
+		if (col.CompareTag ("Player")||col.CompareTag("player")) {
 			titleEventManger.ShowCorrectBG (levelToLoad);
 		}
 	}
