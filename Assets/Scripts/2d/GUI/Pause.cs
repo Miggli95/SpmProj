@@ -91,7 +91,7 @@ public class Pause : MonoBehaviour
 		paused = false;
 		Time.timeScale = 1;
 		pauseMenu.SetActive (false);
-		Application.LoadLevel(3);
+		Application.LoadLevel(0);
 	}
 
 
