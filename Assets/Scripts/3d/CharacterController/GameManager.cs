@@ -156,6 +156,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.DeleteAll();
         currentRespawn = 0;
         levelComplete = 0;
+        LevelComplete(1);
         numberOfAbilities = 0;
         unlockedAbilities.Clear();
         level1Cleared = false;
