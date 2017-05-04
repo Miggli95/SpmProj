@@ -619,7 +619,7 @@ loadNextBoss();
             case "BossLevel 3":
                 manager.AddYourScore(countTime.timer);
                 manager.AddBestScore(countTime.timer);
-                SceneManager.LoadScene("TitleCard");
+                SceneManager.LoadScene("EndCredit");
                 break;
         }
     }
