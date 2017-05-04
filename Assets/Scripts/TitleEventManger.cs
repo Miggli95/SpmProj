@@ -149,15 +149,15 @@ public class TitleEventManger : MonoBehaviour {
 			lvBGToShow = triggerLV;
 
 			switch (lvBGToShow) {
-			case 1: 
+			case 2: 
 				SetBG (lv02BG);
 				Debug.Log ("show lv02 BG");
 				break;
-			case 2:
+			case 3:
 				SetBG (lv03BG);
 				Debug.Log ("show lv03 BG");
 				break;
-			case 3: 
+			case 4: 
 				SetBG (lv04BG);
 				Debug.Log ("show boss lv BG");
 				break;

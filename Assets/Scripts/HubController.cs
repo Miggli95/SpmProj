@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HubController : MonoBehaviour {
 	[SerializeField] private GameManager gameManger;
-	[SerializeField] private int levelToLoad;
+	[SerializeField] private int levelIndexToLoad;
+	[SerializeField] private string levelNameToLoad;
 
 	[SerializeField] private GameObject block;
 	[SerializeField] private GameObject portal;
@@ -16,7 +18,7 @@ public class HubController : MonoBehaviour {
 		if (block == null || portal == null)
 			Debug.Log ("<color=red> Hub Controller Error: </color>Block or portal missing.");
 
-		if (gameManger.isLevelComplete (levelToLoad)) {
+		if (gameManger.isLevelComplete (levelIndexToLoad)) {
 			block.SetActive (false);
 			portal.SetActive (true);
 		} else {
@@ -36,7 +38,9 @@ public class HubController : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col){
 		if (col.CompareTag ("Player")||col.CompareTag("player")) {
-			titleEventManger.ShowCorrectBG (levelToLoad);
+			titleEventManger.ShowCorrectBG (levelIndexToLoad);
 		}
 	}
+
+
 }
