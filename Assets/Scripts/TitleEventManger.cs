@@ -21,7 +21,7 @@ public class TitleEventManger : MonoBehaviour {
 	private GameObject bgImage;
 	private List<GameObject> menus = new List<GameObject>();
 	private static bool loadHub = false;
-
+    public GameManager manager;
 
 
 	//------------------------------------------
@@ -50,6 +50,7 @@ public class TitleEventManger : MonoBehaviour {
 			LoadCorrectMenu ("Hub");
 		else {
 			LoadCorrectMenu ("StartMenu");
+            manager.LevelComplete(1);
 			loadHub = true;
 		}
 	}
