@@ -123,9 +123,9 @@ public class TitleEventManger : MonoBehaviour {
 		
 
 	public void ExitGame(){
-		if (UnityEditor.EditorApplication.isPlaying)
-			UnityEditor.EditorApplication.isPlaying = false;
-		else
+		//if (UnityEditor.EditorApplication.isPlaying)
+		//	UnityEditor.EditorApplication.isPlaying = false;
+		//else
 			Application.Quit ();
 	}
 
