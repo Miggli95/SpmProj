@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     public int deathCount = 0;
     //List<float> bestTime;
     //List<float> yourTime;
+    public float bossTime;
     int numberOfLevels;
     void Start()
     {
@@ -30,6 +31,11 @@ public class GameManager : MonoBehaviour
         unlockedAbilities = new List<int>();
         print("numberOfAbilities" + numberOfAbilities);
         deathCount = PlayerPrefs.GetInt("deathCount");
+
+        if (SceneManager.GetActiveScene().name == "BossLevel 2" || SceneManager.GetActiveScene().name == "BossLevel 3")
+        {
+            bossTime = PlayerPrefs.GetFloat("BossTime");
+        }
         // currentLevel = PlayerPrefs.GetInt("CurrentLevel");
         // numberOfLevels = SceneManager.sceneCountInBuildSettings - 1;//PlayerPrefs.GetInt("numberOfLevels");
 
@@ -55,6 +61,17 @@ public class GameManager : MonoBehaviour
             currentRespawn = PlayerPrefs.GetInt("CheckpointLvl3");
             print(currentRespawn + "CheckPoint");
         }
+    }
+
+    public void SetBossTime(float time)
+    {
+        bossTime = time;
+        PlayerPrefs.SetFloat("BossTime", bossTime);
+    }
+
+    public float getBossTime()
+    {
+        return PlayerPrefs.GetFloat("BossTime", bossTime);
     }
 
     void Update()

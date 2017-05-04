@@ -55,8 +55,19 @@ public class CharController : MonoBehaviour
     bool startSlam = false;
     public GameObject finalBossScream;
     bool facingForward = true;
-
+    public CountTime countTime;
+    public ScoreCount DeathCount;
     // Use this for initialization
+
+
+    void Awake()
+    {
+        if (SceneManager.GetActiveScene().name == "BossLevel 2" || SceneManager.GetActiveScene().name == "BossLevel 3")
+        {
+            countTime.timer = manager.getBossTime();
+            Debug.Log("bossTime" + manager.getBossTime());
+        }
+    }
     void Start()
     {
         clip = GetComponents<AudioSource>();
@@ -74,7 +85,6 @@ public class CharController : MonoBehaviour
         anim = GetComponent<Animator>();
         ShockWave.SetActive(false);
         slamEffectTimer = slamParticle.main.duration - 0.1f;
-
         // Death();
     }
 
@@ -94,6 +104,7 @@ public class CharController : MonoBehaviour
 
         transform.position = manager.getSpawnPoint();
         transform.localEulerAngles = manager.getRotation();
+        DeathCount.AddScore();
     }
 
     public bool isSlaming()
@@ -522,6 +533,10 @@ loadNextBoss();
             flyingTimer -= Time.fixedDeltaTime;
             if (flyingTimer <= 0.0f)
             {
+                if (SceneManager.GetActiveScene().name != "BossLevel 3")
+                {
+                    manager.SetBossTime(countTime.timer);
+                }
                 loadNextBoss();
             }
         }
@@ -588,17 +603,22 @@ loadNextBoss();
         moveDir.y = jumpSpeed * 2;
 
     }
+
     private void loadNextBoss()
     {
         switch (SceneManager.GetActiveScene().name)
         {
             case "BossLevel":
+               // manager.SetBossTime(countTime.timer);
                 SceneManager.LoadScene("BossLevel 2");
                 break;
             case "BossLevel 2":
+                //manager.SetBossTime(countTime.timer);
                 SceneManager.LoadScene("BossLevel 3");
                 break;
             case "BossLevel 3":
+                manager.AddYourScore(countTime.timer);
+                manager.AddBestScore(countTime.timer);
                 SceneManager.LoadScene("TitleCard");
                 break;
         }
