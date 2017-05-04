@@ -90,8 +90,8 @@ public class Pause : MonoBehaviour
 	public void LoadHub(){
 		paused = false;
 		Time.timeScale = 1;
-		pauseMenu.SetActive (false);
-		Application.LoadLevel("TitleCard");
+		//pauseMenu.SetActive (false);
+		Application.LoadLevel("Title");
 	}
 
 

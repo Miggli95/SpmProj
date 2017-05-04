@@ -16,12 +16,13 @@ public class TitleEventManger : MonoBehaviour {
 	[SerializeField] private GameObject loadingScreen;
 	[SerializeField] private GameObject hub;
 
-
+	[SerializeField] private GameManager gm;
 
 	private GameObject bgImage;
 	private List<GameObject> menus = new List<GameObject>();
+	private List<GameObject> bgs = new List<GameObject> ();
 	private static bool loadHub = false;
-    public GameManager manager;
+
 
 
 	//------------------------------------------
@@ -45,14 +46,25 @@ public class TitleEventManger : MonoBehaviour {
 		menus.Add (loadingScreen);
 		menus.Add (hub);
 
+		bgs.Add (lv01BG);
+		bgs.Add (lv02BG);
+		bgs.Add (lv03BG);
+		bgs.Add (lv04BG);
+
+
 	//	LoadCorrectMenu ("StartMenu");
+		if (gm.isLevelComplete (0)) {
+			LoadCorrectMenu ("Hub");
+		} else {
+			LoadCorrectMenu ("StartMenu");
+		}
+			/*loadHub = true;
+		
 		if (loadHub)
 			LoadCorrectMenu ("Hub");
 		else {
 			LoadCorrectMenu ("StartMenu");
-            manager.LevelComplete(1);
-			loadHub = true;
-		}
+		}*/
 	}
 
 	void Awake(){
@@ -96,6 +108,7 @@ public class TitleEventManger : MonoBehaviour {
 	public void LoadCorrectMenu(string menuName){
 		if (menuName.Equals ("hub", StringComparison.InvariantCultureIgnoreCase)) {
 			bgImage.SetActive (false);
+			SetBG (lv01BG);
 		} else {
 			bgImage.SetActive (true);
 		}
@@ -109,17 +122,63 @@ public class TitleEventManger : MonoBehaviour {
 	}
 		
 
-	/*public void ExitGame(){
+	public void ExitGame(){
 		if (UnityEditor.EditorApplication.isPlaying)
 			UnityEditor.EditorApplication.isPlaying = false;
 		else
 			Application.Quit ();
-	}*/
+	}
 
 
 
 	//-------------------------------------------
 
+	private static int lvBGToShow;
 
+
+	[SerializeField] private GameObject lv01BG;
+	[SerializeField] private GameObject lv02BG;
+	[SerializeField] private GameObject lv03BG;
+	[SerializeField] private GameObject lv04BG;
+
+	public void ShowCorrectBG (int triggerLV)
+	{
+		if (triggerLV == lvBGToShow)
+			return;
+		else {
+			lvBGToShow = triggerLV;
+
+			switch (lvBGToShow) {
+			case 1: 
+				SetBG (lv02BG);
+				Debug.Log ("show lv02 BG");
+				break;
+			case 2:
+				SetBG (lv03BG);
+				Debug.Log ("show lv03 BG");
+				break;
+			case 3: 
+				SetBG (lv04BG);
+				Debug.Log ("show boss lv BG");
+				break;
+			default:
+				Debug.Log ("show lv01 BG");
+				SetBG (lv01BG);
+				break;
+			}
+		}
+
+	}
+
+	private void SetBG(GameObject bg){
+		foreach(GameObject objectInScene in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[]){
+			foreach (GameObject obj in bgs) {
+				if (obj== bg)
+					obj.SetActive (true);
+				else
+					obj.SetActive (false);
+			}
+		}
+	}
 
 }
