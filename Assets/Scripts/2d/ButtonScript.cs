@@ -35,17 +35,17 @@ public class ButtonScript : MonoBehaviour {
         {
             if (player.GetComponent<CharController2D>().retry1 == true)
             {
-                SceneManager.LoadScene(0);
+                SceneManager.LoadScene(1);
                 player.GetComponent<CharController2D>().retry1 = false;
             }
             else if(player.GetComponent<CharController2D>().retry2 == true)
             {
-                SceneManager.LoadScene(1);
+                SceneManager.LoadScene(2);
                 player.GetComponent<CharController2D>().retry2 = false;
             }
             else if (player.GetComponent<CharController2D>().retry3 == true)
             {
-                SceneManager.LoadScene(2);
+                SceneManager.LoadScene(3);
                 player.GetComponent<CharController2D>().retry3 = false;
             }
             else if (player.GetComponent<CharController2D>().retry4 == true)

@@ -229,7 +229,7 @@ public class CharController2D : MonoBehaviour
         }*/
 
         previouslyGrounded = controller.isGrounded;
-        if (Input.GetKeyDown(KeyCode.R) && SceneManager.GetActiveScene().buildIndex == 3)
+        if (Input.GetKeyDown(KeyCode.R) && SceneManager.GetActiveScene().buildIndex == 0)
         {
 
             manager.ResetProgression();
@@ -629,50 +629,50 @@ public class CharController2D : MonoBehaviour
 
             case "Level1":
                 // if (Input.GetKey(KeyCode.UpArrow))
-                if (manager.isLevelComplete(0) && manager.level1Cleared)
+                if (manager.isLevelComplete(1) && manager.level1Cleared)
                 {
                     retry1 = true;
                     retryMenu.SetActive(true);
 
                 }
-                else if (manager.isLevelComplete(0))
+                else if (manager.isLevelComplete(1))
                 {
                     SceneManager.LoadScene("level1");
                 }
                 break;
 
             case "Level2":
-                if (manager.isLevelComplete(1) && manager.level2Cleared)
+                if (manager.isLevelComplete(2) && manager.level2Cleared)
                 {
                     retry2 = true;
                     retryMenu.SetActive(true);
 
                 }
-                else if (manager.isLevelComplete(1))// && Input.GetKeyDown(KeyCode.UpArrow))
+                else if (manager.isLevelComplete(2))// && Input.GetKeyDown(KeyCode.UpArrow))
                 {
                     SceneManager.LoadScene("Level2");
                 }
                 break;
 
             case "Level3":
-                if (manager.isLevelComplete(2) && manager.level3Cleared)
+                if (manager.isLevelComplete(3) && manager.level3Cleared)
                 {
                     retry3 = true;
                     retryMenu.SetActive(true);
                 }
-                else if (manager.isLevelComplete(2)) //&& Input.GetKeyDown(KeyCode.UpArrow))
+                else if (manager.isLevelComplete(3)) //&& Input.GetKeyDown(KeyCode.UpArrow))
                 {
                     SceneManager.LoadScene("NyaLevel3");
                 }
                 break;
 
             case "bossLevel":
-                if (manager.isLevelComplete(3) && manager.level4Cleared)
+                if (manager.isLevelComplete(4) && manager.level4Cleared)
                 {
                     retry4 = true;
                     retryMenu.SetActive(true);
                 }
-                else if (manager.isLevelComplete(3))// && Input.GetKeyDown(KeyCode.UpArrow))
+                else if (manager.isLevelComplete(4))// && Input.GetKeyDown(KeyCode.UpArrow))
                 {
                     SceneManager.LoadScene("TempTutorial");
                 }
