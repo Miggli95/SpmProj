@@ -355,7 +355,7 @@ loadNextBoss();
         if (Physics.CapsuleCast(transform.position, capsuleTarget, controller.radius, Vector3.down, out rayhit))
         {
 
-            if (rayhit.collider.tag == "enemy" && rayhit.distance < 0.3f)
+            if (rayhit.collider.tag == "enemy" && rayhit.distance < 0.2f)
             {
                 print(rayhit.distance);
                 rayhit.collider.GetComponent<EnemyAI3D>().deathAni();
