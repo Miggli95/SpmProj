@@ -609,7 +609,7 @@ public class CharController2D : MonoBehaviour
                 int levelToLoad = SceneManager.GetActiveScene().buildIndex + 1;
                 //if(levelToLoad<=SceneManager.sceneCount)
 
-                SceneManager.LoadScene(3);
+                SceneManager.LoadScene(0);
                 //countdownTimer.timer = 90f;
                 gotKey = false;
                 //Application.LoadLevel(SceneManager.);
