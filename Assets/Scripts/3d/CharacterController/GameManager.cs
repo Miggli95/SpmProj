@@ -216,7 +216,7 @@ public class GameManager : MonoBehaviour
 
     public void LevelComplete(int level)
     {
-        if (level < levelComplete)
+        if (level > levelComplete)
         {
             levelComplete = level;
             PlayerPrefs.SetInt("Level", levelComplete);
