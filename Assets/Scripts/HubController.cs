@@ -18,14 +18,18 @@ public class HubController : MonoBehaviour {
 		if (block == null || portal == null)
 			Debug.Log ("<color=red> Hub Controller Error: </color>Block or portal missing.");
 
-		if (gameManger.isLevelComplete (levelIndexToLoad)) {
+		if (levelIndexToLoad == 1) {
 			block.SetActive (false);
 			portal.SetActive (true);
 		} else {
-			block.SetActive (true);
-			portal.SetActive (false);
+			if (gameManger.isLevelComplete (levelIndexToLoad)) {
+				block.SetActive (false);
+				portal.SetActive (true);
+			} else {
+				block.SetActive (true);
+				portal.SetActive (false);
+			}
 		}
-
 		GameObject tem = GameObject.Find ("TitleEventManger");
 		titleEventManger = (TitleEventManger)tem.GetComponent (typeof(TitleEventManger));
 	}
