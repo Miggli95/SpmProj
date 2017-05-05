@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class HubController : MonoBehaviour {
 	[SerializeField] private GameManager gameManger;
 	[SerializeField] private int levelIndexToLoad;
-	[SerializeField] private string levelNameToLoad;
+
 
 	[SerializeField] private GameObject block;
 	[SerializeField] private GameObject portal;
@@ -29,7 +29,11 @@ public class HubController : MonoBehaviour {
 		GameObject tem = GameObject.Find ("TitleEventManger");
 		titleEventManger = (TitleEventManger)tem.GetComponent (typeof(TitleEventManger));
 	}
-	
+
+
+	void Awake(){
+
+	}
 	// Update is called once per frame
 	void Update () {
 		
