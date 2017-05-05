@@ -216,7 +216,7 @@ public class GameManager : MonoBehaviour
 
     public void LevelComplete(int level)
     {
-        if (level > levelComplete)
+        if (level < levelComplete)
         {
             levelComplete = level;
             PlayerPrefs.SetInt("Level", levelComplete);
@@ -227,8 +227,8 @@ public class GameManager : MonoBehaviour
     {
         PlayerPrefs.DeleteAll();
         currentRespawn = 0;
-        levelComplete = 0;
-        LevelComplete(1);
+        levelComplete = 1;
+       // LevelComplete(1);
         numberOfAbilities = 0;
         unlockedAbilities.Clear();
         level1Cleared = false;
