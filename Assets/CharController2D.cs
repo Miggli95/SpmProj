@@ -83,7 +83,7 @@ public class CharController2D : MonoBehaviour
     private bool startedSlam;
     public float jumpTimerDelay;
     public CountTime countTime;
-
+    public float totalTime;
     void Start()
     {
         clip = GetComponents<AudioSource>();
@@ -102,8 +102,17 @@ public class CharController2D : MonoBehaviour
         walkingDust.SetActive(false);
         ShockWave.SetActive(false);
         gotKeyParicle.SetActive(false);
-
         slamEffectTimer = slamParticle.main.duration - 0.1f;
+
+        if (SceneManager.GetActiveScene().name == "level1")
+        {
+            totalTime = 0;
+        }
+
+        else
+        {
+            totalTime = manager.getCurrentTime();
+        }
         // Death();
     }
 
@@ -522,12 +531,17 @@ public class CharController2D : MonoBehaviour
         switch (SceneManager.GetActiveScene().name)
         {
             case "BossLevel":
+                manager.setCurrentTime(totalTime + countTime.timer);
                 SceneManager.LoadScene("BossLevel 2");
                 break;
             case "BossLevel 2":
+                manager.setCurrentTime(totalTime + countTime.timer);
                 SceneManager.LoadScene("BossLevel 3");
                 break;
             case "BossLevel 3":
+                manager.setCurrentTime(totalTime + countTime.timer);
+                manager.setTotalTime(totalTime + countTime.timer);
+                manager.setBestTotalTime(totalTime + countTime.timer);
                 SceneManager.LoadScene("Hub Level");
                 break;
         }
@@ -613,6 +627,7 @@ public class CharController2D : MonoBehaviour
                 //if(levelToLoad<=SceneManager.sceneCount)
                 manager.AddYourScore(countTime.timer);
                 manager.AddBestScore(countTime.timer);
+                manager.setCurrentTime(totalTime + countTime.timer);
                 SceneManager.LoadScene(0);
                 //countdownTimer.timer = 90f;
                 gotKey = false;

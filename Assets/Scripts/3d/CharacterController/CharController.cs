@@ -57,6 +57,7 @@ public class CharController : MonoBehaviour
     bool facingForward = true;
     public CountTime countTime;
     public ScoreCount DeathCount;
+    public float totalTime;
     // Use this for initialization
 
 
@@ -85,6 +86,16 @@ public class CharController : MonoBehaviour
         anim = GetComponent<Animator>();
         ShockWave.SetActive(false);
         slamEffectTimer = slamParticle.main.duration - 0.1f;
+        
+        if (SceneManager.GetActiveScene().name == "level1")
+        {
+            totalTime = 0;
+        }
+
+        else
+        {
+            totalTime = manager.getCurrentTime();
+        }
         // Death();
     }
 
@@ -609,16 +620,21 @@ loadNextBoss();
         switch (SceneManager.GetActiveScene().name)
         {
             case "BossLevel":
-               // manager.SetBossTime(countTime.timer);
+                manager.setCurrentTime(totalTime + countTime.timer);
+                // manager.SetBossTime(countTime.timer);
                 SceneManager.LoadScene("BossLevel 2");
                 break;
             case "BossLevel 2":
                 //manager.SetBossTime(countTime.timer);
+                manager.setCurrentTime(totalTime + countTime.timer);
                 SceneManager.LoadScene("BossLevel 3");
                 break;
             case "BossLevel 3":
                 manager.AddYourScore(countTime.timer);
                 manager.AddBestScore(countTime.timer);
+                manager.setCurrentTime(totalTime + countTime.timer);
+                manager.setTotalTime(totalTime + countTime.timer);
+                manager.setBestTotalTime(totalTime + countTime.timer);
                 SceneManager.LoadScene("EndCredit");
                 break;
         }

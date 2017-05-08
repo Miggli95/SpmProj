@@ -23,6 +23,9 @@ public class GameManager : MonoBehaviour
     //List<float> yourTime;
     public float bossTime;
     int numberOfLevels;
+    public float totalTime;
+    public float bestTime;
+    public float currentTime;
     void Start()
     {
         currentLevel = PlayerPrefs.GetInt("CurrentLevel");
@@ -31,6 +34,9 @@ public class GameManager : MonoBehaviour
         unlockedAbilities = new List<int>();
         print("numberOfAbilities" + numberOfAbilities);
         deathCount = PlayerPrefs.GetInt("deathCount");
+        totalTime = PlayerPrefs.GetFloat("TotalTime");
+        bestTime = PlayerPrefs.GetFloat("BestTotalTime");
+        currentTime = PlayerPrefs.GetFloat("CurrentTime");
 
         if (SceneManager.GetActiveScene().name == "BossLevel 2" || SceneManager.GetActiveScene().name == "BossLevel 3")
         {
@@ -73,6 +79,47 @@ public class GameManager : MonoBehaviour
     {
         return PlayerPrefs.GetFloat("BossTime", bossTime);
     }
+
+    public void setCurrentTime(float time)
+    {
+        PlayerPrefs.SetFloat("CurrentTime", time);
+    }
+
+    public float getCurrentTime()
+    {
+        return PlayerPrefs.GetFloat("CurrentTime");
+    }
+
+    public void setTotalTime(float time)
+    {
+        totalTime = time;
+        PlayerPrefs.SetFloat("TotalTime", time);
+    }
+
+    public float getTotalTime()
+    {
+        return PlayerPrefs.GetFloat("TotalTime");
+    }
+
+    public void setBestTotalTime(float time)
+    {
+        if (PlayerPrefs.GetFloat("BestTotalTime") == 0)
+        {
+            //totalTime = time;
+            PlayerPrefs.SetFloat("BestTotalTime", time);
+        }
+
+        else if (time < PlayerPrefs.GetFloat("BestTotalTime"))
+        {
+            PlayerPrefs.SetFloat("BestTotalTime", time);
+        }
+    }
+
+    public float getBestTotalTime()
+    {
+        return PlayerPrefs.GetFloat("BestTotalTime");
+    }
+
 
     void Update()
     {
