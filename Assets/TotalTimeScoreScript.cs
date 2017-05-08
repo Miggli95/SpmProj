@@ -26,9 +26,20 @@ public class TotalTimeScoreScript : MonoBehaviour
     void Update()
     {
         // Set the displayed text 
-        bestTotalTimeText.text = "" + bestTotalTime;
-        totalTimeText.text = "" + totalTime;
-        currentTimeText.text = "" + currentTime;
+		if(bestTotalTime == 0)
+			bestTotalTimeText.text = "N/A";
+		else
+        	bestTotalTimeText.text = "" + bestTotalTime;
+        
+		if(totalTime == 0)
+			totalTimeText.text = "N/A";
+		else
+			totalTimeText.text = "" + totalTime;
+        
+		if(currentTime == 0)
+			currentTimeText.text = "N/A";
+		else
+			currentTimeText.text = "" + currentTime;
     }
 }
 
