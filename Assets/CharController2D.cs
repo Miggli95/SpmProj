@@ -247,6 +247,11 @@ public class CharController2D : MonoBehaviour
             manager.ResetProgression();
         }
 
+        if (Input.GetKeyDown(KeyCode.Delete))
+        {
+            manager.DeleteAll();
+        }
+ 
 
         RaycastHit rayhit;
         if (SceneManager.GetActiveScene().name == "NewLevel3")

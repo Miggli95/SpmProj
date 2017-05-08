@@ -272,7 +272,13 @@ public class GameManager : MonoBehaviour
 
     public void ResetProgression()
     {
-        PlayerPrefs.DeleteAll();
+        //PlayerPrefs.DeleteAll();
+        PlayerPrefs.SetInt("numberOfAbilities", 0);
+        PlayerPrefs.SetInt("CurrentLevel",0);
+        PlayerPrefs.SetInt("Level",0);
+        PlayerPrefs.SetInt("numberOfAbilities",0);
+        PlayerPrefs.SetInt("deathCount",0);
+        Application.Quit();
         currentRespawn = 0;
         levelComplete = 1;
        // LevelComplete(1);
@@ -284,7 +290,10 @@ public class GameManager : MonoBehaviour
         level4Cleared = false;
     }
 
-
+    public void DeleteAll()
+    {
+        PlayerPrefs.DeleteAll();
+    }
 
     public bool isLevelComplete(int level)
     {
