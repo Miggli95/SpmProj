@@ -5,6 +5,8 @@ using UnityEngine;
 public class reminder : MonoBehaviour {
     public GameObject obj1;
     public GameObject obj2;
+    public float delay;
+    public float timer;
 
 
     
@@ -24,11 +26,21 @@ public class reminder : MonoBehaviour {
 	}
 
 
-    IEnumerator OnTriggerStay()
+     void OnTriggerStay(Collider col)
     {
-        yield return new WaitForSeconds(5f);
+
+        timer += Time.deltaTime;
+
+        if (timer >= delay) { 
+     //   yield return new WaitForSeconds(5f);
         obj1.SetActive(true);
         obj2.SetActive(true);
+
+
+    }
+
+
+
     }
 
     
