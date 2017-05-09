@@ -15,6 +15,7 @@ public class TitleEventManger : MonoBehaviour {
 	[SerializeField] private GameObject exitConfirm;
 	[SerializeField] private GameObject loadingScreen;
 	[SerializeField] private GameObject hub;
+    [SerializeField] private GameObject retryMenu;
 
 	[SerializeField] private GameManager gm;
 
@@ -39,12 +40,16 @@ public class TitleEventManger : MonoBehaviour {
 		if (hub == null)
 			findObject ("Hub", ref hub);
 
-		findObject ("bgImage", ref bgImage);
+        if (retryMenu == null)
+            findObject("RetryMenu", ref retryMenu);
+
+        findObject ("bgImage", ref bgImage);
 
 		menus.Add (startMenu);
 		menus.Add (exitConfirm);
 		menus.Add (loadingScreen);
 		menus.Add (hub);
+        menus.Add(retryMenu);
 
 		bgs.Add (lv01BG);
 		bgs.Add (lv02BG);
