@@ -661,7 +661,7 @@ public class CharController2D : MonoBehaviour
                     retryMenu.SetActive(true);
 
                 }
-                else if (manager.isLevelComplete(1))
+                else if (manager.isLevelComplete(1) && !(manager.level1Cleared))
                 {
                     SceneManager.LoadScene("level1");
                 }

@@ -16,10 +16,10 @@ public class HubLevelLoader : MonoBehaviour {
 		
 	}
 
-	void OnTriggerEnter(Collider col){
-		if (col.CompareTag ("player") || col.CompareTag ("Player")) {
-			Debug.Log ("collider");
-			SceneManager.LoadScene (levelNameToLoad,LoadSceneMode.Single);
-		}
-	}
+	//void OnTriggerEnter(Collider col){
+	//	if (col.CompareTag ("player") || col.CompareTag ("Player")) {
+	//		Debug.Log ("collider");
+     //       SceneManager.LoadScene(levelNameToLoad, LoadSceneMode.Single);
+     //   }
+	//}
 }
