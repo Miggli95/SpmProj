@@ -703,7 +703,7 @@ public class CharController2D : MonoBehaviour
                 }
                 else if (manager.isLevelComplete(4))// && Input.GetKeyDown(KeyCode.UpArrow))
                 {
-                    SceneManager.LoadScene("TempTutorial");
+                    SceneManager.LoadScene("AlternativeTutorialLevel");
                 }
                 break;
 

@@ -438,10 +438,11 @@ public class CharControllerNavMesh : MonoBehaviour
             flyingTimer -= Time.fixedDeltaTime;
             if (flyingTimer <= 0.0f)
             {
-                if (SceneManager.GetActiveScene().name != "BossLevel 3")
+                if (SceneManager.GetActiveScene().name != "BossLevel 3" && SceneManager.GetActiveScene().name != "AlternativeTutorialLevel")
                 {
                     manager.SetBossTime(countTime.timer);
                 }
+
                 loadNextBoss();
             }
         }
@@ -540,6 +541,9 @@ public class CharControllerNavMesh : MonoBehaviour
     {
         switch (SceneManager.GetActiveScene().name)
         {
+            case "AlternativeTutorialLevel":
+                SceneManager.LoadScene("BossLevel");
+                break;
             case "BossLevel":
                 manager.setCurrentTime(totalTime + countTime.timer);
                 // manager.SetBossTime(countTime.timer);
