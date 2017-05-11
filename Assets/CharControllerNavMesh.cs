@@ -70,7 +70,7 @@ public class CharControllerNavMesh : MonoBehaviour
     public void AgentOn(bool on)
     {
         agentOn = on;
-        agent.enabled = on;
+        //agent.enabled = on;
     }
 
     void Start()
@@ -130,7 +130,7 @@ public class CharControllerNavMesh : MonoBehaviour
         AgentOn(false);
         dead = true;
         colFlags = controller.Move(new Vector3(0,1,0));
-        grounded = controller.isGrounded;
+        //grounded = controller.isGrounded;
     }
 
     public bool isSlaming()
@@ -147,6 +147,7 @@ public class CharControllerNavMesh : MonoBehaviour
     Vector3 lookPos;
     void Update()
     {
+        agentOn = agent.enabled;
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
         anim.SetFloat("Speed", Mathf.Abs(vertical));
@@ -160,7 +161,7 @@ public class CharControllerNavMesh : MonoBehaviour
 
         if (dead)
         {
-            if (grounded)
+            if (controller.isGrounded)
             {
                 AgentOn(true);
                 dead = false;
@@ -172,7 +173,7 @@ public class CharControllerNavMesh : MonoBehaviour
 
         if (!jump)
         {
-            if (grounded)
+            if (controller.isGrounded)
             {
                 jump = Input.GetKeyDown(KeyCode.Space);
                 //Debug.Log("jump" + Input.GetKeyDown(KeyCode.Space));
@@ -193,7 +194,7 @@ public class CharControllerNavMesh : MonoBehaviour
 
         // if (manager.HaveAbility((int)Abilities.doubleJump))
         //{
-        if (!airJump && !grounded)
+        if (!airJump && !controller.isGrounded)
         {
             airJump = Input.GetKeyDown(KeyCode.Space);
         }
@@ -206,7 +207,7 @@ public class CharControllerNavMesh : MonoBehaviour
             }
         }
 
-        if (!previouslyGrounded && grounded)
+        if (!previouslyGrounded && controller.isGrounded)
         {
             //moveDir.y = 0;
             jumping = false;
@@ -220,7 +221,7 @@ public class CharControllerNavMesh : MonoBehaviour
             moveDir.y = 0;
         }*/
 
-        previouslyGrounded = grounded;
+        previouslyGrounded = controller.isGrounded;
         if (Input.GetKeyDown(KeyCode.R) && SceneManager.GetActiveScene().buildIndex == 4)
         {
 
@@ -367,7 +368,7 @@ public class CharControllerNavMesh : MonoBehaviour
 
 
 
-        if (grounded)
+        if (controller.isGrounded)
         {
             moveDir.y = -stickToGroundForce;
             //controller.GetComponent<Rigidbody>().AddForceAtPosition(Vector3.up * 1000, transform.position, ForceMode.Impulse);
@@ -454,11 +455,11 @@ public class CharControllerNavMesh : MonoBehaviour
         }
 
 
-        if (grounded && agentOn)
+        if (controller.isGrounded)
         {
             if (moveDir.y > 0)
             {
-                //agent.enabled = false;
+                agent.enabled = false;
                 colFlags = controller.Move(new Vector3(0, moveDir.y, 0) * Time.fixedDeltaTime);
             }
 
