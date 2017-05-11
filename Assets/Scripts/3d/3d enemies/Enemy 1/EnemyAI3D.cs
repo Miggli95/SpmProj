@@ -91,7 +91,7 @@ public class EnemyAI3D : MonoBehaviour
             sources[2].PlayOneShot(hurtPlayer);
         }
          
-        Player.GetComponent<CharController>().Death();
+        Player.GetComponent<CharControllerNavMesh>().Death();
         
         return damage;
     }

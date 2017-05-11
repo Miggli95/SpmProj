@@ -161,7 +161,7 @@ public class Enemy2AI3D : MonoBehaviour
     {
         Vector3 spawn = new Vector3(6, 14, 2);
         if(Player.tag == "Player")
-        Player.GetComponent<CharController>().Death();
+        Player.GetComponent<CharControllerNavMesh>().Death();
         if(Player.tag == "player")
         Player.GetComponent<CharController2D>().Respwn();
 
