@@ -304,7 +304,7 @@ public class GameManager : MonoBehaviour
         //PlayerPrefs.DeleteAll();
         PlayerPrefs.SetInt("numberOfAbilities", 0);
         PlayerPrefs.SetInt("CurrentLevel",0);
-        PlayerPrefs.SetInt("Level",0);
+        PlayerPrefs.SetInt("Level", 1);
         PlayerPrefs.SetInt("numberOfAbilities",0);
         PlayerPrefs.SetInt("deathCount",0);
         Application.Quit();
