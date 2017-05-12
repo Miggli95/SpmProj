@@ -291,19 +291,19 @@ public class CharControllerNavMesh : MonoBehaviour
             }
             if (rayhit.collider.tag == "Helix")
             {
-                if (rayhit.distance < 5f)
+                if (rayhit.distance < 10f)
                 {
                     OnHelix = true;
                 }
-                
             }
-            else
+
+            if (rayhit.collider.tag == "ground")
             {
-                OnHelix = false;
+                if (rayhit.distance < 10f)
+                {
+                    OnHelix = false;
+                }
             }
-
-
-
         }
         //}
 
