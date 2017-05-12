@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         currentLevel = PlayerPrefs.GetInt("CurrentLevel");
-        levelComplete = PlayerPrefs.GetInt("Level");
+        levelComplete = PlayerPrefs.GetInt("Level",1);
         numberOfAbilities = PlayerPrefs.GetInt("numberOfAbilities");
         unlockedAbilities = new List<int>();
         print("numberOfAbilities" + numberOfAbilities);
