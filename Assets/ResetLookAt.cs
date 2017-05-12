@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class ResetLookAt : MonoBehaviour {
     // Use this for initialization
-    public Transform child;
-    public Transform parent;
-    public bool invert;
+    //public bool invert;
 
     void OnTriggerEnter(Collider other)
     {
