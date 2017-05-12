@@ -12,7 +12,7 @@ public class CameraScript : MonoBehaviour
     public float min;
     public float max;
     private float rotationYOffset = 0;
-    Vector3 offset;
+    public Vector3 offset;
     bool lockedRotation = false;
     Quaternion rotation;
     float positionY;
@@ -22,7 +22,11 @@ public class CameraScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        offset = target.transform.position - transform.position;
+        if (offset == Vector3.zero)
+        {
+            offset = target.transform.position - transform.position;
+        }
+
         rotationX = transform.rotation.x;
     }
 
