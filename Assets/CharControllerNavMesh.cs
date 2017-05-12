@@ -119,10 +119,10 @@ public class CharControllerNavMesh : MonoBehaviour
         CharRefTransform.localScale = theScale;
     }
 
-    public void LookAt(Transform target, bool invert)
+    public void LookAt(Transform target)
     {
         lookAt = target;
-        this.invert = invert;
+        //this.invert = invert;
     }
 
     public void Death()
@@ -152,8 +152,11 @@ public class CharControllerNavMesh : MonoBehaviour
     bool dead = false;
     Quaternion rotation;
     Vector3 lookPos;
+    public bool OnHelix;
+
     void Update()
     {
+        invert = !OnHelix;
         agentOn = agent.enabled;
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
@@ -241,7 +244,6 @@ public class CharControllerNavMesh : MonoBehaviour
         RaycastHit rayhit;
         if (Physics.CapsuleCast(transform.position, capsuleTarget, controller.radius, Vector3.down, out rayhit))
         {
-
             if (rayhit.collider.tag == "enemy" && rayhit.distance < 0.3f)
             {
 
@@ -287,6 +289,21 @@ public class CharControllerNavMesh : MonoBehaviour
             {
                 Death();
             }
+            if (rayhit.collider.tag == "Helix")
+            {
+                if (rayhit.distance < 5f)
+                {
+                    OnHelix = true;
+                }
+                
+            }
+            else
+            {
+                OnHelix = false;
+            }
+
+
+
         }
         //}
 
@@ -364,6 +381,15 @@ public class CharControllerNavMesh : MonoBehaviour
         else
         {
             int invertInt;
+            /* if (!OnHelix)
+             {
+             }
+
+             else
+             {
+                 invertInt = -1;
+             }*/
+
             if (invert)
             {
                 invertInt = 1;
@@ -373,6 +399,7 @@ public class CharControllerNavMesh : MonoBehaviour
             {
                 invertInt = -1;
             }
+
             if (lookAt == DefaultLookAt)
             {
                 lookPos = lookAt.position - this.transform.position;

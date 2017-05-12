@@ -7,7 +7,7 @@ public class PathScript : MonoBehaviour {
     // Use this for initialization
     public Transform child;
     public Transform parent;
-    public bool invert;
+    //public bool invert;
     void Start()
     {
         if(transform.childCount>0)
@@ -21,7 +21,7 @@ public class PathScript : MonoBehaviour {
         if (other.gameObject.CompareTag("Player"))
         {
             //if (other.GetComponent<CharControllerNavMesh>().facingForward)
-                other.GetComponent<CharControllerNavMesh>().LookAt(transform, invert);
+            other.GetComponent<CharControllerNavMesh>().LookAt(transform);//, invert);
            /* else
             {
                 other.GetComponent<CharControllerNavMesh>().LookAt(parent);
