@@ -56,9 +56,10 @@ public class CharControllerNavMesh : MonoBehaviour
     public bool invert;
     public bool grounded = false;
     public bool agentOn = true;
+    public Transform DefaultLookAt;
     void Awake()
     {
-        lookAt = transform;
+        lookAt = DefaultLookAt;
         agent = GetComponent<NavMeshAgent>();
         if (SceneManager.GetActiveScene().name == "BossLevel 2" || SceneManager.GetActiveScene().name == "BossLevel 3")
         {
@@ -71,6 +72,11 @@ public class CharControllerNavMesh : MonoBehaviour
     {
         agentOn = on;
         //agent.enabled = on;
+    }
+
+    public void ResetLookAt()
+    {
+        lookAt = DefaultLookAt;
     }
 
     void Start()
@@ -162,10 +168,12 @@ public class CharControllerNavMesh : MonoBehaviour
 
         if (dead)
         {
+            lookAt = DefaultLookAt;
             if (controller.isGrounded)
             {
                 AgentOn(true);
                 dead = false;
+               
             }
         }
        
@@ -332,10 +340,14 @@ public class CharControllerNavMesh : MonoBehaviour
          {
              charinput.y = 0;
          }*/
+        if (lookAt == DefaultLookAt)
+        {
+            invert = true;
+        }
 
         if (facingForward)
         {
-            if (lookAt.childCount == 0)
+            if (lookAt.childCount == 0 || lookAt == DefaultLookAt)
             {
                 lookPos = lookAt.position - this.transform.position;
                 lookPos.y = 0;
@@ -361,7 +373,14 @@ public class CharControllerNavMesh : MonoBehaviour
             {
                 invertInt = -1;
             }
-            lookPos = lookAt.parent.position - this.transform.position;
+            if (lookAt == DefaultLookAt)
+            {
+                lookPos = lookAt.position - this.transform.position;
+            }
+            else
+            {
+                lookPos = lookAt.parent.position - this.transform.position;
+            }
             lookPos.y = 0;
             rotation = Quaternion.LookRotation(lookPos * invertInt);
         }

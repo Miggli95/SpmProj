@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     private Vector3 BOne = new Vector3(-50, 53, -4);
     private Vector3 BAlt = new Vector3(0, 5, 0);
     private Vector3 BTwo = new Vector3(-50, 53, -4);
+    private Vector3 BThree = new Vector3(-39.7f, 53, 4);
     public Vector3 SpawnTutorial;
     int currentRespawn = 0;
     public int currentLevel;
@@ -223,7 +224,7 @@ public class GameManager : MonoBehaviour
                 return BTwo;
                 break;
             case "BossLevel 3":
-                return BTwo;
+                return BThree;
                 break;
             case "Level3(3D)":
                 print("spawn " + currentRespawn);
