@@ -8,6 +8,7 @@ public class ResetLookAt : MonoBehaviour {
     public Transform parent;
     public bool invert;
 
+    void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
