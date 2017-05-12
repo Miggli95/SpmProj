@@ -30,15 +30,17 @@ public class Enemy2Deal : EnemyState2 {
         RaycastHit rayhit;
         if (Physics.Raycast(ai.transform.position, Vector3.forward, out rayhit))
         {
-            if (rayhit.collider.tag == "Player" && rayhit.distance < 0.3f && rayhit.collider is CapsuleCollider)
+            if (rayhit.collider.tag == "Player" && rayhit.distance < 0.7f && rayhit.collider is CapsuleCollider)
             {
+                Debug.Log(rayhit.distance);
                 ai.getDamage();
             }
         }
         if (Physics.Raycast(ai.transform.position, Vector3.left, out rayhit))
         {
-            if (rayhit.collider.tag == "Player" && rayhit.distance < 0.3f && rayhit.collider is CapsuleCollider)
+            if (rayhit.collider.tag == "Player" && rayhit.distance < 0.7f && rayhit.collider is CapsuleCollider)
             {
+                Debug.Log(rayhit.distance);
                 ai.getDamage();
             }
             else if (rayhit.collider.tag == "player" && rayhit.distance < 0.6f && rayhit.collider is CapsuleCollider)
@@ -46,8 +48,9 @@ public class Enemy2Deal : EnemyState2 {
         }
         if (Physics.Raycast(ai.transform.position, Vector3.right, out rayhit))
         {
-            if (rayhit.collider.tag == "Player" && rayhit.distance < 0.3f && rayhit.collider is CapsuleCollider)
+            if (rayhit.collider.tag == "Player" && rayhit.distance < 0.7f && rayhit.collider is CapsuleCollider)
             {
+                Debug.Log(rayhit.distance);
                 ai.getDamage();
             }
             else if (rayhit.collider.tag == "player" && rayhit.distance < 0.6f && rayhit.collider is CapsuleCollider)
@@ -55,8 +58,9 @@ public class Enemy2Deal : EnemyState2 {
         }
         if (Physics.Raycast(ai.transform.position, Vector3.back, out rayhit))
         {
-            if (rayhit.collider.tag == "Player" && rayhit.distance < 0.3f && rayhit.collider is CapsuleCollider)
+            if (rayhit.collider.tag == "Player" && rayhit.distance < 0.7f && rayhit.collider is CapsuleCollider)
             {
+                Debug.Log(rayhit.distance);
                 ai.getDamage();
             }
         }
