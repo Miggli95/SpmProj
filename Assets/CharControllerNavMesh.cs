@@ -142,6 +142,7 @@ public class CharControllerNavMesh : MonoBehaviour
     float lastMouse = 0;
     private bool jumped;
     private bool bounce;
+    private float slamCD = 0.0f;
     bool dead = false;
     Quaternion rotation;
     Vector3 lookPos;
@@ -201,7 +202,7 @@ public class CharControllerNavMesh : MonoBehaviour
 
         if (manager.HaveAbility((int)Abilities.slam))
         {
-            if (Input.GetKeyDown(KeyCode.V))
+            if (Input.GetKeyDown(KeyCode.V) && !flying && (slamCD <= 0.0f))
             {
                 startSlam = true;
             }
@@ -235,20 +236,35 @@ public class CharControllerNavMesh : MonoBehaviour
 
             if (rayhit.collider.tag == "enemy" && rayhit.distance < 0.3f)
             {
-                print(rayhit.distance);
+
                 rayhit.collider.GetComponent<EnemyAI3D>().deathAni();
+                if (slam)
+                {
+                    Slam();
+                    slam = false;
+                }
                 // moveDir.y = jumpSpeed;
                 forceJump();
             }
             if (rayhit.collider.tag == "enemy2" && rayhit.distance < 0.4f)
             {
                 rayhit.collider.GetComponent<Enemy2AI3D>().deathAni();
+                if (slam)
+                {
+                    Slam();
+                    slam = false;
+                }
                 //_rigi.AddForce(Vector3.up * (jumpSpeed * _rigi.mass * 2f));
                 forceJump();
             }
             if (rayhit.collider.tag == "enemy3" && rayhit.distance < 0.5f)
             {
                 rayhit.collider.GetComponent<Enemy3AI3D>().deathAni();
+                if (slam)
+                {
+                    Slam();
+                    slam = false;
+                }
                 forceJump();
             }
 
@@ -284,6 +300,11 @@ public class CharControllerNavMesh : MonoBehaviour
             {
                 aoeSlam.enabled = false;
             }
+        }
+        if (slamCD > 0.0f)
+        {
+            slamCD -= Time.fixedDeltaTime;
+
         }
 
         if (slamEffectTimer > 0.0)
@@ -382,18 +403,7 @@ public class CharControllerNavMesh : MonoBehaviour
 
             if (slam)
             {
-                Vector3 spawnslam = transform.position;
-                spawnslam.y -= 1;
-                aoeSlam.enabled = true;
-                ShockWave.transform.position = spawnslam;
-                ShockWave.SetActive(true);
-                slamParticle.Clear();
-                slamParticle.Play();
-                //     Instantiate(ShockWave, spawnslam, Quaternion.Euler(90, 0, 0));
-                slamTimer = 0.1f;
-                slamEffectTimer = slamParticle.main.duration - 0.1f;
-
-                clip[0].PlayOneShot(SlamSound);
+                Slam();
             }
 
             slam = false;
@@ -486,7 +496,22 @@ public class CharControllerNavMesh : MonoBehaviour
         //test code reset progression of gameManager
 
     }
+    private void Slam()
+    {
+        Vector3 spawnslam = transform.position;
+        spawnslam.y -= 1;
+        aoeSlam.enabled = true;
+        ShockWave.transform.position = spawnslam;
+        ShockWave.SetActive(true);
+        slamParticle.Clear();
+        slamParticle.Play();
+        //     Instantiate(ShockWave, spawnslam, Quaternion.Euler(90, 0, 0));
+        slamTimer = 0.1f;
+        slamEffectTimer = slamParticle.main.duration - 0.1f;
+        slamCD = 0.4f;
 
+        clip[0].PlayOneShot(SlamSound);
+    }
     public void LockRotation(float rotationY)
     {
         this.rotationY = rotationY;

@@ -67,10 +67,10 @@ public class EnemyAI3D : MonoBehaviour
         }
         lastPosition = gameObject.transform.position;
 
-        if (!sources[1].isPlaying)
+        /*if (!sources[1].isPlaying)
         {
             sources[1].PlayDelayed(9);
-        }
+        }*/
     }
 
     private void ChangeEnemyState(Vector3 pos, EnemyStateData enemyStateData)
@@ -163,7 +163,7 @@ public class EnemyAI3D : MonoBehaviour
         Instantiate(deathP, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
-    private void OnCollisionEnter(Collision collision)
+   /* private void OnCollisionEnter(Collision collision)
     {
         if(collision.collider == Player.GetComponent<CapsuleCollider>())
         {
@@ -179,6 +179,6 @@ public class EnemyAI3D : MonoBehaviour
                 getDamage();
             }
         }
-    }
+    }*/
 
 }

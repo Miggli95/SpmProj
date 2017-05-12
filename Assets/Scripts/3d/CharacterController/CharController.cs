@@ -345,7 +345,7 @@ loadNextBoss();
 
         if (manager.HaveAbility((int)Abilities.slam))
         {
-            if (Input.GetKeyDown(KeyCode.V))
+            if (Input.GetKeyDown(KeyCode.V) && !flying)
             {
                 startSlam = true;
             }
@@ -379,9 +379,17 @@ loadNextBoss();
 
             if (rayhit.collider.tag == "enemy" && rayhit.distance < 0.3f)
             {
-                print(rayhit.distance);
+
+                print("I am slammin!");
+                if (slam)
+                {
+                    Slam();
+                    slam = false;
+                }
                 rayhit.collider.GetComponent<EnemyAI3D>().deathAni();
                 // moveDir.y = jumpSpeed;
+
+                
                 forceJump();
             }
             if (rayhit.collider.tag == "enemy2" && rayhit.distance < 0.4f)
@@ -488,18 +496,7 @@ loadNextBoss();
 
             if (slam)
             {
-                Vector3 spawnslam = transform.position;
-                spawnslam.y -= 1;
-                aoeSlam.enabled = true;
-                ShockWave.transform.position = spawnslam;
-                ShockWave.SetActive(true);
-                slamParticle.Clear();
-                slamParticle.Play();
-                //     Instantiate(ShockWave, spawnslam, Quaternion.Euler(90, 0, 0));
-                slamTimer = 0.1f;
-                slamEffectTimer = slamParticle.main.duration - 0.1f;
-
-                clip[0].PlayOneShot(SlamSound);
+                Slam();
             }
 
             slam = false;
@@ -564,7 +561,21 @@ loadNextBoss();
         //test code reset progression of gameManager
 
     }
+    private void Slam()
+    {
+        Vector3 spawnslam = transform.position;
+        spawnslam.y -= 1;
+        aoeSlam.enabled = true;
+        ShockWave.transform.position = spawnslam;
+        ShockWave.SetActive(true);
+        slamParticle.Clear();
+        slamParticle.Play();
+        //     Instantiate(ShockWave, spawnslam, Quaternion.Euler(90, 0, 0));
+        slamTimer = 0.1f;
+        slamEffectTimer = slamParticle.main.duration - 0.1f;
 
+        clip[0].PlayOneShot(SlamSound);
+    }
     public void LockRotation(float rotationY)
     {
         this.rotationY = rotationY;
