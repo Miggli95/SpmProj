@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     public float totalTime;
     public float bestTime;
     public float currentTime;
+    bool spawnPoint;
     void Start()
     {
         currentLevel = PlayerPrefs.GetInt("CurrentLevel");
@@ -42,6 +43,21 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "BossLevel 2" || SceneManager.GetActiveScene().name == "BossLevel 3")
         {
             bossTime = PlayerPrefs.GetFloat("BossTime");
+        }
+
+        if (SpawnTutorial == Vector3.zero)
+        {
+            spawnPoint = false;
+            if (transform.childCount > 0)
+            {
+                SpawnTutorial = transform.GetChild(0).transform.position;
+            }
+
+            else
+            {
+                SpawnTutorial = Vector2.zero;
+                spawnPoint = true;
+            }
         }
         // currentLevel = PlayerPrefs.GetInt("CurrentLevel");
         // numberOfLevels = SceneManager.sceneCountInBuildSettings - 1;//PlayerPrefs.GetInt("numberOfLevels");
@@ -135,6 +151,14 @@ public class GameManager : MonoBehaviour
         if (currentLevel != PlayerPrefs.GetInt("CurrentLevel"))
         {
             PlayerPrefs.SetInt("CurrentLevel", currentLevel);
+        }
+
+        if (!spawnPoint)
+        {
+            if (SpawnTutorial != transform.GetChild(0).transform.position)
+            {
+                SpawnTutorial = transform.GetChild(0).transform.position;
+            }
         }
     }
 
