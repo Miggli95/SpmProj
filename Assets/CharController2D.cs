@@ -746,14 +746,14 @@ public class CharController2D : MonoBehaviour
     {
         Instantiate(blood, transform.position, Quaternion.identity);
         GetComponent<ScoreCount>().AddScore();// spelar upp blood på den "spike" du träffar
-
+        transform.parent = null;
         transform.position = spawn;   // spawn
     }
 
     public void Respwn()
     {
         Debug.Log("respawn");
-
+        transform.parent = null;
         clip[0].PlayOneShot(hurt_sound);
         clip[0].PlayOneShot(hurt_sound2);
         Instantiate(blood, transform.position, Quaternion.identity);
