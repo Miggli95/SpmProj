@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     private Vector3 BOne = new Vector3(-50, 53, -4);
     private Vector3 BAlt = new Vector3(0, 5, 0);
     private Vector3 BTwo = new Vector3(-50, 53, -4);
+    public Vector3 SpawnTutorial;
     int currentRespawn = 0;
     public int currentLevel;
     public bool level1Cleared = false;
@@ -209,6 +210,10 @@ public class GameManager : MonoBehaviour
                 break;
             case "testScene":
                 return BOne;
+                break;
+
+            case "AlternativeTutorialLevel":
+                return SpawnTutorial;
                 break;
                 //     case "AlternativeLevel3":
 
