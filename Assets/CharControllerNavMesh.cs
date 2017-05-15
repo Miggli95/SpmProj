@@ -211,7 +211,7 @@ public class CharControllerNavMesh : MonoBehaviour
             airJump = Input.GetKeyDown(KeyCode.Space);
         }
 
-        if (manager.HaveAbility((int)Abilities.slam))
+        if (!controller.isGrounded && manager.HaveAbility((int)Abilities.slam))
         {
             if (Input.GetKeyDown(KeyCode.V) && !flying && (slamCD <= 0.0f))
             {
