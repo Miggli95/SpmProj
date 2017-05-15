@@ -22,8 +22,8 @@ public class Deal : EnemyState
     public EnemyStateData Update(Vector3 pos, float deltaTime, NavMeshAgent agent)
     {
         RaycastHit rayhit;
-
-        if (Physics.Raycast(ai.transform.position, Vector3.forward, out rayhit))
+        Vector3 raysource = ai.transform.position + new Vector3(0, 0.15f, 0);
+        if (Physics.Raycast(raysource, Vector3.forward, out rayhit))
         {
 
             if (rayhit.collider.tag == "Player" && rayhit.distance < 0.6f && rayhit.collider is CapsuleCollider)
@@ -32,21 +32,21 @@ public class Deal : EnemyState
                 ai.getDamage();
             }
         }
-        if (Physics.Raycast(ai.transform.position, Vector3.left, out rayhit))
+        if (Physics.Raycast(raysource, Vector3.left, out rayhit))
         {
             if (rayhit.collider.tag == "Player" && rayhit.distance < 0.6f && rayhit.collider is CapsuleCollider)
             {
                 ai.getDamage();
             }
         }
-        if (Physics.Raycast(ai.transform.position, Vector3.right, out rayhit))
+        if (Physics.Raycast(raysource, Vector3.right, out rayhit))
         {
             if (rayhit.collider.tag == "Player" && rayhit.distance < 0.6f && rayhit.collider is CapsuleCollider)
             {
                 ai.getDamage();
             }
         }
-        if (Physics.Raycast(ai.transform.position, Vector3.back, out rayhit))
+        if (Physics.Raycast(raysource, Vector3.back, out rayhit))
         {
             if (rayhit.collider.tag == "Player" && rayhit.distance < 0.6f && rayhit.collider is CapsuleCollider)
             {
