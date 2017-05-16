@@ -9,8 +9,9 @@ public class CaveScript : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-		
-	}
+        caveCamera.SetActive(false);
+
+    }
 
     // Update is called once per frame
     void Update() {
