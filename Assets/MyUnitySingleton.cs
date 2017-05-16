@@ -42,7 +42,7 @@ public class MyUnitySingleton : MonoBehaviour {
         {
             Destroy(this.gameObject);
         }
-        if(SceneManager.GetActiveScene().name == "EndCredit")
+        if(SceneManager.GetActiveScene().name == "EndCredit" || SceneManager.GetActiveScene().name == "Title")
         {
             Destroy(this.gameObject);
         }
