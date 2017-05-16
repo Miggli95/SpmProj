@@ -13,6 +13,11 @@ public class MyUnitySingleton : MonoBehaviour {
     {
 
     }
+    private void Start()
+    {
+        DontDestroyOnLoad(this.gameObject);
+      
+    }
     void Load()
     {
         
@@ -31,7 +36,15 @@ public class MyUnitySingleton : MonoBehaviour {
     {
         if (SceneManager.GetActiveScene().name != "BossLevel" || SceneManager.GetActiveScene().name != "BossLevel 2" || SceneManager.GetActiveScene().name != "BossLevel 3")
         {
-            Destroy(this);
+            //play rockin tunes
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+        if(SceneManager.GetActiveScene().name == "EndCredit")
+        {
+            Destroy(this.gameObject);
         }
     }
 }
