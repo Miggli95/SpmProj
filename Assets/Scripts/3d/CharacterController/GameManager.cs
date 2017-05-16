@@ -9,9 +9,9 @@ public class GameManager : MonoBehaviour
     int numberOfAbilities;
     List<int> unlockedAbilities;
     public List<Transform> respawns;
-    private Vector3 BOne = new Vector3(-45, 53, -4);
+    private Vector3 BOne = new Vector3(-40, 53, -4);
     private Vector3 BAlt = new Vector3(0, 5, 0);
-    private Vector3 BTwo = new Vector3(-45, 53, -4);
+    private Vector3 BTwo = new Vector3(-40, 53, -4);
     private Vector3 BThree = new Vector3(-50f, 53, 4);
     public Vector3 SpawnTutorial;
     int currentRespawn = 0;
